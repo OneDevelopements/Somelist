@@ -28,11 +28,11 @@ const Callback = () => {
   localStorage.setItem('id', query.get("id"))
   const id = query.get('id')
   fetch(
-    `https://api.ava-bot.xyz/info/${id}`)
+    `https://api.somelist.tk/info/${id}`)
     .then((res) => res.json())
     .then((json) => {
       if (json.user === 'noauth'){
-        return window.location.href = 'https://api.ava-bot.xyz/login'
+        return window.location.href = 'https://api.somelist.tk/login'
       }
       localStorage.setItem('name', json.username)
       localStorage.setItem('avatar', json.avatar)
