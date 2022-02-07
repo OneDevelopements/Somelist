@@ -23,7 +23,7 @@ const Logout = () => {
   localStorage.removeItem('name')
   localStorage.removeItem('avatar')
   localStorage.removeItem('id')
-  window.location.href='https://api.ava-bot.xyz/logout'
+  window.location.href='https://api.somelist.tk/logout'
   return (
     <>
       <Navbar/>
