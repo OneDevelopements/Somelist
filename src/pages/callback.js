@@ -27,8 +27,10 @@ const Callback = () => {
   let query = UseQuery();
   localStorage.setItem('id', query.get("id"))
   const id = query.get('id')
+  const token = query.get('token')
+  localStorage.setItem('token', token)
   fetch(
-    `https://api.somelist.tk/info/${id}`)
+    `https://api.somelist.tk/loginuser?user=${id}&token=${token}`)
     .then((res) => res.json())
     .then((json) => {
       if (json.user === 'noauth'){

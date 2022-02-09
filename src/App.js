@@ -8,7 +8,7 @@ import Logout from './pages/Logout';
 import Error from './pages/Error';
 import { extendTheme, ChakraProvider } from "@chakra-ui/react"
 import { mode } from '@chakra-ui/theme-tools'
-
+import {Navbar} from './components/components'
 const config = extendTheme({
 styles: {
   global: (props) => ({
@@ -25,7 +25,7 @@ function App() {
     <ChakraProvider theme={config}>
     <BrowserRouter>
       <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Home />}/>
           <Route path='/callback' element={<Callback/>} />
           <Route path='/error' element={<Error/>} />
           <Route path='/logout' element={<Logout/>} />
