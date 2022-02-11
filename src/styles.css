@@ -1,9 +1,4 @@
-.cardHover:hover{
-    transform: translateX(50px) !important
-}
-.cardHover{
-    transition: linear all 0.3s !important
-}
-.nav-link{
-    color: white !important
+.row{
+    display: flex;
+    flex-wrap: wrap;
 }

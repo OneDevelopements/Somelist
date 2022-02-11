@@ -1,29 +1,115 @@
 import React from 'react';
-import {useColorModeValue, Box, GridItem, Button,   Menu,
+import {useColorModeValue, Box, WrapItem, Button,   Menu,
   MenuButton,
   MenuList,
   MenuItem,
   MenuItemOption,
   MenuGroup,
+  Center,
+  Avatar,
+  Image,
+  Wrap,
+  Stack,
+  HStack,
   MenuOptionGroup,
   Grid,
+  Heading,
+  GridItem,
+  Text,
   Flex,
   MenuDivider, 
   Spacer,
-  Image, } from '@chakra-ui/react';
+  } from '@chakra-ui/react';
 import "../styles.css";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
-
+import {Col} from 'react-bootstrap'
 export const Card = props => {
-  const bg = useColorModeValue('gray.100', 'gray.700');
+  const bg = useColorModeValue('gray.100', 'gray.900');
+
   return (
-    <GridItem>   
-    <Box padding='50px;' h='300px;' className='Cardhover' borderRadius={'60px;'} bg={bg} margin={'20px'} transform={'translateY(0px)'} transition={'linear all 0.3s'} _hover={{transform: 'translateY(-20px)'}} textAlign={'center'}>
-        {props.children}
+  <WrapItem>
+    <Box
+    w={'300px'}
+    bg={useColorModeValue('white', 'gray.800')}
+    boxShadow={'2xl'}
+    rounded={'md'}
+    overflow={'hidden'}>
+    <Image
+      h={'120px'}
+      w={'full'}
+      src={
+        props.banner
+      }
+      fallback={
+        <Box
+        h={'120px'}
+        w={'full'}
+        bg={bg}
+        objectFit={'cover'}
+      />
+      }
+      objectFit={'cover'}
+    />
+    <Flex justify={'center'} mt={-12}>
+      <Avatar
+        size={'xl'}
+        src={
+          props.avatar
+        }
+        bg={useColorModeValue('teal.500', 'teal.200')}
+        color={useColorModeValue('white', 'black')}
+        name={props.name}
+        alt={'Avatar'}
+      />
+    </Flex>
+    
+    <Box p={6}>
+      <Stack spacing={0} align={'center'} mb={5}>
+        <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
+          {props.name}
+        </Heading>
+        <Text color={'gray.500'}>{props.description}</Text>
+      </Stack>
+
+
+      <Flex>
+      <Button
+        w={'full'}
+        marginRight={'10px'}
+        mt={8}
+        colorScheme={'teal'}
+        rounded={'md'}
+        _hover={{
+          transform: 'translateY(-2px)',
+          boxShadow: 'lg',
+        }}>
+        View
+      </Button>
+      <Button
+        w={'full'}
+        mt={8}
+        colorScheme={'gray'}
+        rounded={'md'}
+        _hover={{
+          transform: 'translateY(-2px)',
+          boxShadow: 'lg',
+        }}>
+        Invite
+      </Button>
+
+      </Flex>
     </Box>
-    </GridItem>
+  </Box>
+  </WrapItem>
   );
 };
+export const Cards = props => {
+  return (
+    <Box padding={'50px'} margin={'50px'} width={'100%'}>
+      {props.children}
+    </Box>
+  )
+}
 export const Navlink = props => {
   return (
     <Box marginLeft={'20px'} marginRight={'20px'} fontSize={'20px'}>
@@ -45,6 +131,7 @@ export const Navbrand = props => {
   );
 };
 export const Profile = props => {
+  const color= useColorModeValue('white', 'black')
   var id = localStorage.getItem('id')
   if (id == null){
     return(
@@ -61,12 +148,12 @@ export const Profile = props => {
     <Menu colorScheme='teal'>
     <MenuButton colorScheme='teal' as={Button}>
     <Flex>
-    <Image
-        height={'25px'}
-        borderRadius="full"
-        src={avatar}
-        alt="User avatar"
+    <Avatar
         width={'25px'}
+        height='25px'
+        src={avatar}
+        name={name}
+        alt="User avatar"
         margin={'0'}
         padding={'0'}
         marginRight={'10px'}
@@ -91,7 +178,7 @@ export const Profile = props => {
 export const Navbar = props => {
   return (
     <nav>
-    <Box textAlign="center" fontSize={'23px'} bg={useColorModeValue('gray.100', 'gray.900')}>
+    <Box width={'100%'} textAlign="center" fontSize={'23px'} bg={useColorModeValue('gray.100', 'gray.900')} zIndex={'1000'}>
       <Grid p={3}>
         <Flex h='60px;'>
         <Navbrand href='/'>
@@ -99,7 +186,7 @@ export const Navbar = props => {
         </Navbrand>
         <Navlink href='/'>Home</Navlink>
         <Navlink href='/invite'>Bots</Navlink>
-        <Navlink href='/support'>Add bot</Navlink>
+        <Navlink href='/add-bot'>Add bot</Navlink>
         <Navlink href='/docs'>Servers</Navlink>
         <Spacer />
         <Profile></Profile>

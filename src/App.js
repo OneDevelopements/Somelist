@@ -6,6 +6,7 @@ import NoPage from "./pages/NoPage";
 import Callback from './pages/callback';
 import Logout from './pages/Logout';
 import Error from './pages/Error';
+import Submission from './pages/submit';
 import { extendTheme, ChakraProvider } from "@chakra-ui/react"
 import { mode } from '@chakra-ui/theme-tools'
 import {Navbar} from './components/components'
@@ -28,6 +29,7 @@ function App() {
           <Route path='/' element={<Home />}/>
           <Route path='/callback' element={<Callback/>} />
           <Route path='/error' element={<Error/>} />
+          <Route path='/add-bot' element={<Submission/>} />
           <Route path='/logout' element={<Logout/>} />
           <Route path="docs" element={<Contact />} />
           <Route path="*" element={<NoPage />} />
