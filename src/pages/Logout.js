@@ -24,6 +24,7 @@ const Logout = () => {
   localStorage.removeItem('avatar')
   localStorage.removeItem('id')
   localStorage.removeItem('token')
+  localStorage.removeItem('ptoken')
   window.location.href='https://api.somelist.tk/logout'
   return (
     <>

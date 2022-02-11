@@ -44,7 +44,7 @@ const Submission = () => {
     function validateSubmission (values, actions){
         console.log(values)
         fetch(
-            `https://api.somelist.tk/submitbot?id=${values['id']}&longdesc=${values['longdesc']}&shortdesc=${values['shortdesc']}&github=${values['github']}&website=${values['website']}&token=${localStorage.getItem('token')}`)
+            `https://api.somelist.tk/submitbot?id=${values['id']}&longdesc=${values['longdesc']}&shortdesc=${values['shortdesc']}&github=${values['github']}&website=${values['website']}&token=${localStorage.getItem('ptoken')}`)
             .then((res) => res.json())
             .then((json) => {
               if (json.reply === 'exists'){
@@ -89,7 +89,6 @@ const Submission = () => {
         .max(50, 'Maximum of 50 characters'),
       longdesc: yup.string()
         .min(300, 'Minimum of 300 characters')
-        .max(500, 'Maximum of 500 characters')
     });
     return (
         <>
