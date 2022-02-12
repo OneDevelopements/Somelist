@@ -68,7 +68,7 @@ const GetBots = () => {
                 console.log(json.bots)
                 if (json.bots == null){
                   return setbot(
-                    <Alert status='warning' h={'100px'} fontSize={'20px'} borderRadius={'20px'}>
+                    <Alert status='warning' h={'50px'} borderRadius={'10px'}>
                     <AlertIcon />
                     There isn't any bots.
                   </Alert>
@@ -123,7 +123,7 @@ const GetFeaturedBots = () => {
               .then((json) => {
                 if (json.bots == null){
                   return setFeatured(
-                    <Alert status='warning' h={'100px'} fontSize={'20px'} borderRadius={'20px'}>
+                    <Alert status='warning' h={'50px'} borderRadius={'10px'}>
                     <AlertIcon />
                     There isn't any bots.
                   </Alert>

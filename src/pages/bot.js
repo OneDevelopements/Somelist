@@ -46,24 +46,40 @@ const Layout = () => {
                       console.log(json.bots)
                       if (json.result === 'none'){
                         return setuser(
-                          <Alert status='warning' h={'100px'} fontSize={'20px'} borderRadius={'20px'}>
+                          <Alert status='warning' h={'50px'} borderRadius={'10px'}>
                           <AlertIcon />
-                          This bot does not exist
+                          This bot does not exist.
                         </Alert>
                         )
                       }
                       console.log(json.result)
+                      if (json.result.owner === localStorage.getItem('id')){
+                        setuser(
+                          <>
+                          {!json.result.approved &&                
+                            <Alert status='error' borderRadius={'10px'}>
+                            <AlertIcon />
+                            <Text>This bot is not approved. <a href="https://docs.somelist.tk/support/faq/bot-approval">Learn More</a>.</Text>
+                          </Alert>}
+                          <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc} owner/>
+                          <BotLayout description={json.result.longdesc}/>
+                          </>
+                          );
+                      } else {
+                        if (!json.result.approved){
+                          window.location.href = '/error?code=403&desc=Authorization required'
+                        }
                       setuser(
                         <>
-                        <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc} owner/>
-                          <BotLayout description={json.result.longdesc}/>
+                        <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc}/>
+                        <BotLayout description={json.result.longdesc}/>
                         </>
-                        );
+                        )};
                     })
                     .catch(function(error){
                       console.error(error)
                       setuser(
-                        <Alert status='error' h={'100px'} fontSize={'20px'} borderRadius={'20px'}>
+                        <Alert status='error' h={'50px'} borderRadius={'10px'}>
                         <AlertIcon />
                         Failed to process your request.
                       </Alert>

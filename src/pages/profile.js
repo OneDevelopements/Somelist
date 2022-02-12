@@ -103,7 +103,7 @@ const Layout = () => {
                       console.log(json.bots)
                       if (json.bots == null){
                         return setbot(
-                          <Alert status='warning' h={'100px'} fontSize={'20px'} borderRadius={'20px'}>
+                          <Alert status='warning' h={'50px'} borderRadius={'10px'}>
                           <AlertIcon />
                           This user does not own any bots.
                         </Alert>
@@ -114,7 +114,7 @@ const Layout = () => {
                     .catch(function(error){
                       console.error(error)
                       setbot(
-                        <Alert status='error' h={'100px'} fontSize={'20px'} borderRadius={'20px'}>
+                        <Alert status='error' h={'50px'} borderRadius={'10px'}>
                         <AlertIcon />
                         Failed to process your request.
                       </Alert>
