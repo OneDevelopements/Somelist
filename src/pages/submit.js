@@ -71,9 +71,7 @@ const Submission = () => {
                   duration: 2000,
                   isClosable: true,
                 })
-                setTimeout(()=>{
-                  window.location.hef = `/bot/${json.id}`
-                }, 100)
+                window.location.href = `/bot/${json.id}`
               }, 500)
             })
             .catch((error)=>{

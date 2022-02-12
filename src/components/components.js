@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery'; 
 import {useColorModeValue, Box, WrapItem, Button,   Menu,
   MenuButton,
   MenuList,
@@ -8,6 +9,7 @@ import {useColorModeValue, Box, WrapItem, Button,   Menu,
   Link,
   MenuGroup,
   Center,
+  useToast,
   Avatar,
   Image,
   Wrap,
@@ -188,6 +190,7 @@ return (
 )
 }
 export const BotProfileLayout = props=>{
+  const toast = useToast()
   const bg = useColorModeValue('gray.100', 'gray.900');
   return (
     <Box w={'100%'} bg={bg} padding={'50px'} borderRadius={'20px'}>
@@ -209,7 +212,51 @@ export const BotProfileLayout = props=>{
           }}>Website</Button>}
           <Spacer/>
           <Button colorScheme={'teal'} size={'lg'}>Invite</Button>
-          <Button size={'lg'} colorScheme={'gray'}>Vote ({props.votes})</Button>
+          <Button size={'lg'} colorScheme={'gray'} onClick={function(){
+                if (!localStorage.getItem('token')){
+                  toast({
+                    title: 'Warning',
+                    description: 'You need to be logged in to vote!',
+                    status: 'warning',
+                    duration: 2000,
+                    isClosable: true,
+                  })
+                } else {
+                $.ajax({
+                  url: `https://api.somelist.tk/vote/${props.id}`,
+                  method: 'POST',
+                  data: {'usertoken': localStorage.getItem('token')}
+                }).then((data)=>{
+                  if (data.result === 'already'){
+                    return toast({
+                      title: 'Warning',
+                      description: "You already voted in the past 12 hours.",
+                      status: 'warning',
+                      duration: 2000,
+                      isClosable: true,
+                    })
+                  }
+                  toast({
+                    title: 'Success',
+                    description: "Your vote was successfully added.",
+                    status: 'success',
+                    duration: 2000,
+                    isClosable: true,
+                  })
+                  setTimeout(function(){
+                    window.location.reload()
+                  }, 800)
+                }).catch(() => {
+                  toast({
+                    title: 'Error',
+                    description: "An unknown error occured.",
+                    status: 'error',
+                    duration: 2000,
+                    isClosable: true,
+                  })
+                })
+                }
+          }}>Vote ( {props.votes} )</Button>
           <Menu>
             <MenuButton as={Button} padding={'24px'} leftIcon={<Icon as={FaEllipsisH}/>} w={'30px'} paddingRight={'25px'} paddingLeft={'30px'}>
             </MenuButton>
