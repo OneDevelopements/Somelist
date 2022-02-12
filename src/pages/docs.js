@@ -15,14 +15,14 @@ import {
   createStandaloneToast,
 } from '@chakra-ui/react'
 import React from "react";
-import{Card, Navbar} from '../components/components.js'
+import{Card, Navbar, Page,} from '../components/components.js'
 const Contact = () => {
   const [isOpen, setIsOpen] = React.useState(false)
   const onClose = () => setIsOpen(false)
   const cancelRef = React.useRef()
     return <>
       <Navbar/>
-      
+      <Page>
           <Button colorScheme='red' onClick={() => setIsOpen(true)}>
         Delete Customer
       </Button>
@@ -63,6 +63,7 @@ const Contact = () => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
+      </Page>
     </>;
   };
   const toast = createStandaloneToast()

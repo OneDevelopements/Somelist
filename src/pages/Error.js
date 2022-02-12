@@ -14,7 +14,7 @@ import {
   } from '@chakra-ui/react'
   import {    useLocation
   } from "react-router-dom";
-  import{Navbar} from '../components/components.js'
+  import{Navbar, Page} from '../components/components.js'
   import React from "react";
   import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
   function UseQuery() {
@@ -28,7 +28,7 @@ import {
       const desc = query.get('desc')
       return <>
         <Navbar/>
-  
+        <Page>
   
         <Container maxW={'3xl'}>
           <Stack
@@ -71,6 +71,7 @@ import {
             </Stack>
           </Stack>
         </Container>
+        </Page>
         </>;
     };
     

@@ -12,13 +12,13 @@ import {
   Heading,
   Button,
 } from '@chakra-ui/react'
-import{Navbar} from '../components/components.js'
+import{Navbar, Page} from '../components/components.js'
 import React from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
 const NoPage = () => {
     return <>
       <Navbar/>
-
+      <Page>
 
       <Container maxW={'3xl'}>
         <Stack
@@ -61,6 +61,7 @@ const NoPage = () => {
           </Stack>
         </Stack>
       </Container>
+      </Page>
       </>;
   };
   

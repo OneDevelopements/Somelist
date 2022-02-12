@@ -11,7 +11,9 @@ import Profile from './pages/profile';
 import Bot from './pages/bot';
 import { extendTheme, ChakraProvider } from "@chakra-ui/react"
 import { mode } from '@chakra-ui/theme-tools'
-import {Navbar} from './components/components'
+import NavbarPage from './pages/Navbar'
+import { AnimatePresence, motion } from "framer-motion"
+
 const config = extendTheme({
 styles: {
   global: (props) => ({
@@ -24,11 +26,14 @@ styles: {
 }
 })
 function App() {
+  
   return (
     <ChakraProvider theme={config}>
     <BrowserRouter>
+    <AnimatePresence>
       <Routes>
-          <Route path='/' element={<Home />}/>
+        <Route path='/' element={<NavbarPage/>} />
+          <Route index element={<Home />}/>
           <Route path='/callback' element={<Callback/>} />
           <Route path='/error' element={<Error/>} />
           <Route path='/add-bot' element={<Submission/>} />
@@ -36,9 +41,9 @@ function App() {
           <Route path="docs" element={<Contact />} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/bot/:id" element={<Bot />} />
-
           <Route path="*" element={<NoPage />} />
       </Routes>
+      </AnimatePresence>
     </BrowserRouter>
   </ChakraProvider>
   );

@@ -26,7 +26,7 @@ import {
     useToast
   } from '@chakra-ui/react'
 import { Formik, Field, Form} from 'formik';
-import{Card, Navbar} from '../components/components.js'
+import{Card, Navbar, Page} from '../components/components.js'
 import React from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -100,6 +100,7 @@ const Submission = () => {
     return (
         <>
         <Navbar/>
+        <Page>
     <Box padding={'150px'} margin={'100px'} paddingTop = {'75px'} marginTop={'50px'} borderRadius={'30px'} bg={useColorModeValue('gray.100', 'gray.800')}>
     <Heading fontSize={'50px'}>
         Bot submission
@@ -185,6 +186,7 @@ const Submission = () => {
       )}
     </Formik>
     </Box>
+    </Page>
         <Outlet />
         </>
     )

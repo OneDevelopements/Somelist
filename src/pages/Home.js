@@ -32,7 +32,7 @@ import {
 } from '@chakra-ui/react'
 import { FaRegStar, FaCaretUp, FaStar } from 'react-icons/fa';
 import { mode } from '@chakra-ui/theme-tools'
-import{Card, Navbar, Cards} from '../components/components.js'
+import{Card, Navbar, Cards, Page} from '../components/components.js'
 import {React, useState , useEffect} from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -157,7 +157,7 @@ const Home = () => {
     });
   return (
     <>
-      <Navbar/>
+        <Navbar/>
         <Box
         padding={'150px'}
         paddingTop={'100px'}
@@ -175,6 +175,7 @@ const Home = () => {
         <Text fontSize={'30px;'}> Discovering new, and exciting bots. </Text>
         
         </Box>
+        <Page>
         <Cards>
         <Text fontSize={'40px'}><span><Icon as={FaStar}/></span> Featured Bots</Text>
           <br/>
@@ -191,7 +192,7 @@ const Home = () => {
           {GetBots()}
           </Wrap>
         </Cards>
-      <Outlet />
+        </Page>
     </>
   )
 };

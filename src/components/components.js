@@ -23,6 +23,8 @@ import {useColorModeValue, Box, WrapItem, Button,   Menu,
 import "../styles.css";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
 import {Col} from 'react-bootstrap'
+import { motion } from "framer-motion"
+
 export const Card = props => {
   const bg = useColorModeValue('gray.100', 'gray.900');
 
@@ -179,6 +181,14 @@ export const BotLayout = props =>{
     <Flex width='100%'>
     <Box  padding='50px' width={'100%'} dangerouslySetInnerHTML={{__html:props.description}}  className="break longdesc" bg={useColorModeValue('gray.100', 'gray.900')} />
     </Flex>
+  )
+}
+export const Page = props=>{
+  return (
+    <motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -40, opacity: 1}}>
+      <Box marginBottom={'40px'}/>
+      {props.children}
+    </motion.div>
   )
 }
 export const Navlink = props => {

@@ -12,7 +12,7 @@ import {
   Stack,
   Heading,
 } from '@chakra-ui/react'
-import{Card, Navbar} from '../components/components.js'
+import{Card, Page,  Navbar} from '../components/components.js'
 import React from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -47,6 +47,7 @@ const Callback = () => {
   return (
     <>
       <Navbar/>
+      <Page>
       <Container maxW={'3xl'}>
           <Stack
             as={Box}
@@ -68,6 +69,7 @@ const Callback = () => {
             </Text>
           </Stack>
         </Container>
+        </Page>
       <Outlet />
     </>
   )

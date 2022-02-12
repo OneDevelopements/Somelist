@@ -20,7 +20,7 @@ import {
   Heading,
   VStack,
 } from '@chakra-ui/react'
-import{Card, Cards, Profile, BotLayout,  Navbar, BotProfileLayout} from '../components/components.js'
+import{Card, Cards, Page,  Profile, BotLayout,  Navbar, BotProfileLayout} from '../components/components.js'
 import {React, useState, useEffect} from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -97,9 +97,11 @@ const Layout = () => {
   return (
     <>
       <Navbar/>
+      <Page>
         <VStack spacing={'30px'} padding={'50px'}>
         {GetUser()}
         </VStack>
+      </Page>
       <Outlet />
     </>
   )
