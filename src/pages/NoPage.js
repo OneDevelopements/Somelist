@@ -6,6 +6,7 @@ import {
   theme,
   Flex,
   Link,
+  useColorModeValue,
   Spacer,
   Container,
   Stack,
@@ -30,7 +31,7 @@ const NoPage = () => {
             fontWeight={600}
             fontSize={{ base: '2xl', sm: '4xl', md: '6xl' }}
             lineHeight={'110%'}>
-            <Text as={'span'} color={'green.400'}>
+            <Text as={'span'} color={useColorModeValue('teal.600', 'teal.200')}>
               404
             </Text>
               <br />
@@ -46,12 +47,8 @@ const NoPage = () => {
             alignSelf={'center'}
             position={'relative'}>
             <Button
-              colorScheme={'green'}
-              bg={'green.400'}
+              colorScheme={'teal'}
               px={6}
-              _hover={{
-                bg: 'green.500',
-              }}
               onClick={function(){
                   window.location.href = '/'
               }}

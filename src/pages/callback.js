@@ -4,6 +4,7 @@ import {
   Box,
   Text,
   Grid,
+  useColorModeValue,
   theme,
   Flex,
   Link,
@@ -60,12 +61,12 @@ const Callback = () => {
               lineHeight={'110%'}>
                 Logging
                 <br />
-                <Text as={'span'} color={'green.400'}>
+                <Text as={'span'} color={useColorModeValue('teal.600', 'teal.200')}>
                 You In..
               </Text>
             </Heading>
             <Text color={'gray.500'}>
-              Please be patient. THis process usually takes a short time.
+              Please be patient. This process usually takes a short time.
             </Text>
           </Stack>
         </Container>

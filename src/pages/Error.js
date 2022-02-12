@@ -11,6 +11,7 @@ import {
     Stack,
     Heading,
     Button,
+    useColorModeValue,
   } from '@chakra-ui/react'
   import {    useLocation
   } from "react-router-dom";
@@ -42,7 +43,7 @@ import {
               lineHeight={'110%'}>
                 An error occured.
                 <br />
-                <Text as={'span'} color={'green.400'}>
+                <Text as={'span'} color={useColorModeValue('teal.600', 'teal.200')}>
                 {code}
               </Text>
             </Heading>
@@ -56,12 +57,8 @@ import {
               alignSelf={'center'}
               position={'relative'}>
               <Button
-                colorScheme={'green'}
-                bg={'green.400'}
+                colorScheme={'teal'}
                 px={6}
-                _hover={{
-                  bg: 'green.500',
-                }}
                 onClick={function(){
                     window.location.href = '/'
                 }}

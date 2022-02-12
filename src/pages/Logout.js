@@ -11,6 +11,7 @@ import {
   Container,
   Stack,
   Heading,
+  useColorModeValue,
 } from '@chakra-ui/react'
 import{Card, Page, Navbar} from '../components/components.js'
 import React from "react";
@@ -42,7 +43,7 @@ const Logout = () => {
               lineHeight={'110%'}>
                 Logging
                 <br />
-                <Text as={'span'} color={'green.400'}>
+                <Text as={'span'} color={useColorModeValue('teal.600', 'teal.200')}>
                 You Out..
               </Text>
             </Heading>
