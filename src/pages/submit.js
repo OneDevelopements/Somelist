@@ -1,5 +1,6 @@
 import { Outlet } from "react-router-dom";
 import * as yup from 'yup';
+import $ from 'jquery'; 
 import {
     ChakraProvider,
     Box,
@@ -43,9 +44,12 @@ const Submission = () => {
     }
     function validateSubmission (values, actions){
         console.log(values)
-        fetch(
-            `https://api.somelist.tk/submitbot?id=${values['id']}&longdesc=${values['longdesc']}&shortdesc=${values['shortdesc']}&github=${values['github']}&website=${values['website']}&token=${localStorage.getItem('ptoken')}`)
-            .then((res) => res.json())
+        values['longdesc'] = values['longdesc'].replace(/"/g, "'");
+            $.ajax({
+              url: 'https://api.somelist.tk/submitbot?owner='+localStorage.getItem('id'),
+              'method': 'POST',
+              'data': values
+            })
             .then((json) => {
               if (json.reply === 'exists'){
                 toast({
@@ -86,7 +90,7 @@ const Submission = () => {
     const validationSchema = yup.object().shape({
       shortdesc: yup.string()
         .min(25, 'Minimum of 25 characters')
-        .max(50, 'Maximum of 50 characters'),
+        .max(100, 'Maximum of 100 characters'),
       longdesc: yup.string()
         .min(300, 'Minimum of 300 characters')
     });

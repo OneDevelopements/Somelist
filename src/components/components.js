@@ -82,7 +82,11 @@ export const Card = props => {
         _hover={{
           transform: 'translateY(-2px)',
           boxShadow: 'lg',
-        }}>
+        }}
+        onClick={function(){
+          window.location.href = `/bot/${props.id}`
+        }}
+        >
         View
       </Button>
       <Button
@@ -93,7 +97,11 @@ export const Card = props => {
         _hover={{
           transform: 'translateY(-2px)',
           boxShadow: 'lg',
-        }}>
+        }}
+        onClick={function(){
+          window.location.href = `/bot/${props.id}/invite`
+        }}
+        >
         Invite
       </Button>
 
@@ -103,11 +111,74 @@ export const Card = props => {
   </WrapItem>
   );
 };
+export const ProfileLayout = props=>{
+  const bg = useColorModeValue('gray.100', 'gray.900');
+  return (
+    <Box w={'100%'} bg={bg} padding={'50px'} borderRadius={'20px'}>
+      <HStack spacing={'20px'}>
+        <Avatar src={props.avatar} name={props.username} h='150px' w='150px' borderRadius={'15px'}  bg={useColorModeValue('teal.500', 'teal.200')} color={useColorModeValue('white', 'black')} size={'2xl'}/>
+        <Box>
+          <Text fontSize={'40px'}>
+            {props.username}
+          </Text>
+          <Text>
+            {props.description}
+          </Text>
+          <HStack spacing={'10px'} marginTop={'50px'}>
+            {props.github && <Button size={'lg'} onClick={function(){
+            window.location.href= props.github
+          }}>Github</Button>}
+            {props.website && <Button size={'lg'} onClick={function(){
+            window.location.href= props.website
+          }}>Website</Button>}
+          </HStack>
+        </Box>
+      </HStack>
+    </Box>
+  )
+}
+export const BotProfileLayout = props=>{
+  const bg = useColorModeValue('gray.100', 'gray.900');
+  return (
+    <Box w={'100%'} bg={bg} padding={'50px'} borderRadius={'20px'}>
+      <HStack spacing={'20px'}>
+        <Avatar src={props.avatar} name={props.username} h='150px' w='150px' borderRadius={'15px'}  bg={useColorModeValue('teal.500', 'teal.200')} color={useColorModeValue('white', 'black')} size={'2xl'}/>
+        <Box>
+          <Text fontSize={'40px'}>
+            {props.username}
+          </Text>
+          <Text>
+            {props.description}
+          </Text>
+          <HStack spacing={'10px'} marginTop={'50px'}>
+            {props.github && <Button size={'lg'} onClick={function(){
+            window.location.href= props.github
+          }}>Github</Button>}
+            {props.website && <Button size={'lg'} onClick={function(){
+            window.location.href= props.website
+          }}>Website</Button>}
+            {props.owner && <Button size={'lg'} onClick={function(){
+            window.location.href= `/bot/${props.id}/edit`
+          }}>Edit</Button>}
+            {props.owner && <Button size={'lg'}>Refresh</Button>}
+          </HStack>
+        </Box>
+      </HStack>
+    </Box>
+  )
+}
 export const Cards = props => {
   return (
-    <Box padding={'50px'} margin={'50px'} width={'100%'}>
+    <Box padding={'50px'} margin={'50px'} width={'100%'} className='break'>
       {props.children}
     </Box>
+  )
+}
+export const BotLayout = props =>{
+  return (
+    <Flex width='100%'>
+    <Box  padding='50px' width={'100%'} dangerouslySetInnerHTML={{__html:props.description}}  className="break longdesc" bg={useColorModeValue('gray.100', 'gray.900')} />
+    </Flex>
   )
 }
 export const Navlink = props => {

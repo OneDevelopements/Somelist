@@ -7,6 +7,8 @@ import Callback from './pages/callback';
 import Logout from './pages/Logout';
 import Error from './pages/Error';
 import Submission from './pages/submit';
+import Profile from './pages/profile';
+import Bot from './pages/bot';
 import { extendTheme, ChakraProvider } from "@chakra-ui/react"
 import { mode } from '@chakra-ui/theme-tools'
 import {Navbar} from './components/components'
@@ -32,6 +34,9 @@ function App() {
           <Route path='/add-bot' element={<Submission/>} />
           <Route path='/logout' element={<Logout/>} />
           <Route path="docs" element={<Contact />} />
+          <Route path="/profile/:id" element={<Profile />} />
+          <Route path="/bot/:id" element={<Bot />} />
+
           <Route path="*" element={<NoPage />} />
       </Routes>
     </BrowserRouter>

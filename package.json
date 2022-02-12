@@ -13,6 +13,7 @@
     "express-session": "^1.17.2",
     "formik": "^2.2.9",
     "framer-motion": "^4.1.17",
+    "jquery": "^3.6.0",
     "passport": "^0.5.2",
     "passport-discord": "^0.1.4",
     "react": "^17.0.2",
