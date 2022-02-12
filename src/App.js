@@ -9,24 +9,27 @@ import Error from './pages/Error';
 import Submission from './pages/submit';
 import Profile from './pages/profile';
 import Bot from './pages/bot';
-import { extendTheme, ChakraProvider } from "@chakra-ui/react"
-import { mode } from '@chakra-ui/theme-tools'
 import NavbarPage from './pages/Navbar'
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
+import {
+  ChakraProvider,
+  extendTheme,
+} from '@chakra-ui/react'
+import { mode } from '@chakra-ui/theme-tools'
 
 const config = extendTheme({
-styles: {
-  global: (props) => ({
-    body: {
-      fontFamily: 'body',
-      color: mode('black', 'whiteAlpha.900')(props),
-      bg: mode('white', 'black')(props),
-    },
+  styles: {
+    global: (props) => ({
+      body: {
+        fontFamily: 'body',
+        color: mode('black', 'whiteAlpha.900')(props),
+        bg: mode('white', 'black')(props),
+      },
+    })
+  }
   })
-}
-})
+
 function App() {
-  
   return (
     <ChakraProvider theme={config}>
     <BrowserRouter>
