@@ -8,7 +8,6 @@ import Error from './pages/Error';
 import Submission from './pages/submit';
 import Profile from './pages/profile';
 import Bot from './pages/bot';
-import NavbarPage from './pages/navbar'
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ChakraProvider,
