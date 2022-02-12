@@ -4,6 +4,8 @@ import {useColorModeValue, Box, WrapItem, Button,   Menu,
   MenuList,
   MenuItem,
   MenuItemOption,
+  Container,
+  Link,
   MenuGroup,
   Center,
   Avatar,
@@ -19,12 +21,14 @@ import {useColorModeValue, Box, WrapItem, Button,   Menu,
   Flex,
   MenuDivider, 
   Spacer,
+  IconButton,
+  Icon,
   } from '@chakra-ui/react';
 import "../styles.css";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
 import {Col} from 'react-bootstrap'
 import { motion } from "framer-motion"
-
+import {FaDiscord, FaEllipsisH, FaEllipsisV} from 'react-icons/fa'
 export const Card = props => {
   const bg = useColorModeValue('gray.100', 'gray.900');
 
@@ -139,13 +143,57 @@ export const ProfileLayout = props=>{
     </Box>
   )
 }
+export const Footer = props =>{
+return (
+<Box
+  bg={useColorModeValue('gray.50', 'gray.900')}
+  color={useColorModeValue('gray.700', 'gray.200')}>
+  <Container
+    as={Stack}
+    maxW={'6xl'}
+    py={4}
+    spacing={4}
+    justify={'center'}
+    align={'center'}>
+    <Image src='https://cdn.discordapp.com/icons/875172026195783751/18b3375d7c882f35e1713fc9ef54ab9b.webp' w={'50px'} h={'50px'} borderRadius={'10px'} />
+    <Stack direction={'row'} spacing={6}>
+      <Link href={'/'}>Home</Link>
+      <Link href={'/bots'}>Bots</Link>
+      <Link href={'https://docs.somelist.tk'}>Documentation</Link>
+      <Link href={'/support'}>Support</Link>
+    </Stack>
+  </Container>
+
+  <Box
+    borderTopWidth={1}
+    borderStyle={'solid'}
+    borderColor={useColorModeValue('gray.200', 'gray.700')}>
+    <Container
+      as={Stack}
+      maxW={'6xl'}
+      py={4}
+      direction={{ base: 'column', md: 'row' }}
+      spacing={4}
+      justify={{ base: 'center', md: 'space-between' }}
+      align={{ base: 'center', md: 'center' }}>
+      <Text>© 2022 Somelist. All rights reserved</Text>
+      <Stack direction={'row'} spacing={6}>
+        <Link href='/discord'>
+          <FaDiscord/>
+        </Link>
+      </Stack>
+    </Container>
+  </Box>
+</Box>
+)
+}
 export const BotProfileLayout = props=>{
   const bg = useColorModeValue('gray.100', 'gray.900');
   return (
     <Box w={'100%'} bg={bg} padding={'50px'} borderRadius={'20px'}>
-      <HStack spacing={'20px'}>
+      <HStack spacing={'20px'} width='100%'>
         <Avatar src={props.avatar} name={props.username} h='150px' w='150px' borderRadius={'15px'}  bg={useColorModeValue('teal.500', 'teal.200')} color={useColorModeValue('white', 'black')} size={'2xl'}/>
-        <Box>
+        <Box width='100%'>
           <Text fontSize={'40px'}>
             {props.username}
           </Text>
@@ -159,10 +207,19 @@ export const BotProfileLayout = props=>{
             {props.website && <Button size={'lg'} onClick={function(){
             window.location.href= props.website
           }}>Website</Button>}
-            {props.owner && <Button size={'lg'} onClick={function(){
-            window.location.href= `/bot/${props.id}/edit`
-          }}>Edit</Button>}
-            {props.owner && <Button size={'lg'}>Refresh</Button>}
+          <Spacer/>
+          <Button colorScheme={'teal'} size={'lg'}>Invite</Button>
+          <Button size={'lg'} colorScheme={'gray'}>Vote ({props.votes})</Button>
+          <Menu>
+            <MenuButton as={Button} padding={'24px'} leftIcon={<Icon as={FaEllipsisH}/>} w={'30px'} paddingRight={'25px'} paddingLeft={'30px'}>
+            </MenuButton>
+            <MenuList border={'none'} fontSize={'18px'}>
+            {props.owner && <MenuItem onClick={function(){ window.location.href= `/bot/${props.id}/edit`}}>
+            Edit</MenuItem>}
+            {props.owner && <MenuItem>Refresh</MenuItem>}
+            {!props.owner && <MenuItem>Report</MenuItem>}
+            </MenuList>
+          </Menu>
           </HStack>
         </Box>
       </HStack>
@@ -179,13 +236,13 @@ export const Cards = props => {
 export const BotLayout = props =>{
   return (
     <Flex width='100%'>
-    <Box  padding='50px' width={'100%'} dangerouslySetInnerHTML={{__html:props.description}}  className="break longdesc" bg={useColorModeValue('gray.100', 'gray.900')} />
+    <Box borderRadius={'10px'}  padding='50px' width={'100%'} dangerouslySetInnerHTML={{__html:props.description}}  className="break longdesc" bg={useColorModeValue('gray.100', 'gray.900')} />
     </Flex>
   )
 }
 export const Page = props=>{
   return (
-    <motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -40, opacity: 1}}>
+<motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -40, opacity: 1}}>
       <Box marginBottom={'40px'}/>
       {props.children}
     </motion.div>

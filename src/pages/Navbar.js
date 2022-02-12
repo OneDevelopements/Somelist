@@ -12,11 +12,11 @@ import {
   Stack,
   Heading,
 } from '@chakra-ui/react'
-import{Card, Navbar} from '../components/components.js'
+import{Card, Navbar, Page, Footer} from '../components/components.js'
 import React from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
-const NavbarPage = () => {
+const Layout = () => {
   return (
     <>
       <Navbar/>
@@ -25,4 +25,4 @@ const NavbarPage = () => {
   )
 };
 
-export default NavbarPage;
+export default Layout;

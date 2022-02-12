@@ -19,7 +19,7 @@ import {
   Heading,
   VStack,
 } from '@chakra-ui/react'
-import{Card, Cards, Profile, Page,  Navbar, ProfileLayout} from '../components/components.js'
+import{Card, Cards, Profile, Footer, Page,  Navbar, ProfileLayout} from '../components/components.js'
 import {React, useState, useEffect} from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -33,7 +33,7 @@ const Layout = () => {
                 try {
                     setuser(
                     <>
-                        <Skeleton width={'100%'}>
+                        <Skeleton width={'100%'} borderRadius={'20px'}>
                         <ProfileLayout username='Test' avatar='Avatar' website='Website' github='Github' description='description' />
                         </Skeleton>
                     </>
@@ -130,7 +130,7 @@ const Layout = () => {
       }
   return (
     <>
-      <Navbar/>
+    <Navbar/>
       <Page>
       <VStack spacing={'30px'} padding={'50px'}>
       {GetUser()}
@@ -140,6 +140,7 @@ const Layout = () => {
           </Wrap>
       </VStack>
       </Page>
+      <Footer/>
       <Outlet />
     </>
   )

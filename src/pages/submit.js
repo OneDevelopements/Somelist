@@ -26,8 +26,9 @@ import {
     useToast
   } from '@chakra-ui/react'
 import { Formik, Field, Form} from 'formik';
-import{Card, Navbar, Page} from '../components/components.js'
+import{Card, Navbar, Page, Footer} from '../components/components.js'
 import React from "react";
+import {motion} from 'framer-motion'
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
 const Submission = () => {
@@ -164,6 +165,7 @@ const Submission = () => {
               </FormControl>
             )}
           </Field>
+          <br/>
           <Field name='github'>
             {({ field, form }) => (
               <FormControl isInvalid={form.errors.github && form.touched.github}>
@@ -187,6 +189,7 @@ const Submission = () => {
     </Formik>
     </Box>
     </Page>
+    <Footer/>
         <Outlet />
         </>
     )

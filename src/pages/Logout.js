@@ -13,7 +13,7 @@ import {
   Heading,
   useColorModeValue,
 } from '@chakra-ui/react'
-import{Card, Page, Navbar} from '../components/components.js'
+import{Card, Page, Navbar, Footer} from '../components/components.js'
 import React from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -29,7 +29,7 @@ const Logout = () => {
   window.location.href='https://api.somelist.tk/logout'
   return (
     <>
-      <Navbar/>
+    <Navbar/>
       <Page>
       <Container maxW={'3xl'}>
           <Stack
@@ -53,6 +53,7 @@ const Logout = () => {
           </Stack>
         </Container>
         </Page>
+        <Footer/>
       <Outlet />
     </>
   )

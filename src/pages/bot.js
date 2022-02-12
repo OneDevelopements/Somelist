@@ -35,8 +35,11 @@ const Layout = () => {
                 try {
                     setuser(
                     <>
-                        <Skeleton width={'100%'}>
+                        <Skeleton width={'100%'} borderRadius={'20px'}>
                         <BotProfileLayout username='Test' avatar='Avatar' website='Website' github='Github' description='description' />
+                        </Skeleton>
+                        <Skeleton height={'500px'} width={'100%'} borderRadius={'10px'}>
+                        <BotLayout description='30000000000000000'/>
                         </Skeleton>
                     </>
                     )
@@ -61,7 +64,7 @@ const Layout = () => {
                             <AlertIcon />
                             <Text>This bot is not approved. <a href="https://docs.somelist.tk/support/faq/bot-approval">Learn More</a>.</Text>
                           </Alert>}
-                          <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc} owner/>
+                          <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc} votes={json.result.votes} owner/>
                           <BotLayout description={json.result.longdesc}/>
                           </>
                           );
@@ -71,7 +74,7 @@ const Layout = () => {
                         }
                       setuser(
                         <>
-                        <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc}/>
+                        <BotProfileLayout id={json.result.id} username={json.result.name} avatar={json.result.avatar} website={json.result.website} github={json.result.github} description={json.result.shortdesc} votes={json.result.votes}/>
                         <BotLayout description={json.result.longdesc}/>
                         </>
                         )};
@@ -96,7 +99,7 @@ const Layout = () => {
 
   return (
     <>
-      <Navbar/>
+    <Navbar/>
       <Page>
         <VStack spacing={'30px'} padding={'50px'}>
         {GetUser()}

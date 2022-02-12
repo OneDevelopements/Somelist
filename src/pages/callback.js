@@ -13,7 +13,7 @@ import {
   Stack,
   Heading,
 } from '@chakra-ui/react'
-import{Card, Page,  Navbar} from '../components/components.js'
+import{Card, Page,  Navbar, Footer} from '../components/components.js'
 import React from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
@@ -71,6 +71,7 @@ const Callback = () => {
           </Stack>
         </Container>
         </Page>
+        <Footer/>
       <Outlet />
     </>
   )

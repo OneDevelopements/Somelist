@@ -28,9 +28,8 @@ import {
       const code = query.get('code')
       const desc = query.get('desc')
       return <>
-        <Navbar/>
+      <Navbar/>
         <Page>
-  
         <Container maxW={'3xl'}>
           <Stack
             as={Box}
