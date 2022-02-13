@@ -30,7 +30,7 @@ import "../styles.css";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
 import {Col} from 'react-bootstrap'
 import { motion } from "framer-motion"
-import {FaDiscord, FaEllipsisH, FaEllipsisV} from 'react-icons/fa'
+import {FaArrowCircleUp, FaDiscord, FaEllipsisH, FaEllipsisV, FaVoteYea} from 'react-icons/fa'
 export const Card = props => {
   const bg = useColorModeValue('gray.100', 'gray.900');
 
@@ -73,10 +73,13 @@ export const Card = props => {
     
     <Box p={6}>
       <Stack spacing={0} align={'center'} mb={5}>
+        <HStack>
         <Heading fontSize={'2xl'} fontWeight={500} fontFamily={'body'}>
           {props.name}
         </Heading>
-        <Text color={'gray.500'}>{props.description}</Text>
+        </HStack>
+        <Text fontSize={'18px'} color={'gray.400'}> Votes: {props.votes}</Text>
+        <Text color={'gray.500'} fontSize={'16px'}>{props.description}</Text>
       </Stack>
 
 
@@ -210,6 +213,9 @@ export const BotProfileLayout = props=>{
             {props.website && <Button size={'lg'} onClick={function(){
             window.location.href= props.website
           }}>Website</Button>}
+            {props.support && <Button size={'lg'} onClick={function(){
+            window.location.href= props.support
+          }}>Support Server</Button>}
           <Spacer/>
           <Button colorScheme={'teal'} size={'lg'}>Invite</Button>
           <Button size={'lg'} colorScheme={'gray'} onClick={function(){
@@ -289,10 +295,12 @@ export const BotLayout = props =>{
 }
 export const Page = props=>{
   return (
-<motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -40, opacity: 1}}>
-      <Box marginBottom={'40px'}/>
-      {props.children}
-    </motion.div>
+    <Box w={'100%'}>
+    <motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -40, opacity: 1}}>
+          <Box width={'full'} marginBottom={'40px'}/>
+          {props.children}
+        </motion.div>
+    </Box>
   )
 }
 export const Navlink = props => {
@@ -315,11 +323,34 @@ export const Navbrand = props => {
   </Box>
   );
 };
+export const Sidenav = props =>{
+  const bg = useColorModeValue('gray.100', 'gray.900')
+  return (
+    <Box minH='100%'width='250px' padding={'20px'} bg={bg}>{props.children}</Box>
+  )
+}
+export const SideNavlink = props =>{
+  const bg = useColorModeValue('teal.600','teal.200')
+  const activebg = useColorModeValue('gray.300', 'gray.800')
+  const color = useColorModeValue('white','black')
+  if (props.active){
+    return (
+      <Box fontSize={'18px'} cursor={'default'} borderRadius={'10px'} marginTop={'20px'} padding={'15px'} bg={activebg}>
+        <Icon as={props.icon} marginRight={'15px'}/>{props.label} 
+      </Box>
+    )
+  }
+  return(
+    <Box fontSize={'18px'} cursor={'pointer'} borderRadius={'10px'} marginTop={'20px'} _hover={{'bg': bg, 'color': color}} padding={'15px'} onClick={function(){
+      window.location.href = props.href
+    }}><Icon as={props.icon} marginRight={'15px'}/>{props.label} </Box>
+  );
+}
 export const Profile = props => {
   const color= useColorModeValue('white', 'black')
   var id = localStorage.getItem('id')
   if (id == null){
-    return(
+    return (
     <Button colorScheme='teal' variant='solid' onClick={function(){
       window.location.href = 'https://api.somelist.tk/login'
     }}>

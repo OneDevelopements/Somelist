@@ -8,6 +8,9 @@ import Error from './pages/Error';
 import Submission from './pages/submit';
 import Profile from './pages/profile';
 import Bot from './pages/bot';
+import Edit from './pages/edit.js'
+import Settings from './pages/settings'
+
 import { AnimatePresence, motion } from "framer-motion"
 import {
   ChakraProvider,
@@ -40,6 +43,8 @@ function App() {
           <Route index element={<Home />}/>
           <Route path='/callback' element={<Callback/>} />
           <Route path='/error' element={<Error/>} />
+          <Route path='/bot/:id/edit' element={<Edit/>} />
+          <Route path='/bot/:id/edit/settings' element={<Settings/>} />
           <Route path='/add-bot' element={<Submission/>} />
           <Route path='/logout' element={<Logout/>} />
           <Route path="/profile/:id" element={<Profile />} />

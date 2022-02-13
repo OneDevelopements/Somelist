@@ -74,7 +74,7 @@ const GetBots = () => {
                   </Alert>
                   )
                 }
-                setbot(json.bots.map(data => <Card name={data.name} id={data.id} avatar={data.avatar} description={data.shortdesc}/>));
+                setbot(json.bots.map(data => <Card name={data.name} id={data.id} avatar={data.avatar} votes={data.votes} description={data.shortdesc}/>));
               })
               .catch(function(error){
                 console.error(error)
@@ -129,7 +129,7 @@ const GetFeaturedBots = () => {
                   </Alert>
                   )
                 }
-                setFeatured(json.bots.map(data => <Card name={data.name} id={data.id} avatar={data.avatar} description={data.shortdesc} featured={<Tooltip openDelay={100} label='Featured' hasArrow  fontSize='18px' paddingLeft={'20px'} paddingRight={'20px'} borderRadius={'10px'} placement='top'><span><Icon as={FaStar}/></span></Tooltip>}/>));
+                setFeatured(json.bots.map(data => <Card votes={data.votes} name={data.name} id={data.id} avatar={data.avatar} description={data.shortdesc} featured={<Tooltip openDelay={100} label='Featured' hasArrow  fontSize='18px' paddingLeft={'20px'} paddingRight={'20px'} borderRadius={'10px'} placement='top'><span><Icon as={FaStar}/></span></Tooltip>}/>));
               })
               .catch(function(error){
                 console.error(error)

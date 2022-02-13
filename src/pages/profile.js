@@ -109,7 +109,7 @@ const Layout = () => {
                         </Alert>
                         )
                       }
-                      setbot(json.bots.map(data => <Card name={data.name} id={data.id} avatar={data.avatar} description={data.shortdesc}/>));
+                      setbot(json.bots.map(data => <Card votes={data.votes} name={data.name} id={data.id} avatar={data.avatar} description={data.shortdesc}/>));
                     })
                     .catch(function(error){
                       console.error(error)
