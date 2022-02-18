@@ -12,6 +12,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^10.4.9",
     "@testing-library/user-event": "^12.8.3",
+    "chakra-ui-flashless": "^0.0.8",
     "cors": "^2.8.5",
     "express-session": "^1.17.2",
     "formik": "^2.2.9",
