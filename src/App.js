@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Redirect, Route, Navigate } from "react-router-dom";
 import Home from "./pages/Home";
 import NoPage from "./pages/NoPage";
 import Callback from './pages/callback';
@@ -8,6 +8,7 @@ import Error from './pages/Error';
 import Submission from './pages/submit';
 import Admin from './pages/admin';
 import AdminBots from './pages/adminbots';
+import AdminBotsApproved from './pages/adminbotsapproved';
 import Deny from './pages/deny';
 import Profile from './pages/profile';
 import Bot from './pages/bot';
@@ -24,6 +25,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
+import { getAutomaticTypeDirectiveNames } from 'typescript';
 
 
 
@@ -32,14 +34,24 @@ const ForceDarkMode = props => {
 
   useEffect(() => {
     if (colorMode === "light"){
-      if(localStorage.getItem('chakra-ui-color-mode')){
+      if(!localStorage.getItem('chakra-ui-color-mode')){
         toggleColorMode();
-
       }
     };
   }, [colorMode]);
 
   return props.children;
+}
+const AdminRoute = props =>{
+  $.ajax({
+    url: 'https://api.somelist.tk/isadmin'
+  })
+  .then((result)=>{
+    <Route exact path={props.path}>
+      {result.admin ? <Navigate to="/error?code=403?desc=You are not allowed to view this page." /> : props.element}
+    </Route>
+  }
+  )
 }
 function App() {
   if(localStorage.getItem('token')){
@@ -61,21 +73,22 @@ function App() {
     <ForceDarkMode>
     <BrowserRouter>
     <AnimatePresence>
-        <Routes>
+      <Routes>
           <Route index element={<Home />}/>
           <Route path='/callback' element={<Callback/>} />
           <Route path='/error' element={<Error/>} />
           <Route path='/bot/:id/edit' element={<Edit/>} />
           <Route path='/bot/:id/edit/settings' element={<Settings/>} />
           <Route path='/add-bot' element={<Submission/>} />
-          <Route path='/admin' element={<Admin/>} />
-          <Route path='/admin/bots' element={<AdminBots/>} />
           <Route path="/deny/:id" element={<Deny />} />
           <Route path='/logout' element={<Logout/>} />
+          <Route path='/admin' element={<Admin/>} />
+          <Route path='/admin/bots' element={<AdminBots/>} />
+          <Route path='/admin/bots/approved' element={<AdminBotsApproved/>} />
           <Route path="/profile/:id" element={<Profile />} />
           <Route path="/bot/:id" element={<Bot />} />
           <Route path="*" element={<NoPage />} />
-          </Routes>
+      </Routes>
       </AnimatePresence>
     </BrowserRouter>
     </ForceDarkMode>

@@ -39,7 +39,6 @@ const Callback = () => {
       }
       localStorage.setItem('name', json.username)
       localStorage.setItem('avatar', json.avatar)
-      localStorage.setItem('ptoken', json.ptoken)
       window.location.href = '/'
     })
     .catch((error)=>{

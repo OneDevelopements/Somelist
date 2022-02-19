@@ -70,6 +70,7 @@ const Layout = () => {
                           );
                       } else {
                         if (!json.result.approved){
+                          
                           window.location.href = '/error?code=403&desc=Authorization required'
                         }
                       setuser(

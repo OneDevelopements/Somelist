@@ -43,6 +43,20 @@ import {
     FaRobot
 } from 'react-icons/fa'
 const Layout = () => {
+  $.ajax({
+    url: 'https://api.somelist.tk/isadmin',
+    method: 'POST',
+    data: {token: localStorage.getItem('token')}
+  }).then((data)=>{
+  if(data.admin !== true){
+    window.location.href = '/error?code=403&desc=You are not allowed to visit the Admin Portal. Please check your roles, or join our Support Server for help.'
+
+  }
+  })
+  .catch(()=>[
+    window.location.href = '/error?code=500&desc=Your access to the Admin Portal could not be validated. Please check that you are signed in, and have a valid token.'
+
+  ])
   const toast = useToast()
   const GetBots = () => {
     const [featuredbot, setFeatured] = useState([]);
@@ -58,7 +72,7 @@ const Layout = () => {
                 </Tr>
                 </>
                 )
-                  fetch('https://api.somelist.tk/approved') 
+                  fetch('https://api.somelist.tk/approved/'+localStorage.getItem('token')) 
                   .then((res) => res.json())
                   .then((json) => {
                     if (json.bots == null){
@@ -70,39 +84,44 @@ const Layout = () => {
                       </Tr>                    
                       )
                     }
-                    setFeatured(json.bots.map(data =>                 
+                    setFeatured(json.bots.map(data =>                
                     <Tr>
                       <Td>{data.name}</Td>
                       <Td>{data.id}</Td>
-                      <Td><HStack spacing={'10px'}><Button colorScheme={'blue'} onClick={function(){
+                      <Td><HStack spacing={'10px'}>
+                      <Button colorScheme={'blue'} onClick={function(){
                         $.ajax({
-                          url: `https://api.somelist.tk/approve/${localStorage.getItem('token')}`,
+                          url: `https://api.somelist.tk/feature/${localStorage.getItem('token')}`,
                           method: 'POST',
                           data: {'bot': data.id, 'reviewer': localStorage.getItem('id')}
                         }).then(()=>{
                           toast({
                             title: 'Success',
-                            description: `${data.name} was approved.`,
+                            description: `${data.name} was updated.`,
                             status: 'success',
                             duration: 2000,
                             isClosable: true,
                           })
                           setTimeout(function(){
                             window.location.reload()
-                          }, 1000)
+                          }, 500)
                         }).catch(()=>{
                           toast({
                             title: 'Error',
-                            description: `${data.name} was not approved due to an error.`,
+                            description: `${data.name} could not be featured due to an error.`,
                             status: 'error',
                             duration: 2000,
                             isClosable: true,
                           })
                           setTimeout(function(){
                             window.location.reload()
-                          }, 1000)
+                          }, 500)
                         })
-                      }}>Feature</Button><Button colorScheme={'red'} onClick={function(){
+                      }}>{data.featured ? (
+                        'Unfeature'
+                      ):(
+                        'Feature'
+                      )}</Button><Button colorScheme={'red'} onClick={function(){
                         window.open(`/deny/${data.id}`).focus();
                       }}>Delete</Button></HStack></Td>
                     </Tr>));
@@ -146,10 +165,10 @@ const Layout = () => {
         </Box> 
         <Box padding='50px' width={'100%'}>
           <HStack spacing={'10px'}>
-          <Button colorScheme={'teal'} borderRadius={'20px'}>Unapproved</Button>
           <Button borderRadius={'20px'} onClick={function(){
-            window.location.href = '/admin/bots/approved'
-          }}>Approved</Button>
+            window.location.href = '/admin/bots'
+          }}>Unapproved</Button>
+          <Button borderRadius={'20px'} colorScheme={'teal'}>Approved</Button>
           </HStack>
           <br/>
           <br/>

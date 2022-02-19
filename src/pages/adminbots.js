@@ -43,6 +43,20 @@ import {
     FaRobot
 } from 'react-icons/fa'
 const Layout = () => {
+  $.ajax({
+    url: 'https://api.somelist.tk/isadmin',
+    method: 'POST',
+    data: {token: localStorage.getItem('token')}
+  }).then((data)=>{
+  if(data.admin !== true){
+    window.location.href = '/error?code=403&desc=You are not allowed to visit the Admin Portal. Please check your roles, or join our Support Server for help.'
+
+  }
+  })
+  .catch(()=>[
+    window.location.href = '/error?code=500&desc=Your access to the Admin Portal could not be validated. Please check that you are signed in, and have a valid token.'
+
+  ])
   const toast = useToast()
   const GetBots = () => {
     const [featuredbot, setFeatured] = useState([]);
@@ -58,7 +72,7 @@ const Layout = () => {
                 </Tr>
                 </>
                 )
-                  fetch('https://api.somelist.tk/unapproved') 
+                  fetch('https://api.somelist.tk/unapproved/'+localStorage.getItem('token')) 
                   .then((res) => res.json())
                   .then((json) => {
                     if (json.bots == null){
