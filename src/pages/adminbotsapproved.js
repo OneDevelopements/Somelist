@@ -173,7 +173,8 @@ const Layout = () => {
           <br/>
           <br/>
         <Page>
-        <Table variant='simple' minWidth={'100%'}>
+        <Box width={'90%'} overflow={'auto'}>
+        <Table variant='simple' width={'100%'}>
           <Thead>
             <Tr>
               <Th>Bot Name</Th>
@@ -185,6 +186,7 @@ const Layout = () => {
               {GetBots()}
           </Tbody>
         </Table>
+        </Box>
         </Page>
         </Box>
       </Stack>

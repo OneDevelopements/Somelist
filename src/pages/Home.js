@@ -28,7 +28,8 @@ import {
   useColorModeValue,
   useToast,
   WrapItem,
-  Skeleton
+  Skeleton,
+  useMediaQuery
 } from '@chakra-ui/react'
 import { FaRegStar, FaCaretUp, FaStar } from 'react-icons/fa';
 import { mode } from '@chakra-ui/theme-tools'
@@ -149,6 +150,7 @@ const GetFeaturedBots = () => {
   return featuredbot;
 }
 const Home = () => {
+    const [phone] = useMediaQuery('(max-width: 800px)')
     const toast = useToast()
     fetch('https://api.somelist.tk/bots')
     .then((res) => res.json())
@@ -160,10 +162,10 @@ const Home = () => {
         <Navbar/>
         <Page>
         <Box
-        padding={'150px'}
+        padding={!phone &&'150px'}
         paddingTop={'100px'}
         paddingBottom={'200px'}
-        paddingLeft={'75px'}
+        paddingLeft={phone ? ('10px') : ('75px')}
         bg={useColorModeValue('gray.100', 'gray.900')}
         >
         <Heading

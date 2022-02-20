@@ -46,6 +46,7 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -209,6 +210,8 @@ const validationSchema = yup.object().shape({
     .min(300, 'Minimum of 300 characters')
 });
 const { isOpen, onOpen, onClose } = useDisclosure()
+const [phone] = useMediaQuery('(max-width: 800px)')
+
   return (
     <>
     <Navbar/>
@@ -217,7 +220,7 @@ const { isOpen, onOpen, onClose } = useDisclosure()
       {GetBot()}
       </Box>
       <Page>
-      <Box padding={'100px'} width={'100%'}>
+      <Box padding={!phone && '100px'} paddingLeft={phone && '50px'} paddingRight={phone && '20px'} width={'100%'}>
         {GetBotData()}
     </Box>
     <Modal isOpen={isOpen} onClose={onClose}>

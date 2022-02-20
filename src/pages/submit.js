@@ -23,7 +23,8 @@ import {
     FormHelperText,
     Button,
     useColorModeValue,
-    useToast
+    useToast,
+    useMediaQuery
   } from '@chakra-ui/react'
 import { Formik, Field, Form} from 'formik';
 import{Card, Navbar, Page, Footer} from '../components/components.js'
@@ -32,6 +33,7 @@ import {motion} from 'framer-motion'
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
 const Submission = () => {
+    const [phone] = useMediaQuery('(max-width: 800px)')
     if (!localStorage.getItem('token')){
       window.location.href = 'https://api.somelist.tk/login'
     }
@@ -100,8 +102,8 @@ const Submission = () => {
         <>
         <Navbar/>
         <Page>
-    <Box padding={'150px'} margin={'100px'} paddingTop = {'75px'} marginTop={'50px'} borderRadius={'30px'} bg={useColorModeValue('gray.100', 'gray.800')}>
-    <Heading fontSize={'50px'}>
+    <Box padding={phone ? ('50px'): ('150px')} margin={phone ? ('20px'): ('100px')} paddingTop = {'75px'} marginTop={'50px'} borderRadius={'30px'} bg={useColorModeValue('gray.100', 'gray.800')}>
+    <Heading fontSize={phone ? ('30px') : ('50px')}>
         Bot submission
     </Heading>
     <br/>

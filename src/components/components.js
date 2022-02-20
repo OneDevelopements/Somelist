@@ -31,7 +31,7 @@ import "../styles.css";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
 import {Col} from 'react-bootstrap'
 import { motion } from "framer-motion"
-import {FaArrowCircleUp, FaDiscord, FaEllipsisH, FaEllipsisV, FaGithub, FaGlobe, FaPen, FaStop, FaSync, FaVoteYea} from 'react-icons/fa'
+import {FaArrowCircleUp, FaBars, FaChevronRight, FaDiscord, FaEllipsisH, FaEllipsisV, FaGithub, FaGlobe, FaPen, FaStop, FaSync, FaVoteYea} from 'react-icons/fa'
 import './Navbar.css'
 import 'react-icons/fi'
 import { FiAlertTriangle, FiAlignLeft } from 'react-icons/fi';
@@ -43,9 +43,15 @@ export const Card = props => {
     <Box
     w={'300px'}
     bg={useColorModeValue('white', 'gray.800')}
+    height={'450px'}
     boxShadow={'2xl'}
     rounded={'md'}
-    overflow={'hidden'}>
+    transition={'linear all 0.2s'}
+    _hover={{
+      transform: 'scale(0.96)',
+    }}
+    overflow={'hidden'}
+    >
     <Image
       h={'120px'}
       w={'full'}
@@ -83,7 +89,7 @@ export const Card = props => {
         </Heading>
         </HStack>
         <Text fontSize={'18px'} color={'gray.400'}> Votes: {props.votes}</Text>
-        <Text color={'gray.500'} fontSize={'16px'}>{props.description}</Text>
+        <Text height={'90px'} overflow={'auto'} color={'gray.500'} fontSize={'16px'}>{props.description}</Text>
       </Stack>
 
 
@@ -376,7 +382,7 @@ export const BotProfileLayout = props=>{
               }
               {props.owner && <MenuItem height={'50px'} onClick={function(){ window.location.href= `/bot/${props.id}/edit`}}><Icon as={FaPen} marginRight={'10px'}/> Edit</MenuItem>}
               {props.owner && <MenuItem height={'50px'}><Icon as={FaSync} marginRight={'10px'}/> Refresh</MenuItem>}
-              {props.owner && <MenuItem height={'50px'} color={'red'}><Icon as={FiAlertTriangle} marginRight={'10px'}/> Report</MenuItem>}
+              {!props.owner && <MenuItem height={'50px'} color={'red'}><Icon as={FiAlertTriangle} marginRight={'10px'}/> Report</MenuItem>}
               </MenuList>
             </Menu>
             </HStack>
@@ -385,8 +391,9 @@ export const BotProfileLayout = props=>{
   )
 }
 export const Cards = props => {
+  const [phone] = useMediaQuery('(max-width: 800px)')
   return (
-    <Box padding={'50px'} margin={'50px'} width={'100%'} className='break'>
+    <Box padding={'50px'} margin={!phone && '50px'} width={'100%'} className='break'>
       {props.children}
     </Box>
   )
@@ -401,8 +408,8 @@ export const BotLayout = props =>{
 export const Page = props=>{
   return (
     <Box w={'100%'}>
-    <motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -40, opacity: 1}}>
-          <Box width={'full'} marginBottom={'40px'}/>
+    <motion.div transition={{ ease: "easeOut", duration: .4 }} initial={{opacity: 0}} animate={{ y: -100, opacity: 1}}>
+          <Box width={'full'} marginBottom={'100px'}/>
           {props.children}
         </motion.div>
     </Box>
@@ -445,8 +452,18 @@ export const Navbrand = props => {
 };
 export const Sidenav = props =>{
   const bg = useColorModeValue('gray.100', 'gray.900')
+  const [phone] = useMediaQuery('(max-width: 800px)')
   return (
-    <Box minH='100%'width='250px' padding={'20px'} bg={bg}>{props.children}</Box>
+    <>
+      {phone ? (
+        <><Flex><Box position={'fixed'} minH='100%'width='250px' padding={'20px'} bg={bg} className={'sidenav'}>{props.children}</Box><IconButton position={'fixed'} colorScheme={'teal'} icon={<FaChevronRight/>} rounded={'none'} roundedBottomRight={'50%'} className={'sidenavbtn'} onClick={function(){
+          $('.sidenav').toggleClass('sidenav-active')
+          $('.sidenavbtn').toggleClass('sidenavbtn-active')
+        }}/></Flex></>
+      ): (
+        <Box minH='100%'width='250px' padding={'20px'} bg={bg}>{props.children}</Box>
+      )}
+    </>
   )
 }
 export const SideNavlink = props =>{
@@ -533,7 +550,7 @@ export const Navbar = props => {
   return (
     <nav>
     {phone ? (
-          <Box className={`mobilenav ${show && `mobilenav-show ${navmode}`}`} width={'100%'} position={'fixed'} textAlign="center" fontSize={'23px'} zIndex={'1000'}>
+          <Box className={`mobilenav ${show && `mobilenav-show`}`} width={'100%'} position={'fixed'} textAlign="center" fontSize={'23px'} zIndex={'1000'}>
           <Stack p={3} spacing={'20px'}>
           <HStack>
             <IconButton fontSize={'25px'} size={'lg'} className='blurry' icon={<FiAlignLeft/>} onClick={function(){

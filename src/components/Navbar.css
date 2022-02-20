@@ -19,8 +19,6 @@
 .mobilenav{
     position: fixed;
     width: 100%;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
     padding: 10px;
     margin-bottom: 50px;
     height: 80px;
@@ -30,6 +28,8 @@
 
 }
 .mobilenav-show{
+    -webkit-backdrop-filter: blur(0px);
+    backdrop-filter: blur(0px);
     transition: ease-in-out all 0.5s;
 }
 .mobilenav-active{
@@ -78,4 +78,22 @@
 }
 .nav-light{
     background-color: #edf2f7da
+}
+.sidenav{
+    transition: all ease-in-out 0.7s;
+    margin-left: -250px;
+    z-index: 900;
+}
+.sidenav-active{
+    margin-left: 0px;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+}
+.sidenavbtn{
+    transition: all ease-in-out 0.7s !important;
+    z-index: 900;
+    margin-left: 0px;
+}
+.sidenavbtn-active{
+    margin-left: 250px;
 }

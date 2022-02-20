@@ -39,6 +39,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import {
   FiHome,
@@ -56,6 +57,7 @@ import { Formik, Field, Form} from 'formik';
 
 
 export default function Edit() {
+  const [phone] = useMediaQuery('(max-width: 800px)')
   const toast = useToast()
   const { id } = useParams();
   console.log(id)
@@ -274,7 +276,7 @@ const validationSchema = yup.object().shape({
       {GetBot()}
       </Box>
       <Page>
-      <Box padding={'100px'} width={'100%'}>
+      <Box padding={!phone && '100px'} paddingLeft={phone && '50px'} paddingRight={phone && '20px'} width={'100%'}>
         {GetBotData()}
     </Box>
     </Page>
