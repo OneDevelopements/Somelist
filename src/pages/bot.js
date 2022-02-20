@@ -19,12 +19,14 @@ import {
   Stack,
   Heading,
   VStack,
+  useMediaQuery,
 } from '@chakra-ui/react'
 import{Card, Cards, Page,  Profile, BotLayout,  Navbar, BotProfileLayout} from '../components/components.js'
 import {React, useState, useEffect} from "react";
 import { ColorModeSwitcher } from '../ColorModeSwitcher';
 import { Logo } from '../Logo';
 const Layout = () => {
+  const [phone] = useMediaQuery('(max-width: 800px)')
     const { id } = useParams();
     const cardbg = useColorModeValue('gray.100', 'gray.900')
     const GetUser = () => {
@@ -102,7 +104,7 @@ const Layout = () => {
     <>
     <Navbar/>
       <Page>
-        <VStack spacing={'30px'} padding={'50px'}>
+        <VStack spacing={'30px'} padding={!phone &&'50px'}>
         {GetUser()}
         </VStack>
       </Page>

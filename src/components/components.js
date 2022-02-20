@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import $ from 'jquery'; 
 import {useColorModeValue, Box, WrapItem, Button,   Menu,
   MenuButton,
@@ -25,12 +25,16 @@ import {useColorModeValue, Box, WrapItem, Button,   Menu,
   Spacer,
   IconButton,
   Icon,
+  useMediaQuery,
   } from '@chakra-ui/react';
 import "../styles.css";
 import { ColorModeSwitcher } from '../ColorModeSwitcher.js';
 import {Col} from 'react-bootstrap'
 import { motion } from "framer-motion"
-import {FaArrowCircleUp, FaDiscord, FaEllipsisH, FaEllipsisV, FaVoteYea} from 'react-icons/fa'
+import {FaArrowCircleUp, FaDiscord, FaEllipsisH, FaEllipsisV, FaGithub, FaGlobe, FaPen, FaStop, FaSync, FaVoteYea} from 'react-icons/fa'
+import './Navbar.css'
+import 'react-icons/fi'
+import { FiAlertTriangle, FiAlignLeft } from 'react-icons/fi';
 export const Card = props => {
   const bg = useColorModeValue('gray.100', 'gray.900');
 
@@ -195,10 +199,11 @@ return (
 export const BotProfileLayout = props=>{
   const toast = useToast()
   const bg = useColorModeValue('gray.100', 'gray.900');
+  const [phone] = useMediaQuery('(max-width: 800px)')
   return (
     <Box w={'100%'} bg={bg} padding={'50px'} borderRadius={'20px'}>
       <HStack spacing={'20px'} width='100%'>
-        <Avatar src={props.avatar} name={props.username} h='150px' w='150px' borderRadius={'15px'}  bg={useColorModeValue('teal.500', 'teal.200')} color={useColorModeValue('white', 'black')} size={'2xl'}/>
+        <Avatar src={props.avatar} name={props.username} h={phone ? '120px' : ('150px')} w={phone ? '120px' : ('150px')} borderRadius={'15px'}  bg={useColorModeValue('teal.500', 'teal.200')} color={useColorModeValue('white', 'black')} size={'2xl'}/>
         <Box width='100%'>
           <Text fontSize={'40px'}>
             {props.username}
@@ -206,76 +211,176 @@ export const BotProfileLayout = props=>{
           <Text>
             {props.description}
           </Text>
-          <HStack spacing={'10px'} marginTop={'50px'}>
-            {props.github && <Button size={'lg'} onClick={function(){
-            window.location.href= props.github
-          }}>Github</Button>}
-            {props.website && <Button size={'lg'} onClick={function(){
-            window.location.href= props.website
-          }}>Website</Button>}
-            {props.support && <Button size={'lg'} onClick={function(){
-            window.location.href= props.support
-          }}>Support Server</Button>}
-          <Spacer/>
-          <Button colorScheme={'teal'} size={'lg'}>Invite</Button>
-          <Button size={'lg'} colorScheme={'gray'} onClick={function(){
-                if (!localStorage.getItem('token')){
-                  toast({
-                    title: 'Warning',
-                    description: 'You need to be logged in to vote!',
-                    status: 'warning',
-                    duration: 2000,
-                    isClosable: true,
-                  })
-                } else {
-                $.ajax({
-                  url: `https://api.somelist.tk/vote/${props.id}`,
-                  method: 'POST',
-                  data: {'usertoken': localStorage.getItem('token')}
-                }).then((data)=>{
-                  if (data.result === 'already'){
-                    return toast({
+          {!phone &&
+                <HStack spacing={'10px'} marginTop={!phone ? ('10px') :('50px')}>
+                {!phone && <>
+                  {props.github && <IconButton icon={<FaGithub/>} size={'lg'} onClick={function(){
+                  window.location.href= props.github
+                }}/>}
+                  {props.website && <IconButton size={'lg'} icon={<FaGlobe/>} onClick={function(){
+                  window.location.href= props.website
+                }}/>}
+                  {props.support && <IconButton size={'lg'} icon={<FaDiscord/>} onClick={function(){
+                  window.location.href= props.support
+                }}/>}
+                <Spacer/>
+                </>}
+                <Button colorScheme={'teal'} size={'lg'}>Invite</Button>
+                <Button size={'lg'} colorScheme={'gray'} onClick={function(){
+                      if (!localStorage.getItem('token')){
+                        toast({
+                          title: 'Warning',
+                          description: 'You need to be logged in to vote!',
+                          status: 'warning',
+                          duration: 2000,
+                          isClosable: true,
+                        })
+                      } else {
+                      $.ajax({
+                        url: `https://api.somelist.tk/vote/${props.id}`,
+                        method: 'POST',
+                        data: {'usertoken': localStorage.getItem('token')}
+                      }).then((data)=>{
+                        if (data.result === 'already'){
+                          return toast({
+                            title: 'Warning',
+                            description: "You already voted in the past 12 hours.",
+                            status: 'warning',
+                            duration: 2000,
+                            isClosable: true,
+                          })
+                        }
+                        toast({
+                          title: 'Success',
+                          description: "Your vote was successfully added.",
+                          status: 'success',
+                          duration: 2000,
+                          isClosable: true,
+                        })
+                        setTimeout(function(){
+                          window.location.reload()
+                        }, 800)
+                      }).catch(() => {
+                        toast({
+                          title: 'Error',
+                          description: "An unknown error occured.",
+                          status: 'error',
+                          duration: 2000,
+                          isClosable: true,
+                        })
+                      })
+                      }
+                }}>Vote ( {props.votes} )</Button>
+                <Menu>
+                  <MenuButton as={Button} padding={'24px'} leftIcon={<Icon as={FaEllipsisH}/>} w={'30px'} paddingRight={'25px'} paddingLeft={'30px'}>
+                  </MenuButton>
+                  <MenuList>
+                  {phone &&
+                  <>
+                    {props.website && <MenuItem height={'50px'} onClick={function(){
+                      window.location.href= props.website
+                    }}><Icon as={FaGlobe} marginRight={'10px'}/> Website</MenuItem>}
+                    {props.support && <MenuItem height={'50px'} onClick={function(){
+                      window.location.href= props.support
+                    }}><Icon as={FaDiscord} marginRight={'10px'}/> Support</MenuItem>}
+                    {props.github && <MenuItem height={'50px'} onClick={function(){
+                      window.location.href= props.github
+                    }}><Icon as={FaGithub} marginRight={'10px'}/> Github</MenuItem>}
+                  </>
+                  }
+                  {props.owner && <MenuItem height={'50px'} onClick={function(){ window.location.href= `/bot/${props.id}/edit`}}><Icon as={FaPen} marginRight={'10px'}/> Edit</MenuItem>}
+                  {props.owner && <MenuItem height={'50px'}><Icon as={FaSync} marginRight={'10px'}/> Refresh</MenuItem>}
+                  {!props.owner && <MenuItem height={'50px'} color={'red'}><Icon as={FiAlertTriangle} marginRight={'10px'}/> Report</MenuItem>}
+                  </MenuList>
+                </Menu>
+                </HStack>
+          }
+        </Box>
+      </HStack>
+      {phone && 
+            <HStack textAlign={'center'} alignItems={'center'} alignContent={'center'} alignSelf={'center'} spacing={'10px'} marginTop={!phone ? ('10px') :('50px')}>
+            {!phone && <>
+              {props.github && <IconButton icon={<FaGithub/>} size={'lg'} onClick={function(){
+              window.location.href= props.github
+            }}/>}
+              {props.website && <IconButton size={'lg'} icon={<FaGlobe/>} onClick={function(){
+              window.location.href= props.website
+            }}/>}
+              {props.support && <IconButton size={'lg'} icon={<FaDiscord/>} onClick={function(){
+              window.location.href= props.support
+            }}/>}
+            <Spacer/>
+            </>}
+            <Button colorScheme={'teal'} size={'lg'}>Invite</Button>
+            <Button size={'lg'} colorScheme={'gray'} onClick={function(){
+                  if (!localStorage.getItem('token')){
+                    toast({
                       title: 'Warning',
-                      description: "You already voted in the past 12 hours.",
+                      description: 'You need to be logged in to vote!',
                       status: 'warning',
                       duration: 2000,
                       isClosable: true,
                     })
+                  } else {
+                  $.ajax({
+                    url: `https://api.somelist.tk/vote/${props.id}`,
+                    method: 'POST',
+                    data: {'usertoken': localStorage.getItem('token')}
+                  }).then((data)=>{
+                    if (data.result === 'already'){
+                      return toast({
+                        title: 'Warning',
+                        description: "You already voted in the past 12 hours.",
+                        status: 'warning',
+                        duration: 2000,
+                        isClosable: true,
+                      })
+                    }
+                    toast({
+                      title: 'Success',
+                      description: "Your vote was successfully added.",
+                      status: 'success',
+                      duration: 2000,
+                      isClosable: true,
+                    })
+                    setTimeout(function(){
+                      window.location.reload()
+                    }, 800)
+                  }).catch(() => {
+                    toast({
+                      title: 'Error',
+                      description: "An unknown error occured.",
+                      status: 'error',
+                      duration: 2000,
+                      isClosable: true,
+                    })
+                  })
                   }
-                  toast({
-                    title: 'Success',
-                    description: "Your vote was successfully added.",
-                    status: 'success',
-                    duration: 2000,
-                    isClosable: true,
-                  })
-                  setTimeout(function(){
-                    window.location.reload()
-                  }, 800)
-                }).catch(() => {
-                  toast({
-                    title: 'Error',
-                    description: "An unknown error occured.",
-                    status: 'error',
-                    duration: 2000,
-                    isClosable: true,
-                  })
-                })
-                }
-          }}>Vote ( {props.votes} )</Button>
-          <Menu>
-            <MenuButton as={Button} padding={'24px'} leftIcon={<Icon as={FaEllipsisH}/>} w={'30px'} paddingRight={'25px'} paddingLeft={'30px'}>
-            </MenuButton>
-            <MenuList border={'none'} fontSize={'18px'}>
-            {props.owner && <MenuItem onClick={function(){ window.location.href= `/bot/${props.id}/edit`}}>
-            Edit</MenuItem>}
-            {props.owner && <MenuItem>Refresh</MenuItem>}
-            {!props.owner && <MenuItem>Report</MenuItem>}
-            </MenuList>
-          </Menu>
-          </HStack>
-        </Box>
-      </HStack>
+            }}>Vote ( {props.votes} )</Button>
+            <Menu>
+              <MenuButton as={Button} padding={'24px'} leftIcon={<Icon as={FaEllipsisH}/>} w={'30px'} paddingRight={'25px'} paddingLeft={'30px'}>
+              </MenuButton>
+              <MenuList>
+              {phone &&
+              <>
+                {props.website && <MenuItem height={'50px'} onClick={function(){
+                  window.location.href= props.website
+                }}><Icon as={FaGlobe} marginRight={'10px'}/> Website</MenuItem>}
+                {props.support && <MenuItem height={'50px'} onClick={function(){
+                  window.location.href= props.support
+                }}><Icon as={FaDiscord} marginRight={'10px'}/> Support</MenuItem>}
+                {props.github && <MenuItem height={'50px'} onClick={function(){
+                  window.location.href= props.github
+                }}><Icon as={FaGithub} marginRight={'10px'}/> Github</MenuItem>}
+              </>
+              }
+              {props.owner && <MenuItem height={'50px'} onClick={function(){ window.location.href= `/bot/${props.id}/edit`}}><Icon as={FaPen} marginRight={'10px'}/> Edit</MenuItem>}
+              {props.owner && <MenuItem height={'50px'}><Icon as={FaSync} marginRight={'10px'}/> Refresh</MenuItem>}
+              {props.owner && <MenuItem height={'50px'} color={'red'}><Icon as={FiAlertTriangle} marginRight={'10px'}/> Report</MenuItem>}
+              </MenuList>
+            </Menu>
+            </HStack>
+      }
     </Box>
   )
 }
@@ -304,14 +409,29 @@ export const Page = props=>{
   )
 }
 export const Navlink = props => {
+  const [phone] = useMediaQuery('(max-width: 800px)')
   return (
-    <Box marginLeft={'20px'} marginRight={'20px'} fontSize={'20px'}>
-  <Button h={'40px'} margin={'0'} fontSize={'19px'}onClick={function(){
-    window.location.href = props.href
-  }} colorScheme='teal' variant='ghost'>
-    {props.children}
-  </Button>
-    </Box>
+    <>
+      {phone ? (
+        <Box width={'100%'} marginLeft={'20px'} marginRight={'20px'} fontSize={'20px'}transition={'ease-in-out 0.3s'} _hover={{
+          transform: 'translateY(-10px)',
+        }} >
+        <Button width={'100%'} h={'60px'} margin={'0'} fontSize={'19px'}onClick={function(){
+          window.location.href = props.href
+        }} colorScheme={'teal'} variant='ghost'>
+          {props.children}
+          </Button>
+        </Box>
+      ): ( 
+      <Box marginLeft={'20px'} marginRight={'20px'} fontSize={'20px'}>
+        <Button h={'40px'} margin={'0'} fontSize={'19px'}onClick={function(){
+          window.location.href = props.href
+        }} colorScheme={'teal'} variant='ghost'>
+          {props.children}
+        </Button>
+      </Box>
+      )}
+    </>
   );
 };
 export const Navbrand = props => {
@@ -351,7 +471,7 @@ export const Profile = props => {
   var id = localStorage.getItem('id')
   if (id == null){
     return (
-    <Button colorScheme='teal' variant='solid' onClick={function(){
+    <Button colorScheme={props.navcolor} variant='solid' onClick={function(){
       window.location.href = 'https://api.somelist.tk/login'
     }}>
       Login
@@ -361,8 +481,8 @@ export const Profile = props => {
   const name = localStorage.getItem('name')
   const avatar = localStorage.getItem('avatar')
   return (
-    <Menu colorScheme='teal'>
-    <MenuButton colorScheme='teal' as={Button}>
+    <Menu colorScheme={props.navcolor}>
+    <MenuButton colorScheme={props.navcolor} as={Button}>
     <Flex>
     <Avatar
         width={'25px'}
@@ -392,25 +512,62 @@ export const Profile = props => {
   );
 };
 export const Navbar = props => {
+  const [show, setShow] = useState(false)
+  const navmode = useColorModeValue('nav-light', 'nav-dark')
+  const controlNavbar = () => {
+      $('.mobilenav').removeClass('mobilenav-active')
+      if (window.scrollY <= 3) {
+          setShow(false)
+      } else {
+          setShow(true)
+      }
+  }
+  const [phone] = useMediaQuery('(max-width: 800px)')
+  useEffect(() => {
+      window.addEventListener('scroll', controlNavbar)
+      return () => {
+          window.removeEventListener('scroll', controlNavbar)
+      }
+  }, [])
+  
   return (
     <nav>
-    <Box width={'100%'} textAlign="center" fontSize={'23px'} bg={useColorModeValue('gray.100', 'gray.900')} zIndex={'1000'}>
-      <Grid p={3}>
-        <Flex h='60px;'>
+    {phone ? (
+          <Box className={`mobilenav ${show && `mobilenav-show ${navmode}`}`} width={'100%'} position={'fixed'} textAlign="center" fontSize={'23px'} zIndex={'1000'}>
+          <Stack p={3} spacing={'20px'}>
+          <HStack>
+            <IconButton fontSize={'25px'} size={'lg'} className='blurry' icon={<FiAlignLeft/>} onClick={function(){
+              $('.mobilenav').toggleClass('mobilenav-active')
+              $('.mobilenav').toggleClass(`${navmode}`)
+            }}/>
+            <Spacer/>
+            <ColorModeSwitcher justifySelf="flex-end" />
+          </HStack>
+          <Navlink navcolor={!show && 'teal'} href='/'>Home</Navlink>
+          <Navlink navcolor={!show && 'teal'} href='/invite'>Bots</Navlink>
+          <Navlink  href='/add-bot'>Add bot</Navlink>
+          <Navlink href='/docs'>Servers</Navlink>
+          <Spacer />
+          <Profile navcolor={!show ? ('teal') : ('gray')}></Profile>
+          </Stack>
+      </Box>
+    ): (
+        <Box className={`nav ${show && `nav-show ${navmode}`}`} width={'100%'} position={'fixed'} textAlign="center" fontSize={'23px'} zIndex={'1000'}>
+        <HStack h='60px;' p={3}>
         <Navbrand href='/'>
           <Image src='https://cdn.discordapp.com/icons/875172026195783751/18b3375d7c882f35e1713fc9ef54ab9b.webp' h={'50px'} w={'50px'} borderRadius={'100%'}/>
         </Navbrand>
-        <Navlink href='/'>Home</Navlink>
-        <Navlink href='/invite'>Bots</Navlink>
-        <Navlink href='/add-bot'>Add bot</Navlink>
-        <Navlink href='/docs'>Servers</Navlink>
+        <Navlink navcolor={!show && 'teal'} href='/'>Home</Navlink>
+        <Navlink navcolor={!show && 'teal'} href='/invite'>Bots</Navlink>
+        <Navlink navcolor={!show && 'teal'} href='/add-bot'>Add bot</Navlink>
+        <Navlink navcolor={!show && 'teal'} href='/docs'>Servers</Navlink>
         <Spacer />
-        <Profile></Profile>
+        <Profile navcolor={!show ? ('teal') : ('gray')}></Profile>
         <ColorModeSwitcher justifySelf="flex-end" />
-        </Flex>
-
-      </Grid>
-    </Box>
+        </HStack>
+      </Box>
+    )}
+    <Box h={'90px'} />
     </nav>
   );
 };

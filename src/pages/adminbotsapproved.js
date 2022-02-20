@@ -148,7 +148,7 @@ const Layout = () => {
   return (
     <>
       <Navbar/>
-      <Stack direction={'row'} h={'100%'} minWidth='100%'>
+      <Stack direction={'row'} minH={'100%'} minWidth='100%'>
       <Box minHeight={'100%'}>
       <Sidenav>
         <HStack cursor={'pointer'} spacing={'20px'} onClick={

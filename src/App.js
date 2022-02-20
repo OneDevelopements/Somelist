@@ -22,11 +22,38 @@ import {
   ChakraProvider,
   extendTheme,
   useColorMode,
+  ComponentStyleConfig,
   Box,
 } from '@chakra-ui/react'
 import { mode } from '@chakra-ui/theme-tools'
 import { getAutomaticTypeDirectiveNames } from 'typescript';
-
+const MenuList = {
+  // The styles all button have in common
+  baseStyle: {
+    outline: 'none',
+    border: 'none',
+    fontsize: '18px',
+    bg: mode('gray.100', 'gray.700')
+  },
+}
+const config = extendTheme({
+    styles: {
+      global: (props) => ({
+        fonts: {
+          heading: 'Open Sans',
+          body: 'Raleway',
+        },
+        body: {
+          color: mode('black', 'whiteAlpha.900')(props),
+          bg: mode('white', 'black')(props),
+        },
+        
+      })
+    },
+    components: {
+      MenuList,
+    },
+  })
 
 
 const ForceDarkMode = props => {
@@ -69,7 +96,7 @@ function App() {
     }
   }
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={config}>
     <ForceDarkMode>
     <BrowserRouter>
     <AnimatePresence>
