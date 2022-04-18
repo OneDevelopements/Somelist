@@ -1,0 +1,198 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+[data-theme="violet"] {
+    --gradient: rgba(146,51,234,0.2);
+    --900: #4c1d95;
+    --800: #5b21b6;
+    --700: #6d28d9;
+    --600: #7c3aed;
+    --500: #8b5cf6;
+    --400: #a78bfa;
+    --300: #c4b5fd;
+    --200: #ddd6fe;
+    --100: #ede9fe;
+    --50: #f5f3ff;
+    --50-0: rgba(245,243,255,0);
+    --50-10: rgba(245,243,255,0.1);
+    --50-20: rgba(245,243,255,0.2);
+    --50-30: rgba(245,243,255,0.3);
+    --50-40: rgba(245,243,255,0.4);
+    --50-50: rgba(245,243,255,0.5);
+    --50-60: rgba(245,243,255,0.6);
+    --50-70: rgba(245,243,255,0.7);
+    --50-80: rgba(245,243,255,0.8);
+    --50-90: rgba(245,243,255,0.9);
+    --100-0: rgba(237,233,254,0);
+    --100-10: rgba(237,233,254,0.1);
+    --100-20: rgba(237,233,254,0.2);
+    --100-30: rgba(237,233,254,0.3);
+    --100-40: rgba(237,233,254,0.4);
+    --100-50: rgba(237,233,254,0.5);
+    --100-60: rgba(237,233,254,0.6);
+    --100-70: rgba(237,233,254,0.7);
+    --100-80: rgba(237,233,254,0.8);
+    --100-90: rgba(237,233,254,0.9);
+    --200-0: rgba(221,214,254,0);
+    --200-10: rgba(221,214,254,0.1);
+    --200-20: rgba(221,214,254,0.2);
+    --200-30: rgba(221,214,254,0.3);
+    --200-40: rgba(221,214,254,0.4);
+    --200-50: rgba(221,214,254,0.5);
+    --200-60: rgba(221,214,254,0.6);
+    --200-70: rgba(221,214,254,0.7);
+    --200-80: rgba(221,214,254,0.8);
+    --200-90: rgba(221,214,254,0.9);
+    --300-0: rgba(196,181,253,0);
+    --300-10: rgba(196,181,253,0.1);
+    --300-20: rgba(196,181,253,0.2);
+    --300-30: rgba(196,181,253,0.3);
+    --300-40: rgba(196,181,253,0.4);
+    --300-50: rgba(196,181,253,0.5);
+    --300-60: rgba(196,181,253,0.6);
+    --300-70: rgba(196,181,253,0.7);
+    --300-80: rgba(196,181,253,0.8);
+    --300-90: rgba(196,181,253,0.9);
+    --400-0: rgba(167,139,250,0);
+    --400-10: rgba(167,139,250,0.1);
+    --400-20: rgba(167,139,250,0.2);
+    --400-30: rgba(167,139,250,0.3);
+    --400-40: rgba(167,139,250,0.4);
+    --400-50: rgba(167,139,250,0.5);
+    --400-60: rgba(167,139,250,0.6);
+    --400-70: rgba(167,139,250,0.7);
+    --400-80: rgba(167,139,250,0.8);
+    --400-90: rgba(167,139,250,0.9);
+    --500-0: rgba(139,92,246,0);
+    --500-10: rgba(139,92,246,0.1);
+    --500-20: rgba(139,92,246,0.2);
+    --500-30: rgba(139,92,246,0.3);
+    --500-40: rgba(139,92,246,0.4);
+    --500-50: rgba(139,92,246,0.5);
+    --500-60: rgba(139,92,246,0.6);
+    --500-70: rgba(139,92,246,0.7);
+    --500-80: rgba(139,92,246,0.8);
+    --500-90: rgba(139,92,246,0.9);
+    --600-0: rgba(124,58,237,0);
+    --600-10: rgba(124,58,237,0.1);
+    --600-20: rgba(124,58,237,0.2);
+    --600-30: rgba(124,58,237,0.3);
+    --600-40: rgba(124,58,237,0.4);
+    --600-50: rgba(124,58,237,0.5);
+    --600-60: rgba(124,58,237,0.6);
+    --600-70: rgba(124,58,237,0.7);
+    --600-80: rgba(124,58,237,0.8);
+    --600-90: rgba(124,58,237,0.9);
+    --700-0: rgba(109,40,217,0);
+    --700-10: rgba(109,40,217,0.1);
+    --700-20: rgba(109,40,217,0.2);
+    --700-30: rgba(109,40,217,0.3);
+    --700-40: rgba(109,40,217,0.4);
+    --700-50: rgba(109,40,217,0.5);
+    --700-60: rgba(109,40,217,0.6);
+    --700-70: rgba(109,40,217,0.7);
+    --700-80: rgba(109,40,217,0.8);
+    --700-90: rgba(109,40,217,0.9);
+    --800-0: rgba(91,33,182,0);
+    --800-10: rgba(91,33,182,0.1);
+    --800-20: rgba(91,33,182,0.2);
+    --800-30: rgba(91,33,182,0.3);
+    --800-40: rgba(91,33,182,0.4);
+    --800-50: rgba(91,33,182,0.5);
+    --800-60: rgba(91,33,182,0.6);
+    --800-70: rgba(91,33,182,0.7);
+    --800-80: rgba(91,33,182,0.8);
+    --800-90: rgba(91,33,182,0.9);
+    --900-0: rgba(76,29,149,0);
+    --900-10: rgba(76,29,149,0.1);
+    --900-20: rgba(76,29,149,0.2);
+    --900-30: rgba(76,29,149,0.3);
+    --900-40: rgba(76,29,149,0.4);
+    --900-50: rgba(76,29,149,0.5);
+    --900-60: rgba(76,29,149,0.6);
+    --900-70: rgba(76,29,149,0.7);
+    --900-80: rgba(76,29,149,0.8);
+    --900-90: rgba(76,29,149,0.9);
+  }
+
+  :root {
+    --scroll-bar-size: 10px;
+    --scroll-bar-thumb-background-color: hsla(0,0%,100%,0.1);
+    --scroll-bar-thumb-background-color-active: hsla(0,0%,100%,0.15);
+  }
+
+  html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+  }
+
+
+
+  body {
+    --np-color: #fff;
+    --tooltip-bg: #151125;
+    --bg-color: #111;
+    --color: #fff;
+    color: var(--color);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    background: var(--bg-color);
+    background-size: 22px 22px;
+  }
+  body{
+    --bg-color: #0B0A15; 
+    --color: #fff; 
+    --np-color: #fff; 
+    --tooltip-bg: #151125;
+  }
+
+  div#gradient {
+    --color-primary: var(--gradient);
+    --color-gradient-1: var(--gradient);
+    --color-gradient-2: var(--gradient);
+    --color-gradient-3: var(--gradient);
+    --color-gradient-4: var(--gradient);
+    left: 50%;
+    transform: translateX(-50%);
+    background: radial-gradient(at 71% 77%,var(--color-gradient-1) 0,transparent 21%),radial-gradient(at 36% 47%,var(--color-gradient-3) 0,transparent 50%),radial-gradient(at 54% 29%,var(--color-gradient-3) 0,transparent 28%),radial-gradient(at 45% 51%,var(--color-gradient-1) 0,transparent 53%),radial-gradient(at 73% 44%,var(--color-gradient-2) 0,transparent 54%),radial-gradient(at 24% 7%,var(--color-gradient-2) 0,transparent 40%),radial-gradient(at 76% 46%,var(--color-gradient-1) 0,transparent 50%);
+    max-height: 800px;
+    height: 80vh;
+    max-width: 1400px;
+    width: 100%;
+    filter: blur(44px);
+    z-index: -1;
+    opacity: 25%;
+    position: fixed;
+  }
+
+
+
+.search-show{
+  animation: mymove 0.3s;
+  margin-top: 0px;
+  opacity: 1;
+}
+
+.line-clamp-2{
+  -webkit-line-clamp: 2;
+  -moz-line-clamp: 2;
+  line-clamp: 2;
+}
+
+@keyframes mymove {
+  from {
+    margin-top: 8px;
+    opacity: 0;
+  }
+  to {
+    margin-top: 0px;
+    opacity: 1;
+  }
+}
