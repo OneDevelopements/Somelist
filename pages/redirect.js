@@ -21,7 +21,7 @@ export default class extends React.Component {
             await saveTokens(data.access_token, data.refresh_token);
         }
         await saveUser(data.access_token)
-        await Router.push('/guilds');
+        await Router.push('/');
     }
     render(){
         return <>
