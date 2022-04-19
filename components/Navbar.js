@@ -24,7 +24,7 @@ class Header extends React.Component {
             { this.isLoggedIn ?
               <SecretNav/>
               :
-              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.href=`https://discordapp.com/api/oauth2/authorize?client_id=${process.env.NEXT_PUBLIC_CLIENT_ID}&redirect_uri=${encodeURIComponent(process.env.NEXT_PUBLIC_REDIRECT_URI)}&response_type=code&scope=guilds%20identify`}}>
+              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.href=`https://api.somelist.tk/login`}}>
                  Login
               </button>                      
             }

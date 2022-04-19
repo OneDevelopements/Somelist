@@ -2,6 +2,7 @@ import React from 'react'
 import { exchangeToken, saveTokens, saveUser } from "../public/oauth";
 import Router from 'next/router'
 import PropTypes from "prop-types";
+import  Cookie  from 'js-cookie';
 export default class extends React.Component {
     static getInitialProps({query}) {
         return {
@@ -15,12 +16,10 @@ export default class extends React.Component {
 
     async componentDidMount () {
         console.log(process.env)
-        if (this.props.code === undefined)  await Router.push('/'); stop();
-        const data = await exchangeToken(`${this.props.code}`);
-        if(data !== 400){
-            await saveTokens(data.access_token, data.refresh_token);
-        }
-        await saveUser(data.access_token)
+        Cookie.set('username', Router.query.username)
+        Cookie.set('id', Router.query.id)
+        Cookie.set('token', 'hi')
+        Cookie.set('refreshToken', 'h2')
         await Router.push('/');
     }
     render(){
