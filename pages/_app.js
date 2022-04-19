@@ -9,6 +9,11 @@ function MyApp({ Component, pageProps }) {
     document.documentElement.setAttribute("data-theme", "violet")
   }, [])
   return  <>
+    <head>
+      <title>Somelist | Discord Bots</title>
+      <meta name="description" content="Improve your online presense with Somelist. Advertise, Explore, and Interact with Discord Bots on this Vast, and Stunning Discord Bot List." />
+      <meta property="og:image" content="../public/embed.png" />
+    </head>
     <NextNProgress color='var(--700)'/>
     <Component {...pageProps} />
   </>
