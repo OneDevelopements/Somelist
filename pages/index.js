@@ -122,7 +122,7 @@ export default Template(function Home() {
               <div
                 class="absolute flex items-center top-2 right-2 bg-violet-500/10 px-3 py-1 rounded-lg text-sm"
               >
-                <i class="fa fa-chevron-up mr-2"></i>34
+                <i class="fa fa-chevron-up mr-2"></i>{bot.votes}
               </div>
             </div>)
             })}

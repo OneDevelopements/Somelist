@@ -98,7 +98,7 @@ const SecretNav = (props) =>{
           {({ active }) => (
             <button
               className={`text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
-              onClick={()=>{router.push('/profile')}}
+              onClick={()=>{router.push('/profile/'+Cookie.get('id'))}}
             >
               Profile
             </button>
