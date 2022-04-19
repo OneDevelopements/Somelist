@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps }) {
     <head>
       <title>Somelist | Discord Bots</title>
       <meta name="description" content="Improve your online presense with Somelist. Advertise, Explore, and Interact with Discord Bots on this Vast, and Stunning Discord Bot List." />
-      <meta property="og:image" content="../public/embed.png" />
+      <meta name="twitter:image" content="https://i.imgur.com/KYL5iuC.png" />
     </head>
     <NextNProgress color='var(--700)'/>
     <Component {...pageProps} />
