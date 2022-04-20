@@ -64,6 +64,8 @@ function saveTokens( token, refreshToken){
 
 
 function deleteTokens(){
+    Cookie.remove('id');
+    Cookie.remove('username');
     Cookie.remove('token');
     Cookie.remove('refreshToken');
 }

@@ -359,7 +359,7 @@ export default Template(function Home() {
         Trending Bots
       </p>
       <p class="text-lg italic font-normal text-black/80 dark:text-white/80 mb-2">
-        Most popular bots this month.
+        Most popular bots.
       </p>
       {abots}
     </div>
