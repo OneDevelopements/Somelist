@@ -3,7 +3,6 @@ import '../styles/globals.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import NextNProgress from "nextjs-progressbar";
 import Head from 'next/head';
-
 function MyApp({ Component, pageProps }) {
   useEffect(()=>{
     document.documentElement.classList.add('dark')

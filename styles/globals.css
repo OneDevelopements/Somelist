@@ -196,3 +196,15 @@
     opacity: 1;
   }
 }
+
+button:disabled{
+  opacity: 0.75
+}
+
+td {
+  padding: 15px 10px;
+}
+
+th{
+  padding: 0 10px;
+}
