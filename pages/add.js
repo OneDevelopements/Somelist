@@ -51,7 +51,7 @@ export default Template(function Add(){
                 if (res.result == 'INVALID'){
                     setloading(false)
                     setstagecount(1)
-                    return toast.warning('Unknown application', {
+                    return toast.warning('Unknown application!', {
                         autoClose: 3000,
                         closeOnClick: true,
                         draggable: true,
@@ -59,7 +59,7 @@ export default Template(function Add(){
                 } else if (res.result == 'EXISTS'){
                     setloading(false)
                     setstagecount(1)
-                    return toast.warning('Bot already added', {
+                    return toast.warning('Bot already added :(', {
                         autoClose: 3000,
                         closeOnClick: true,
                         draggable: true,
@@ -71,7 +71,7 @@ export default Template(function Add(){
             }).catch(()=>{
                 setloading(false)
                 setstagecount(1)
-                toast.error('An unexpected error occured', {
+                toast.error('An unexpected error occured :C', {
                     autoClose: 3000,
                     closeOnClick: true,
                     draggable: true,
@@ -90,12 +90,25 @@ export default Template(function Add(){
         
 
         if (stagecount == 5){
+                let valid = true;
+                $('[required]').each(function() {
+                  if ($(this).is(':invalid') || !$(this).val()) valid = false;
+                })
+                if (!valid){
+                    setstagecount(3)
+                    toast.warning('Fill in all required fields!', {
+                        autoClose: 3000,
+                        closeOnClick: true,
+                        draggable: true,
+                    });
+                } else {
             setstep(
                 <>
                     <p className="text-lg font-semibold">Step 3</p>
                     <p className="mt-1 text-lg text-zinc-400 ml-2">Your bot's connections.</p>
                 </>
             )
+                }
         }
     }, [stagecount])
     const submitbot = () =>{
@@ -109,14 +122,14 @@ export default Template(function Add(){
             if (res.reply == 'worked'){
                 router.push('/bot/'+res.id)
             } else {
-                toast.error('An unexpected error occured', {
+                toast.error('An unexpected error occured :C', {
                     autoClose: 3000,
                     closeOnClick: true,
                     draggable: true,
                 });
             }
         }).catch(()=>{
-            toast.error('An unexpected error occured', {
+            toast.error('An unexpected error occured :C', {
                 autoClose: 3000,
                 closeOnClick: true,
                 draggable: true,
@@ -154,7 +167,7 @@ export default Template(function Add(){
           </button>
         </div>
         </div>
-        <div class="p-5 lg:p-10 py-[3rem] lg:py-[5rem] rounded-lg min-h-screen">
+        <div class="p-5 lg:p-10 py-[8rem] lg:py-[10rem] rounded-lg min-h-screen">
         <h1 className='font-bold text-4xl text-violet-500'>Bot Submission</h1>
             <div className={stagecount > 2 && 'hidden'} >
                 <div className='lg:flex my-32 items-center'>
@@ -174,13 +187,6 @@ export default Template(function Add(){
                         <input name='prefix' required placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
         
-                    <div className='lg:flex my-32 items-center'>
-                        <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
-                        <p className="text-lg font-semibold">Invite Link (Optional)</p>
-                        <p className="mt-1 text-sm text-zinc-400">Custom invite link for your bot.</p>
-                        </div>
-                        <input name='invite' placeholder="https://discord.com/api/authorize" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
-                    </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Tags (select at most 5)</p>
