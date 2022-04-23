@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import {BsBell, BsFillBellFill} from 'react-icons/bs'
 import Cookie from 'js-cookie';
 import { Menu, Popover, Transition } from '@headlessui/react'
+import axios from 'axios'
 class Header extends React.Component {
     static propTypes = {
         isLoggedIn: PropTypes.bool
@@ -19,7 +20,7 @@ class Header extends React.Component {
 
     render(){
         return(
-          <div className="relative py-6 bg-[#0B0A15] px-4 flex w-full h-20" style={{zIndex: '101'}} >      
+          <div className="fixed py-6 bg-[#0B0A15] px-4 flex w-full h-20" style={{zIndex: '101', top:'0'}} >      
             <NormalNav/>
             { this.isLoggedIn ?
               <SecretNav/>
@@ -78,6 +79,19 @@ const SecretNav = (props) =>{
       description: 'Your bot has been submitted! Our reviewers will loom through it.',
     },
   ]
+  const [isadmin, setisadmin] = useState(false)
+  useEffect(()=>{
+    async function checkadmin(){
+        await axios.get('https://api.somelist.tk/isadmin?id='+Cookie.get('id')).then((res)=>{
+            if (res.data.admin){
+                setisadmin(true)
+            } else {
+                router.push('/')
+            }
+        })
+    }
+    checkadmin()
+}, [])
   return <>
 <div className="ml-auto">
     <Menu as="div" className="relative inline-block text-left">
@@ -105,10 +119,23 @@ const SecretNav = (props) =>{
           )}
           </Menu.Item>
           <br/>
+          {isadmin &&
           <Menu.Item>
           {({ active }) => (
             <button
-              className={`mt-4 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              onClick={()=>{router.push('/admin/')}}
+            >
+              Admin Panel
+            </button>
+          )}
+          </Menu.Item>
+          }
+          <br/>
+          <Menu.Item>
+          {({ active }) => (
+            <button
+              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
               onClick={()=>{router.push('/logout')}}
             >
               Logout

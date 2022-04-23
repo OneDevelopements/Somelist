@@ -2,15 +2,29 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Template from "../../public/template"
 import axios from 'axios';
-
+import Cookie from 'js-cookie'
 export default  Template(function profile(){
     const router = useRouter()
+    const [isadmin, setisadmin] = useState(false)
     const [abots, setabots] = useState(
       <div class = 'flex items-center w-full justify-center' style={{height: '200px'}}>
         <h1 className='text-3xl font-bold italic text-white/70'>Loading...</h1>
       </div>
     )
     const [user, setuser] = useState('')
+    useEffect(()=>{
+      async function checkadmin(){
+          await axios.get('https://api.somelist.tk/isadmin?id='+Cookie.get('id')).then((res)=>{
+              if (res.data.admin){
+                  setisadmin(true)
+                  console.log(isadmin)
+              } else {
+                  router.push('/')
+              }
+          })
+      }
+      checkadmin()
+  }, [])
     useEffect(()=>{
         async function getbots (){
           await axios.get('https://api.somelist.tk/find_bots?owner='+router.query.id).then((res)=>{
@@ -170,7 +184,9 @@ export default  Template(function profile(){
                         <i class="fa fa-clock mr-1"></i>a few seconds ago
                     </p>
                     <div class="flex items-center mt-2 gap-x-2">
-                        <i class="fa fa-bolt text-2xl text-violet-500 mr-1"></i>
+                        {isadmin &&
+                          <i class="fa fa-bolt text-2xl text-violet-500 mr-1"></i>
+                        }
                     </div>
                     <div class="mt-5 w-full">
                         <div

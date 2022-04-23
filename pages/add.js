@@ -98,8 +98,7 @@ export default Template(function Add(){
             )
         }
     }, [stagecount])
-    const submitbot = (e) =>{
-        e.preventDefault()
+    const submitbot = () =>{
         var data = $('form').serializeArray(); 
         data.push({name: "owner", value: Cookie.get('id')});
         $.ajax({
@@ -147,9 +146,9 @@ export default Template(function Add(){
         <div>
           <button
             className="opacity-100 h-14 bg-gradient-to-br from-violet-600 to-violet-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-violet-600/20"
-            onClick={() => {stagecount != 5 && nextstage()}} 
+            onClick={() => {stagecount == 5 ? submitbot() : nextstage()}} 
             disabled={loading}
-            type={stagecount == 5 ? 'submit' : 'button'}
+            type='button'
           >
              <p className="font-semibold">Next</p> <i className="ml-1 fas fa-arrow-right"></i>
           </button>

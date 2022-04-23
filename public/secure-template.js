@@ -18,19 +18,19 @@ export default Page => class Template extends React.Component {
     render() {
         if (!this.props.isLoggedIn) {
             return (
-                <div>
+                <>
                     <div id='gradient'></div>
                     <Header { ...this.props } />
                         <p>You're not authorised.</p>
-                </div>
+                </>
             )
         }
         return(
-            <div>
+            <>
                 <div id='gradient'></div>
                 <Header>{ this.props }</Header>
                     <Page>{ this.props }</Page>
-            </div>
+            </>
         )
     }
 }

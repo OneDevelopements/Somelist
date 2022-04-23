@@ -1,18 +1,24 @@
 import axios from "axios"
+import Cookie from "js-cookie"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Template from "../../public/template"
 
 export default Template(function BotPage(){
-    const [bot, setbot] = useState('')
+    const [bot, setbot] = useState(
+        <div className='flex w-full h-full items-center justify-center'>
+            <h1 className='text-4xl italic font-bold'>Loading...</h1>
+        </div>
+    )
     const router = useRouter()
     useEffect(()=> {
         async function getbot() {
             console.log(router.query.id)
-            await axios.get('https://api.somelist.tk/bot?user='+router.query.id).then((res)=>{
+            await axios.get('https://api.somelist.tk/bot?user='+router.query.id+'&requester='+Cookie.get('id')).then((res)=>{
                 console.log(res.data.result)
                     setbot(
                         <>
+                        {!res.data.result.approved  && <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-violet-900/100 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer underline'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}
                         <div className="lg:flex items-center justify-between w-full">
                             <div className="flex flex-col lg:flex-row items-center gap-x-4">
                                 <div className="flex-shrink-0 z-1 w-[8rem] h-[8rem] hidden lg:block">
@@ -25,6 +31,7 @@ export default Template(function BotPage(){
                                         alt=""
                                         aria-hidden="true"
                                         role="presentation"
+                                        className='rounded-xl'
                                         src = {res.data.result.avatar}
                                     />
                                     </div>
@@ -32,6 +39,7 @@ export default Template(function BotPage(){
                                     alt="Bot's avatar"
                                     decoding="async"
                                     src={res.data.result.avatar}
+                                    
                                     className="rounded-lg lg:rounded-full transition-all duration-150"
                                     style={{position: "absolute", inset: "0px", boxSizing: "border-box", padding: "0px", border: "medium none", margin: "auto", display: "block", width: "0px", height: "0px", minWidth: "100%", maxWidth: "100%", minHeight: "100%", maxHeight: "100%"}}
                                     />
@@ -39,14 +47,16 @@ export default Template(function BotPage(){
                                 </div>
                         <div className="flex-shrink-0 z-1 block w-[16rem] h-[16rem] mb-5 lg:hidden">
                                 <div
-                                    style={{display: "inline-block", maxWidth: "100%", overflow: "hidden", position: "relative", boxSizing: "border-box", margin: "0px"}}
+                                    style={{display: "inline-block", width: "100%", overflow: "hidden", position: "relative", boxSizing: "border-box", margin: "0px"}}
                                 >
                                     <div style={{boxSizing: "border-box", display: "block", maxWidth: "100%"}}>
                                     <img
-                                        style={{maxWidth: "100%", display: "block", margin: "0px", border: "medium none", padding: "0px"}}
+                                        style={{width:'100%', height: '100%',maxWidth: "100%", display: "block", margin: "0px", border: "medium none", padding: "0px"}}
                                         alt=""
                                         aria-hidden="true"
+                                        className={'rounded-lg'}
                                         role="presentation"
+                                        src = {res.data.result.avatar}
                                     />
                                     </div>
                                     <img
@@ -78,6 +88,7 @@ export default Template(function BotPage(){
                             </div>
                             <div className="flex-shrink-0 lg:ml-56 flex items-center flex-col">
                                 <button
+                                onClick={()=>{window.open(res.data.result.invite)}}
                                 className="flex justify-between items-center w-full lg:w-48 bg-violet-600/40 hover:bg-violet-600/70 transition-all duration-200 py-2 mt-2 px-6 text-lg rounded-lg text-black dark:text-white shadow-lg shadow-violet-600/10"
                                 >
                                 <i className="fab fa-discord left-0 mr-1"></i>Invite</button
