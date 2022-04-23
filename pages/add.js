@@ -141,7 +141,7 @@ export default Template(function Add(){
         <form method='POST' onSubmit={(e) => {
             submitbot(e)
         }}>
-        <div style={{position: 'fixed', bottom: '0', zIndex: '99'}} className="hidden px-10 lg:flex backdrop-blur-md bg-[#E3E5E8] dark:bg-[#080712] bg-opacity-50 w-screen p-4">
+        <div style={{position: 'fixed', bottom: '0', zIndex: '99'}} className="px-10 flex backdrop-blur-md bg-[#E3E5E8] dark:bg-[#080712] bg-opacity-50 w-screen p-4">
         <div className="" style={{marginLeft: '-15px'}}>
           <button
             className={`opacity-100 h-14 bg-gradient-to-br from-gray-800 to-gray-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-violet-slate/20`}
