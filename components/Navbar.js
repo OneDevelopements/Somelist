@@ -85,8 +85,6 @@ const SecretNav = (props) =>{
         await axios.get('https://api.somelist.tk/isadmin?id='+Cookie.get('id')).then((res)=>{
             if (res.data.admin){
                 setisadmin(true)
-            } else {
-                router.push('/')
             }
         })
     }
