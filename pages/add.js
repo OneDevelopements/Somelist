@@ -189,10 +189,10 @@ export default Template(function Add(){
         
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
-                        <p className="text-lg font-semibold">Tags (select at most 5)</p>
-                        <p className="mt-1 text-sm text-zinc-400">Which tag best describes your bot?</p>
+                        <p className="text-lg font-semibold">Invite Link (Optional)</p>
+                        <p className="mt-1 text-sm text-zinc-400">Need a special scope? Set your link here!</p>
                         </div>
-                        <input name='tags' required placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                        <input name='invite' placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
