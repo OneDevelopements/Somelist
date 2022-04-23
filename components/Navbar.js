@@ -20,7 +20,7 @@ class Header extends React.Component {
 
     render(){
         return(
-          <div className="fixed py-6 bg-[#0B0A15] px-4 flex w-full h-20" style={{zIndex: '101', top:'0'}} >      
+          <div className="fixed py-6 bg-[#0B0A15]/50 px-4 flex w-full h-20" style={{zIndex: '101', top:'0'}} >      
             <NormalNav/>
             { this.isLoggedIn ?
               <SecretNav/>

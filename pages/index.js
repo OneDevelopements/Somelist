@@ -39,7 +39,7 @@ export default Template(function Home() {
             >
             {abotsarray.map((bot) =>{
               return(<div
-              class="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-violet-900/10 rounded-lg"
+              class="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
             >
               <div
                 class="bot-bg w-full h-full absolute rounded-lg"
@@ -92,7 +92,7 @@ export default Template(function Home() {
                   </div>
                   <div class="mt-5 sm:mt-0 relative flex-shrink-0">
                     <p
-                      class="rounded-lg bg-violet-500 text-white dark:bg-violet-900/20 px-4 shadow-xl text-xl"
+                      class="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
                     >
                       {bot.name}
                     </p>
@@ -108,19 +108,19 @@ export default Template(function Home() {
                 >
                   <div
                     onClick={() => router.push('/bot/'+bot.id.toString())}
-                    class="w-full bg-violet-900/10 hover:bg-violet-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                    class="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                   >
                     View
                   </div>
                   <div
-                    class="w-full bg-violet-900/10 hover:bg-violet-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                    class="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                   >
                     Vote
                   </div>
                 </div>
               </div>
               <div
-                class="absolute flex items-center top-2 right-2 bg-violet-500/10 px-3 py-1 rounded-lg text-sm"
+                class="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
               >
                 <i class="fa fa-chevron-up mr-2"></i>{bot.votes}
               </div>
@@ -256,7 +256,7 @@ export default Template(function Home() {
               }}
               autoComplete="off"
               placeholder="Explore the bots by name and description..."
-              className="relative transition-all duration-200 my-2 w-full bg-black/10 dark:bg-black/30 dark:hover:bg-black/50 hover:bg-black/20 text-dark dark:text-white focus:text-violet-500 rounded-xl border border-white/10 focus:border-violet-500 outline-none py-4 px-6"
+              className="relative transition-all duration-200 my-2 w-full bg-black/10 dark:bg-black/30 dark:hover:bg-black/50 hover:bg-black/20 text-dark dark:text-white focus:text-sky-500 rounded-xl border border-white/10 focus:border-sky-500 outline-none py-4 px-6"
             />
           <div>
   <div className="">
@@ -274,7 +274,7 @@ export default Template(function Home() {
   <div className="">
     <div
       style={{zIndex: "99", display: 'none'}}
-      className="rounded-lg p-4 bg-[#E3E5E8] dark:bg-[#0B0A15] absolute w-full"
+      className="rounded-lg p-4 bg-[#0B0A15]/50 absolute w-full"
       id='search'
     >
       {search}
@@ -283,7 +283,7 @@ export default Template(function Home() {
 </div>
 </div>
           <button
-            className="opacity-100 h-14 bg-gradient-to-br from-violet-600 to-violet-800 py-4 px-6 flex items-center rounded-lg text-white shadow-xl shadow-violet-600/20"
+            className="opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-xl shadow-sky-600/20"
           >
             <i className="fas fa-search"></i>
           </button>
@@ -293,61 +293,61 @@ export default Template(function Home() {
           className="flex flex-wrap transition-all duration-200 items-center gap-2 justify-start"
         >
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Moderation
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Fun
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Minecraft
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Economy
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Guard
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >NSFW
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Anime
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Invite
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Music
           </div>
           <div
-            className="text-md bg-violet-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-violet-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
+            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-tags text-blurple-500/50"></i></span
             >Explore Tags
