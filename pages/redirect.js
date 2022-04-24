@@ -20,9 +20,16 @@ export default class extends React.Component {
         Cookie.set('id', Router.query.id)
         Cookie.set('token', 'hi')
         Cookie.set('refreshToken', 'h2')
-        await Router.push('/');
+        if (Cookie.getItem('redirect')){
+            const redirect = Cookie.get('redirect')
+            Cookie.remove('redirect')
+            return await Router.push(redirect)
+        } else {
+            await Router.push('/');
+        }
     }
     render(){
+        
         return <>
         <div className='flex items-center h-screen '>
             <div className='w-screen text-center'>

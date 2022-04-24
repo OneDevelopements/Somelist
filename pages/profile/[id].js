@@ -31,7 +31,7 @@ export default  Template(function profile(){
             if (res.data.bots == 'none'){
                 setabots(
                     <div class="flex flex-col h-full items-center justify-center">
-                    <p class="text-violet-500 text-center italic text-4xl font-semibold">
+                    <p class="text-sky-500 text-center italic text-4xl font-semibold">
                         Oops!
                     </p>
                     <p class="text-black dark:text-white text-center text-2xl font-medium">
@@ -54,7 +54,7 @@ export default  Template(function profile(){
               >
               {abotsarray.map((bot) =>{
                 return(<div
-                class="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-violet-900/10 rounded-lg"
+                class="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
               >
                 <div
                   class="bot-bg w-full h-full absolute rounded-lg"
@@ -107,7 +107,7 @@ export default  Template(function profile(){
                     </div>
                     <div class="mt-5 sm:mt-0 relative flex-shrink-0">
                       <p
-                        class="rounded-lg bg-violet-500 text-white dark:bg-violet-900/20 px-4 shadow-xl text-xl"
+                        class="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
                       >
                         {bot.name}
                       </p>
@@ -123,19 +123,19 @@ export default  Template(function profile(){
                   >
                     <div
                       onClick={() => router.push('/bot/'+bot.id.toString())}
-                      class="w-full bg-violet-900/10 hover:bg-violet-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                      class="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                     >
                       View
                     </div>
                     <div
-                      class="w-full bg-violet-900/10 hover:bg-violet-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                      class="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                     >
                       Vote
                     </div>
                   </div>
                 </div>
                 <div
-                  class="absolute flex items-center top-2 right-2 bg-violet-500/10 px-3 py-1 rounded-lg text-sm"
+                  class="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
                 >
                   <i class="fa fa-chevron-up mr-2"></i>34
                 </div>
@@ -151,7 +151,7 @@ export default  Template(function profile(){
                 <div class="col-span-3">
                     <div class="flex w-full flex-col items-center">
                     <div
-                        class="flex-shrink-0 border-[2.2px] w-[8rem] h-[8rem] border-violet-500/50 mb-2 rounded-full"
+                        class="flex-shrink-0 border-[2.2px] w-[8rem] h-[8rem] border-sky-500/50 mb-2 rounded-full"
                     >
                         <div
                         style={{display: "inline-block", maxWidth: "100%", overflow: "hidden", position: "relative", boxSizing: "border-box", margin: "0px"}}
@@ -185,15 +185,15 @@ export default  Template(function profile(){
                     </p>
                     <div class="flex items-center mt-2 gap-x-2">
                         {isadmin &&
-                          <i class="fa fa-bolt text-2xl text-violet-500 mr-1"></i>
+                          <i class="fa fa-bolt text-2xl text-sky-500 mr-1"></i>
                         }
                     </div>
                     <div class="mt-5 w-full">
                         <div
-                        class="flex items-center text-voilet-500 dark:text-violet-500 font-medium text-2xl text-left"
+                        class="flex items-center text-sky-500 dark:text-sky-500 font-medium text-2xl text-left"
                         >
-                        <i class="fal fa-external-link text-voilet-500 mr-2"></i
-                        ><span class="text-voilet-500">Links</span>
+                        <i class="fal fa-external-link text-sky-500 mr-2"></i
+                        ><span class="text-sky-500">Links</span>
                         </div>
                         <a
                         href="https://discord.com/users/729975591406796840"

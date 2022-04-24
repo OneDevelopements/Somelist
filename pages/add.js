@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Template from "../public/template";
+import Template from "../public/secure-template";
 import $ from 'jquery'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -114,6 +114,7 @@ export default Template(function Add(){
     const submitbot = () =>{
         var data = $('form').serializeArray(); 
         data.push({name: "owner", value: Cookie.get('id')});
+        console.log(data)
         $.ajax({
             url: 'https://api.somelist.tk/submitbot',
             type: 'POST',
@@ -144,7 +145,7 @@ export default Template(function Add(){
         <div style={{position: 'fixed', bottom: '0', zIndex: '99'}} className="hidden px-10 lg:flex backdrop-blur-md bg-[#E3E5E8] dark:bg-[#080712] bg-opacity-50 w-screen p-4">
         <div className="" style={{marginLeft: '-15px'}}>
           <button
-            className={`opacity-100 h-14 bg-gradient-to-br from-gray-800 to-gray-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-violet-slate/20`}
+            className={`opacity-100 h-14 bg-gradient-to-br from-gray-800 to-gray-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-slate/20`}
             onClick = {() => stagecount != 1 && prevstage()}
             disabled={stagecount <= 2 && true}
             type='button'
@@ -158,7 +159,7 @@ export default Template(function Add(){
 
         <div>
           <button
-            className="opacity-100 h-14 bg-gradient-to-br from-violet-600 to-violet-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-violet-600/20"
+            className="opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-600/20"
             onClick={() => {stagecount == 5 ? submitbot() : nextstage()}} 
             disabled={loading}
             type='button'
@@ -168,14 +169,14 @@ export default Template(function Add(){
         </div>
         </div>
         <div class="p-5 lg:p-10 py-[8rem] lg:py-[10rem] rounded-lg min-h-screen">
-        <h1 className='font-bold text-4xl text-violet-500'>Bot Submission</h1>
+        <h1 className='font-bold text-4xl text-sky-500'>Bot Submission</h1>
             <div className={stagecount > 2 && 'hidden'} >
                 <div className='lg:flex my-32 items-center'>
                     <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Bot id</p>
                         <p className="mt-1 text-sm text-zinc-400">Your bot's client id. You can get this from the Discord Developer Portal.</p>
                     </div>
-                    <input name='id' id='id' required placeholder="0000000000000" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                    <input name='id' id='id' required placeholder="0000000000000" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                 </div>
             </div>
             <div className={stagecount != 3 && 'hidden'}>
@@ -184,7 +185,7 @@ export default Template(function Add(){
                         <p className="text-lg font-semibold">Prefix</p>
                         <p className="mt-1 text-sm text-zinc-400">What prefix your bot responds to. For example, if your using Slash Commands, place it as '/', or add your own custom prefix.</p>
                         </div>
-                        <input name='prefix' required placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                        <input name='prefix' required placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
         
                     <div className='lg:flex my-32 items-center'>
@@ -192,21 +193,21 @@ export default Template(function Add(){
                         <p className="text-lg font-semibold">Invite Link (Optional)</p>
                         <p className="mt-1 text-sm text-zinc-400">Need a special scope? Set your link here!</p>
                         </div>
-                        <input name='invite' placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                        <input name='invite' placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Short description</p>
                         <p className="mt-1 text-sm text-zinc-400">Give your bot a short and meaningful summary. This will appear on your bot's card and your bot's page!</p>
                         </div>
-                        <input name='shortdesc' required placeholder="The best and most wonderful bot ever!" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                        <input name='shortdesc' required placeholder="The best and most wonderful bot ever!" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Long description</p>
                         <p className="mt-1 text-sm text-zinc-400">Tell us more about your bot. Give us its features, history, or even something about you. HTML and Markdown is supported.</p>
                         </div>
-                        <textarea name='longdesc' required resize className="h-44 w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'></textarea>
+                        <textarea name='longdesc' required resize className="h-44 w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'></textarea>
                     </div>
             </div>
             <div className={stagecount != 5 && 'hidden'}>
@@ -215,21 +216,21 @@ export default Template(function Add(){
                     <p className="text-lg font-semibold">Website (optional)</p>
                     <p className="mt-1 text-sm text-zinc-400">Have a website? Rep it off!</p>
                     </div>
-                    <input name='website' placeholder={'https://somelist.tk'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                    <input name='website' placeholder={'https://somelist.tk'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                 </div>
                 <div className='lg:flex my-32 items-center'>
                     <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Github (optional)</p>
                         <p className="mt-1 text-sm text-zinc-400">Open sourced? Share your repo here!</p>
                     </div>
-                    <input name='github' placeholder={'https://github.com/popqa17/somelist'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                    <input name='github' placeholder={'https://github.com/popqa17/somelist'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                 </div>
                 <div className='lg:flex my-32 items-center'>
                     <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Banner (optional)</p>
                         <p className="mt-1 text-sm text-zinc-400">Got a cool image to show off? Banner you go!</p>
                     </div>
-                    <input name='banner' placeholder={'https://github.com/popqa17/somelist'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-violet-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                    <input name='banner' placeholder={'https://github.com/popqa17/somelist'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                 </div>
             </div>
         </div>

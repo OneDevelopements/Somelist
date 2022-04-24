@@ -82,15 +82,19 @@ function getTokensForBrowser() {
 
 function getTokensForServer(req) {
     if (req.headers.cookie) {
-        const cookieToken = req.headers.cookie.split(';').find(c => c.trim().startsWith('token='));
-        const cookieRefreshToken = req.headers.cookie.split(';').find(c => c.trim().startsWith('refreshToken='));
+        try{
+            const cookieToken = req.headers.cookie.split(';').find(c => c.trim().startsWith('token='));
+            const cookieRefreshToken = req.headers.cookie.split(';').find(c => c.trim().startsWith('refreshToken='));
 
-        let token = cookieToken.split('=')[1];
-        let refreshToken = cookieRefreshToken.split('=')[1];
-        return {
-            token: token,
-            refreshToken: refreshToken
-        };
+            let token = cookieToken.split('=')[1];
+            let refreshToken = cookieRefreshToken.split('=')[1];
+            return {
+                token: token,
+                refreshToken: refreshToken
+            };
+        } catch{
+            console.log('faied')
+        }
     }
 }
 

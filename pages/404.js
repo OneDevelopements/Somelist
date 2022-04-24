@@ -8,7 +8,7 @@ export default function notfound(){
                 <div class="px-6 lg:px-36 max-w-4xl">
                 <div class="flex flex-col mt-20 justify-center text-center w-full">
                     <p
-                    class="text-8xl text-transparent bg-clip-text bg-gradient-to-bl to-violet-500 from-purple-600 font-semibold"
+                    class="text-8xl text-transparent bg-clip-text bg-gradient-to-bl to-sky-500 from-purple-600 font-semibold"
                     >
                     404
                     </p>
@@ -28,10 +28,10 @@ export default function notfound(){
                     >
                         <div class="flex gap-x-4">
                         <i
-                            class="flex items-center bg-violet-500/10 rounded-lg text-xl w-12 h-12 text-violet-600 px-3 py-2 fas fa-arrow-left"
+                            class="flex items-center bg-sky-500/10 rounded-lg text-xl w-12 h-12 text-sky-600 px-3 py-2 fas fa-arrow-left"
                         ></i>
                         <div class="text-left mr-3">
-                            <p class="text-lg text-violet-500 dark:text-violet-200">
+                            <p class="text-lg text-sky-500 dark:text-sky-200">
                             Go Back
                             </p>
                             <p class="text-sm text-black/50 dark:text-white/50">

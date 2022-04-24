@@ -18,7 +18,7 @@ export default Template(function BotPage(){
                 console.log(res.data.result)
                     setbot(
                         <>
-                        {!res.data.result.approved  && <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-violet-900/100 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer underline'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}
+                        {!res.data.result.approved  && <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-sky-900/100 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer underline'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}
                         <div className="lg:flex items-center justify-between w-full">
                             <div className="flex flex-col lg:flex-row items-center gap-x-4">
                                 <div className="flex-shrink-0 z-1 w-[8rem] h-[8rem] hidden lg:block">
@@ -89,7 +89,7 @@ export default Template(function BotPage(){
                             <div className="flex-shrink-0 lg:ml-56 flex items-center flex-col">
                                 <button
                                 onClick={()=>{window.open(res.data.result.invite)}}
-                                className="flex justify-between items-center w-full lg:w-48 bg-violet-600/40 hover:bg-violet-600/70 transition-all duration-200 py-2 mt-2 px-6 text-lg rounded-lg text-black dark:text-white shadow-lg shadow-violet-600/10"
+                                className="flex justify-between items-center w-full lg:w-48 bg-sky-600/40 hover:bg-sky-600/70 transition-all duration-200 py-2 mt-2 px-6 text-lg rounded-lg text-black dark:text-white shadow-lg shadow-sky-600/10"
                                 >
                                 <i className="fab fa-discord left-0 mr-1"></i>Invite</button
                                 ><button
@@ -117,7 +117,7 @@ export default Template(function BotPage(){
                                     >
                                     <div>
                                         <h1 className="text-2xl mb-3">
-                                        <i className="fas fa-info-circle text-violet-500 mr-2"></i>Details
+                                        <i className="fas fa-info-circle text-sky-500 mr-2"></i>Details
                                         </h1>
                                         <div className="flex items-center w-full">
                                         <p className="text-lg">Prefix</p>
@@ -136,7 +136,7 @@ export default Template(function BotPage(){
                                     </div>
                                     <div className="mt-10">
                                         <h1 className="text-2xl mb-3">
-                                        <i className="fas fa-users text-violet-500 mr-2"></i>Authors
+                                        <i className="fas fa-users text-sky-500 mr-2"></i>Authors
                                         </h1>
                                         <div className="flex flex-col items-center w-full gap-x-2 gap-y-2">
                                         <span
@@ -171,7 +171,7 @@ export default Template(function BotPage(){
                                     </div>
                                     <div className="mt-10">
                                         <h1 className="text-2xl mb-3">
-                                        <i className="fas fa-tag text-violet-500 mr-2"></i>Tags
+                                        <i className="fas fa-tag text-sky-500 mr-2"></i>Tags
                                         </h1>
                                         <div
                                         className="flex flex-row flex-wrap items-center w-full gap-x-2 gap-y-2"
@@ -187,7 +187,7 @@ export default Template(function BotPage(){
                                     </div>
                                     <div className="mt-10">
                                         <h1 className="text-2xl mb-3">
-                                        <i className="fas fa-external-link text-violet-500 mr-2"></i>Links
+                                        <i className="fas fa-external-link text-sky-500 mr-2"></i>Links
                                         </h1>
                                         <div
                                         className="flex flex-row flex-wrap items-center w-full gap-x-2 gap-y-2"
