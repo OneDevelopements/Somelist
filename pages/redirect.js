@@ -20,7 +20,7 @@ export default class extends React.Component {
         Cookie.set('id', Router.query.id)
         Cookie.set('token', 'hi')
         Cookie.set('refreshToken', 'h2')
-        if (Cookie.getItem('redirect')){
+        if (Cookie.get('redirect')){
             const redirect = Cookie.get('redirect')
             Cookie.remove('redirect')
             return await Router.push(redirect)
