@@ -5,9 +5,12 @@ import NextNProgress from "nextjs-progressbar";
 import Head from 'next/head';
 import { useState } from 'react';
 import Cookie from 'js-cookie';
+import { useRouter } from 'next/router';
+import BotLayout from '../components/BotLayout';
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
-
+  const  [id, setid] = useState('')
+  const router = useRouter()
   function closeModal() {
     setIsOpen(false)
   }
@@ -23,6 +26,9 @@ function MyApp({ Component, pageProps }) {
       }
   }
   }), []
+  if (router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics'){
+    console.log(router.query.id)
+  }
   return  <>
     <Head>
         <title>Somelist | Discord Bots</title>
@@ -51,7 +57,14 @@ function MyApp({ Component, pageProps }) {
       </div>
     </div>
     </div>
-    <Component {...pageProps} />
+    {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' ? 
+    (
+      <BotLayout id={router.query.id}>
+        <Component {...pageProps} />
+      </BotLayout>
+    ) : (
+      <Component {...pageProps} />
+    )}
   </>
   
 }

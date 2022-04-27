@@ -18,8 +18,6 @@ export default  Template(function profile(){
               if (res.data.admin){
                   setisadmin(true)
                   console.log(isadmin)
-              } else {
-                  router.push('/')
               }
           })
       }

@@ -123,7 +123,7 @@ export default Template(function BotPage(){
                                         <p className="text-lg">Prefix</p>
                                         <span
                                             className="bg-zinc-600/20 px-2 py-1 rounded-lg text-black dark:text-zinc-400 text-sm ml-2"
-                                            >!</span
+                                            >{res.data.result.prefix}</span
                                         >
                                         </div>
                                         <div className="flex items-center w-full mt-1">
@@ -192,9 +192,10 @@ export default Template(function BotPage(){
                                         <div
                                         className="flex flex-row flex-wrap items-center w-full gap-x-2 gap-y-2"
                                         >
+                                        {res.data.result.website &&
                                         <a
                                             target="_blank"
-                                            href="https://decro.tk"
+                                            href={res.data.result.website}
                                             className="w-full text-black dark:text-white group"
                                             ><div className="flex items-center">
                                             <div
@@ -205,10 +206,31 @@ export default Template(function BotPage(){
                                             <div
                                                 className="rounded-r-lg text-center py-2 bg-zinc-600/20 transition-all duration-150 group-hover:bg-zinc-600/30 px-2 w-full"
                                             >
-                                                <p>decro.tk</p>
+                                                <p>Website</p>
                                             </div>
                                             <div></div></div></a
-                                        ><a
+                                        >
+                                        }
+                                        {res.data.result.github && 
+                                        <a
+                                            target="_blank"
+                                            href={res.data.result.github}
+                                            className="w-full text-black dark:text-white group"
+                                            ><div className="flex items-center">
+                                            <div
+                                                className="rounded-l-lg text-center py-2 bg-zinc-600/30 transition-all duration-150 group-hover:bg-zinc-600/40 px-4 w-14"
+                                            >
+                                                <i className="fab fa-github"></i>
+                                            </div>
+                                            <div
+                                                className="rounded-r-lg text-center py-2 bg-zinc-600/20 transition-all duration-150 group-hover:bg-zinc-600/30 px-2 w-full"
+                                            >
+                                                <p>Repository</p>
+                                            </div>
+                                            <div></div></div></a
+                                        >
+                                        }
+                                        <a
                                             target="_blank"
                                             href="https://discord.gg/PTAgf9yGkv"
                                             className="w-full text-black dark:text-white group"

@@ -25,7 +25,7 @@ class Header extends React.Component {
             { this.isLoggedIn ?
               <SecretNav/>
               :
-              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.href=`https://api.somelist.tk/login`}}>
+              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.replace(`https://api.somelist.tk/login`)}}>
                  Login
               </button>                      
             }

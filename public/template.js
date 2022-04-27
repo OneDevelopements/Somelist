@@ -2,6 +2,8 @@ import React from 'react';
 import Header from '../components/Navbar';
 import { getTokensForServer, getTokensForBrowser } from "./oauth";
 
+
+
 export default Page => class Template extends React.Component {
     static async getInitialProps({req}) {
         let loggedInUser = process.browser ? await getTokensForBrowser() : await getTokensForServer(req);
