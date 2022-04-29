@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import Template from "../../../public/template"
+import Template from "../../../public/secure-template"
 
 export default Template(function Edit(){
     const router = useRouter()

@@ -16,6 +16,19 @@ export default Template(function BotPage(){
             console.log(router.query.id)
             await axios.get('https://api.somelist.tk/bot?user='+router.query.id+'&requester='+Cookie.get('id')).then((res)=>{
                 console.log(res.data.result)
+                    if (res.data.result == 'none'){
+                       return setbot(
+                           <>
+                           <div className='h-full flex items-center justify-center'>
+                               <div className='text-center'>
+                                   <h1 className='text-5xl italic text-sky-500 font-bold'>Oops!</h1>
+                                    <br/>
+                                    <p className='text-lg text-slate-300/90' >This bot might not exist, or may not be approved yet.</p>
+                                </div>
+                           </div>
+                           </>
+                       )
+                    }
                     setbot(
                         <>
                         {!res.data.result.approved  && <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-sky-900/100 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer underline'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}

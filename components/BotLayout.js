@@ -10,7 +10,7 @@ const BotLayout = (props) => {
     const [reload, edewfwedfqef] = useState(0)
     const [botdata, setbotdata] = useState({})
     const [bot, setbot] = useState(<>
-        <SideNav name='loading'/>
+        
     </>)
     const [page, setpage] = useState(<>
         <div className='flex h-screen w-full items-center justify-center'>
@@ -20,21 +20,35 @@ const BotLayout = (props) => {
         </div>
     </>)
     useEffect(()=>{
-        if (router.pathname == '/bot/[id]/edit'){
-            setpage(<Edit botdata={res.data.result} />)
-        } else if(router.pathname == '/bot/[id]/analytics'){
-        setpage(
-            <>
-            <h1 className='text-sky-500 italic font-bold' >Oops!</h1>
-            <p>This page is still in construction :(</p>
-            </>
-        )
-        }
-    }, [botdata, reload])
-    useEffect(()=>{
         async function getbot(){
             console.log(props.id)
             await Axios.get('https://api.somelist.tk/bot?user='+props.id+'&requester='+Cookie.get('id')).then((res)=>{
+                if (res.data.result == 'none'){
+                    return setpage(
+                        <>
+                        <div className='h-screen flex items-center justify-center'>
+                            <div className='text-center'>
+                                <h1 className='text-5xl italic text-sky-500 font-bold'>Oops!</h1>
+                                 <br/>
+                                 <p className='text-lg text-slate-300/90' >This bot might not exist, or you don't have the permissions to edit it.</p>
+                             </div>
+                        </div>
+                        </>
+                    )
+                }
+                if (res.data.result.owner != Cookie.get('id')){
+                    return setpage(
+                        <>
+                        <div className='h-screen flex items-center justify-center'>
+                            <div className='text-center'>
+                                <h1 className='text-5xl italic text-sky-500 font-bold'>Oops!</h1>
+                                 <br/>
+                                 <p className='text-lg text-slate-300/90' >This bot might not exist, or you don't have the permissions to edit it.</p>
+                             </div>
+                        </div>
+                        </>
+                    )
+                }
                 console.log(res.data.result.name)
                 $('#shortdesc').val(res.data.result.shortdesc)
                 setbot(
@@ -192,4 +206,6 @@ const Edit = (props) =>{
     </form>
     )
 }
+
+
 export default BotLayout

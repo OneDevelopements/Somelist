@@ -18,7 +18,7 @@ export default Template(function Home() {
     )
     useEffect(()=>{
       async function getbots (){
-        await axios.get('https://api.somelist.tk/find_bots').then((res)=>{
+        await axios.get('https://api.somelist.tk/find_bots?limit=6').then((res)=>{
           setbotsdata(res.data.bots)
           var abotsarray = []
           res.data.bots.map((bot)=>{
