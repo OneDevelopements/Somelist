@@ -112,7 +112,7 @@ const SideNav = (props) =>{
     const router = useRouter()
     return(
         <div className='w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
-            <div className='flex items-center mb-10'>
+            <div className='flex items-center mb-10 cursor-pointer' onClick={()=>{router.push('/bot/'+router.query.id)}}>
                 <img src={props.avatar} className='rounded-lg w-16 h-16 mr-3'/>
                 <h1 className={'text-3xl'}>{props.name}</h1>
             </div>

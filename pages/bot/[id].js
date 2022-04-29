@@ -31,6 +31,16 @@ export default Template(function BotPage(){
                     }
                     setbot(
                         <>
+                        {res.data.result.owner == Cookie.get('id') && 
+                        <button
+                            style={{'zIndex': '100', 'float': 'right', 'bottom': '20px', 'right': '20px'}}
+                            className="fixed opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-600/20"
+                            onClick={()=> router.push(`/bot/${res.data.result.id}/edit`)}
+                            type='button'
+                        >
+                            <><i className="mr-2 fas fa-pen"></i><p className="font-semibold">Edit</p></>
+                        </button>
+                        }
                         {!res.data.result.approved  && <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-sky-900/100 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer underline'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}
                         <div className="lg:flex items-center justify-between w-full">
                             <div className="flex flex-col lg:flex-row items-center gap-x-4">
