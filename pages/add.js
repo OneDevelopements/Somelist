@@ -218,6 +218,14 @@ export default Template(function Add(){
                     </div>
                     <input name='website' placeholder={'https://somelist.tk'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                 </div>
+
+                <div className='lg:flex my-32 items-center'>
+                    <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
+                        <p className="text-lg font-semibold">Support Server (optional)</p>
+                        <p className="mt-1 text-sm text-zinc-400">Have a server for users that need help? Direct users your way!</p>
+                    </div>
+                    <input name='support' placeholder={'https://discord.gg/AKHZHyGwMX'} className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                </div>
                 <div className='lg:flex my-32 items-center'>
                     <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Github (optional)</p>
@@ -235,18 +243,6 @@ export default Template(function Add(){
             </div>
         </div>
         </form>
-            <ToastContainer
-            position="top-center"
-            autoClose={3000}
-            hideProgressBar={false}
-            newestOnTop
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-        />
     </>
     )
 })

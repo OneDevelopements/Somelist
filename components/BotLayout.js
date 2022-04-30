@@ -151,6 +151,11 @@ const Edit = (props) =>{
             }).then((res)=>{
                 if (res.reply == 'worked'){
                     setloading(false)
+                    toast.success('Changes saved!', {
+                        autoClose: 3000,
+                        closeOnClick: true,
+                        draggable: true,
+                    });
                 } else {
                     setloading(true)
                     toast.error('An unexpected error occured :C', {

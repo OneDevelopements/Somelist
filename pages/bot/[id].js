@@ -129,7 +129,7 @@ export default Template(function BotPage(){
                                     <div
                                     className="bg-zinc-500/20 dark:bg-zinc-700/5 border border-zinc-600/10 text-black dark:text-zinc-300 transition-all duration-200 rounded-lg p-5"
                                     >
-                                    <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: res.data.result.longdesc }} style={{overflowWrap: 'break-word'}}>
+                                    <div className="w-full h-full" id='longdescwrapper' dangerouslySetInnerHTML={{ __html: res.data.result.longdesc }} style={{overflowWrap: 'break-word'}}>
 
                                     </div>
                                     </div>
@@ -163,6 +163,7 @@ export default Template(function BotPage(){
                                         </h1>
                                         <div className="flex flex-col items-center w-full gap-x-2 gap-y-2">
                                         <span
+                                            onClick={()=>{router.push(`/profile/${res.data.result.owner}`)}}
                                             className="flex w-full items-center bg-zinc-600/20 hover:bg-zinc-600/30 px-2 cursor-pointer transition-all duration-150 py-1 rounded-lg text-black dark:text-zinc-400 text-sm"
                                             ><div className="flex-shrink-0 w-[3rem] h-[3rem]">
                                             <div
@@ -175,6 +176,8 @@ export default Template(function BotPage(){
                                                 <img
                                                     style={{maxWidth: "100%", display: "block", margin: "0px", border: "medium none", padding: "0px"}}
                                                     alt=""
+                                                    className='rounded-full'
+                                                    src={res.data.result.ownerAvatar} 
                                                     aria-hidden="true"
                                                     role="presentation"
                                                 />
@@ -182,13 +185,14 @@ export default Template(function BotPage(){
                                                 <img
                                                 alt="User's avatar"
                                                 decoding="async"
+                                                src={res.data.result.ownerAvatar} 
                                                 className="rounded-full"
                                                 style={{position: "absolute", inset: "0px", boxSizing: "border-box", padding: "0px", border: "medium none", margin: "auto", display: "block", width: "0px", height: "0px", minWidth: "100%", maxWidth: "100%", minHeight: "100%", maxHeight: "100%"}}
                                                 
                                                 />
                                             </div>
                                             </div>
-                                            <p className="text-lg ml-3">HamsterButİnLove</p></span
+                                            <p className="text-lg ml-3 text-white">{res.data.result.ownerName}</p></span
                                         >
                                         </div>
                                     </div>
@@ -253,7 +257,7 @@ export default Template(function BotPage(){
                                             <div></div></div></a
                                         >
                                         }
-                                        <a
+                                        {res.data.result.support && <a
                                             target="_blank"
                                             href="https://discord.gg/PTAgf9yGkv"
                                             className="w-full text-black dark:text-white group"
@@ -269,7 +273,8 @@ export default Template(function BotPage(){
                                                 <p>Support Server</p>
                                             </div>
                                             <div></div></div></a
-                                        ><a
+                                        >
+                                        }<a
                                             target="_blank"
                                             className="cursor-pointer w-full text-black dark:text-white group"
                                             ><div className="flex items-center">

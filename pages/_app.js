@@ -7,6 +7,8 @@ import { useState } from 'react';
 import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import BotLayout from '../components/BotLayout';
+import { ToastContainer, toast } from 'react-toastify';
+
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
   const  [id, setid] = useState('')
@@ -65,6 +67,19 @@ function MyApp({ Component, pageProps }) {
     ) : (
       <Component {...pageProps} />
     )}
+
+<ToastContainer
+            position="top-center"
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+        />
   </>
   
 }
