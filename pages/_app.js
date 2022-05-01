@@ -8,6 +8,7 @@ import Cookie from 'js-cookie';
 import { useRouter } from 'next/router';
 import BotLayout from '../components/BotLayout';
 import { ToastContainer, toast } from 'react-toastify';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -80,6 +81,7 @@ function MyApp({ Component, pageProps }) {
             pauseOnHover
             theme="dark"
         />
+      <Script src="https://somelist.instatus.com/widget/script.js"/>
   </>
   
 }
