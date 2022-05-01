@@ -3,13 +3,25 @@ import Cookie from "js-cookie"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Template from "../../public/template"
-
+import { ToastContainer, toast } from 'react-toastify';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment } from 'react'
+import $ from 'jquery'
 export default Template(function BotPage(){
     const [bot, setbot] = useState(
         <div className='flex w-full h-full items-center justify-center'>
             <h1 className='text-4xl italic font-bold'>Loading...</h1>
         </div>
     )
+    let [isOpen, setIsOpen] = useState(false)
+    const [dialogContent, setdialogContent] = useState('')
+    function closeModal() {
+      setIsOpen(false)
+    }
+  
+    function openModal() {
+      setIsOpen(true)
+    }  
     const router = useRouter()
     useEffect(()=> {
         async function getbot() {
@@ -116,6 +128,92 @@ export default Template(function BotPage(){
                                 >
                                 <i className="fab fa-discord left-0 mr-1"></i>Invite</button
                                 ><button
+                                onClick={()=>{
+                                    if (!Cookie.get('id')){
+                                        
+                                        setdialogContent(<><Dialog.Title
+                                            as="h3"
+                                            className="text-lg font-medium leading-6 text-gray-900"
+                                        >
+                                            Oof!
+                                        </Dialog.Title>
+                                        <div className="mt-2">
+                                            <p className="text-sm text-gray-500">
+                                            Thanks for being eager, but you need to login to vote!
+                                            </p>
+                                        </div>
+
+                                        <div className="mt-4">
+                                            <button
+                                            type="button"
+                                            className="focus:outline-none inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            onClick={() =>{
+                                                Cookie.set('redirect', '/bot/'+res.data.result.id)
+                                                window.location.href='https://api.somelist.tk/login'
+                                            }
+                                            }
+                                            >
+                                            Login
+                                            </button>
+                                        </div>
+                                        </>)
+                                        return openModal()
+                                    }
+                                    $.ajax({
+                                        url: 'https://api.somelist.tk/vote/'+res.data.result.id+'?user='+Cookie.get('id')
+                                    }).then((res)=>{
+                                        if (res.result == 'WAIT'){
+
+                                            setdialogContent(<><Dialog.Title
+                                                as="h3"
+                                                className="text-lg font-medium leading-6 text-gray-900"
+                                            >
+                                                Woah! Slow down!
+                                            </Dialog.Title>
+                                            <div className="mt-2">
+                                                <p className="text-sm text-gray-500">
+                                                We know you're very generous, but you've already voted for this bot in the past 12 hours!
+                                                </p>
+                                            </div>
+
+                                            <div className="mt-4">
+                                                <button
+                                                type="button"
+                                                className="focus:outline-none inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                onClick={closeModal}
+                                                >
+                                                Ok
+                                                </button>
+                                            </div>
+                                            </>)
+                                            openModal()
+                                        } else if (res.result == 'VALID'){
+                                            setdialogContent(<><Dialog.Title
+                                                as="h3"
+                                                className="text-lg font-medium leading-6 text-gray-900"
+                                            >
+                                                Vote saved!
+                                            </Dialog.Title>
+                                            <div className="mt-2">
+                                                <p className="text-sm text-gray-500">
+                                                The owner of this bot says thanks! You can vote for this bot again in 12 hours!
+                                                </p>
+                                            </div>
+
+                                            <div className="mt-4">
+                                                <button
+                                                type="button"
+                                                className="focus:outline-none inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                onClick={closeModal}
+                                                >
+                                                Cool!
+                                                </button>
+                                            </div>
+                                            </>)
+                                            openModal()      
+                                        }
+                                    })
+                                }}
                                 className="flex justify-between items-center w-full lg:w-48 bg-zinc-600/20 hover:bg-zinc-600/40 transition-all duration-200 py-2 mt-2 px-6 text-lg rounded-lg text-black dark:text-white shadow-lg shadow-zinc-600/10"
                                 >
                                 <i className="fa fa-caret-up left-0 mr-1"></i>Vote ({res.data.result.votes})
@@ -304,7 +402,39 @@ export default Template(function BotPage(){
     return(
         <div className="p-5 lg:p-10 py-[10rem] lg:py-[12rem] rounded-lg min-h-screen">
             {bot}
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                <Transition.Child
+                    as={Fragment}
+                    enter="ease-out duration-300"
+                    enterFrom="opacity-0"
+                    enterTo="opacity-100"
+                    leave="ease-in duration-200"
+                    leaveFrom="opacity-100"
+                    leaveTo="opacity-0"
+                >
+                    <div className="fixed inset-0 bg-black bg-opacity-25" />
+                </Transition.Child>
 
+                <div className="fixed inset-0 overflow-y-auto">
+                    <div className="flex min-h-full items-center justify-center p-4 text-center">
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0 scale-95"
+                        enterTo="opacity-100 scale-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100 scale-100"
+                        leaveTo="opacity-0 scale-95"
+                    >
+                        <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                        {dialogContent}
+                        </Dialog.Panel>
+                    </Transition.Child>
+                    </div>
+                </div>
+                </Dialog>
+            </Transition>
         </div>
-    )
+        )
 })

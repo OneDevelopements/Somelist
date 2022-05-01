@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }) {
   function closeModal() {
     setIsOpen(false)
   }
-
+  toast.configure()
   useEffect(()=>{
     document.documentElement.classList.add('dark')
     document.documentElement.setAttribute("data-theme", "violet")

@@ -79,17 +79,6 @@ const SecretNav = (props) =>{
       description: 'Your bot has been submitted! Our reviewers will loom through it.',
     },
   ]
-  const [isadmin, setisadmin] = useState(false)
-  useEffect(()=>{
-    async function checkadmin(){
-        await axios.get('https://api.somelist.tk/isadmin?id='+Cookie.get('id')).then((res)=>{
-            if (res.data.admin){
-                setisadmin(true)
-            }
-        })
-    }
-    checkadmin()
-}, [])
   return <>
 <div className="ml-auto">
     <Menu as="div" className="relative inline-block text-left">
@@ -116,19 +105,6 @@ const SecretNav = (props) =>{
             </button>
           )}
           </Menu.Item>
-          <br/>
-          {isadmin &&
-          <Menu.Item>
-          {({ active }) => (
-            <button
-              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
-              onClick={()=>{router.push('/admin/')}}
-            >
-              Admin Panel
-            </button>
-          )}
-          </Menu.Item>
-          }
           <br/>
           <Menu.Item>
           {({ active }) => (
