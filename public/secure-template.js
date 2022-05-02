@@ -24,7 +24,11 @@ export default Page => class Template extends React.Component {
                 <>
                     <div id='gradient'></div>
                     <Header { ...this.props } />
+                    <div
+                className='pagetransition'
+                >
                     <Testhingyabc/>
+                    </div>
                 </>
             )
         }
@@ -32,7 +36,11 @@ export default Page => class Template extends React.Component {
             <>
                 <div id='gradient'></div>
                 <Header>{ this.props }</Header>
+                <div
+                className='pagetransition'
+                >
                     <Page>{ this.props }</Page>
+                </div>
             </>
         )
     }

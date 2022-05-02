@@ -1,3 +1,4 @@
+import { Transition } from '@headlessui/react';
 import React from 'react';
 import Header from '../components/Navbar';
 import { getTokensForServer, getTokensForBrowser } from "./oauth";
@@ -22,7 +23,11 @@ export default Page => class Template extends React.Component {
             <>
                 <div id='gradient'></div>
                 <Header>{ this.props }</Header>
-                <Page>{ this.props }</Page>
+                <div
+                className='pagetransition'
+                >
+                    <Page>{ this.props }</Page>
+                </div>
             </>
         )
     }

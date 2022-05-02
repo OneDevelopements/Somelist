@@ -244,10 +244,10 @@ const Settings = (props) =>{
         { name: 'Private' }
     ]
     const [selected, setSelected] = useState(
-        props.botdata.publicity == 'public' ?people[1]
-        : props.botdata.publicty == 'private' ? people[2]
-        : props.botdata.publicty == 'link' ? people[3]
-        : people[1]
+        props.botdata.publicity == 'public' ?people[0]
+        : props.botdata.publicty == 'private' ? people[1]
+        : props.botdata.publicty == 'link' ? people[2]
+        : people[0]
     )
     useEffect(()=>{
         $.ajax({
