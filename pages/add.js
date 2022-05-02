@@ -102,6 +102,34 @@ export default Template(function Add(){
                         draggable: true,
                     });
                 } else {
+                    if($("#shortdesc").val().length <= 15){
+                        setstagecount(3)
+                        return toast.warning('Your Short Description should have more than 15 characters!', {
+                            autoClose: 3000,
+                            closeOnClick: true,
+                            draggable: true,
+                        });
+                    }
+                    if($("#longdesc").val().length <= 100){
+                        setstagecount(3)
+                        return toast.warning('Your Long Description should have more than 15 characters!', {
+                            autoClose: 3000,
+                            closeOnClick: true,
+                            draggable: true,
+                        });
+                    }                    
+                    if($('#invite') != null){
+                        setstagecount(3)
+                        if($('#invite').val().startsWith('https://discord.com/api/oauth2/authorize')){
+
+                        } else{
+                            return toast.warning('Invite URL should start with https://discord.com/api/oauth2/authorize!', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });
+                        }
+                    }
             setstep(
                 <>
                     <p className="text-lg font-semibold">Step 3</p>
@@ -193,21 +221,21 @@ export default Template(function Add(){
                         <p className="text-lg font-semibold">Invite Link (Optional)</p>
                         <p className="mt-1 text-sm text-zinc-400">Need a special scope? Set your link here!</p>
                         </div>
-                        <input name='invite' placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                        <input name='invite' id='invite' placeholder="/" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Short description</p>
                         <p className="mt-1 text-sm text-zinc-400">Give your bot a short and meaningful summary. This will appear on your bot's card and your bot's page!</p>
                         </div>
-                        <input name='shortdesc' required placeholder="The best and most wonderful bot ever!" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                        <input name='shortdesc' id='shortdesc' required placeholder="The best and most wonderful bot ever!" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
                     </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
                         <p className="text-lg font-semibold">Long description</p>
                         <p className="mt-1 text-sm text-zinc-400">Tell us more about your bot. Give us its features, history, or even something about you. HTML and Markdown is supported.</p>
                         </div>
-                        <textarea name='longdesc' required resize className="h-44 w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'></textarea>
+                        <textarea name='longdesc' id='longdesc' required resize className="h-44 w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'></textarea>
                     </div>
             </div>
             <div className={stagecount != 5 && 'hidden'}>

@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps }) {
       </div>
     </div>
     </div>
-    {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' ? 
+    {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' || router.pathname == '/bot/[id]/settings' ? 
     (
       <BotLayout id={router.query.id}>
         <Component {...pageProps} />

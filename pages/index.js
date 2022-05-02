@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {useEffect, useState} from 'react';
 import Template from '../public/template';
@@ -7,12 +8,12 @@ export default Template(function Home() {
     const [botsdata, setbotsdata] = useState([])
     const router = useRouter()
     const [abots, setabots] = useState(
-      <div class = 'flex items-center w-full justify-center' style={{height: '200px'}}>
+      <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
         <h1 className='text-3xl font-bold italic text-white/70'>Loading...</h1>
       </div>
     )
     const [search, setsearch] = useState(
-      <div class = 'flex items-center w-full justify-center' style={{height: '200px'}}>
+      <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
         <h1 className='text-3xl font-bold italic text-white/70'>Loading...</h1>
       </div>
     )
@@ -29,28 +30,35 @@ export default Template(function Home() {
           abotsarray.map((bot) =>{
           })
           setsearch(
-          <div class = 'flex items-center w-full justify-center' style={{height: '200px'}}>
+          <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
           <h1 className='text-2xl font-bold text-white/70'>Type to start searching!</h1>
         </div>
         )
           setabots(<>
             <div
-              class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5"
             >
             {abotsarray.map((bot) =>{
               return(<div
-              class="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
+              onClick={()=>router.push('/bot/'+bot.id)}
+              className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
             >
               <div
-                class="bot-bg w-full h-full absolute rounded-lg"
-                style={{background: bot.banner}}
+                className="bot-bg w-full h-full absolute rounded-lg"
+                style={{
+                  background: `url(${bot.banner})`,
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'cover',
+                  filter: 'blur(2px)',
+                  opacity: '50%'
+                }}
               ></div>
-              <div class="p-4 relative">
+              <div className="p-4 relative">
                 <div
-                  class="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5"
+                  className="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5"
                 >
                   <div
-                    class="relative flex-shrink-0 w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl"
+                    className="relative flex-shrink-0 w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl"
                   >
                     <div
                       style={
@@ -65,11 +73,13 @@ export default Template(function Home() {
                         
                       }
                     >
-                      <img
+                      <Image
                         alt="vcodes.xyz"
                         decoding="async"
-                        class="rounded-full w-full h-full"
+                        className="rounded-full w-full h-full"
                         sizes="100vw"
+                        width={'0px'}
+                        height='0px'
                         src={bot.avatar}
                         style={{
                           "position": "absolute",
@@ -90,39 +100,39 @@ export default Template(function Home() {
                       />
                     </div>
                   </div>
-                  <div class="mt-5 sm:mt-0 relative flex-shrink-0">
+                  <div className="mt-5 sm:mt-0 relative flex-shrink-0">
                     <p
-                      class="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
+                      className="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
                     >
                       {bot.name}
                     </p>
                   </div>
                 </div>
                 <p
-                  class="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2"
+                  className="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2"
                 >
                   {bot.shortdesc}
                 </p>
                 <div
-                  class="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5"
+                  className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5"
                 >
                   <div
                     onClick={() => router.push('/bot/'+bot.id.toString())}
-                    class="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                    className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                   >
                     View
                   </div>
                   <div
-                    class="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                    className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                   >
                     Vote
                   </div>
                 </div>
               </div>
               <div
-                class="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
+                className="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
               >
-                <i class="fa fa-chevron-up mr-2"></i>{bot.votes}
+                <i className="fa fa-chevron-up mr-2"></i>{bot.votes}
               </div>
             </div>)
             })}
@@ -154,7 +164,7 @@ export default Template(function Home() {
               onChange={()=>{
                 if (document.getElementById('searchInput').value == ''){
                   setsearch(
-                    <div class = 'flex items-center w-full justify-center' style={{height: '200px'}}>
+                    <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
                       <h1 className='text-2xl font-bold text-white/70'>Type to start searching!</h1>
                     </div>
                   )
@@ -195,7 +205,9 @@ export default Template(function Home() {
                           display: 'block',
                           maxSidth: '100%'}}
                         >
-                          <img
+                          <Image
+                          width={'0px'}
+                          height={'0px'}
                             style={{
                               maxWidth: '100%',
                               display: 'block',
@@ -209,10 +221,12 @@ export default Template(function Home() {
                             src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
                           />
                         </div>
-                        <img
+                        <Image
                           alt="vcodes.xyz"
                           src={bot.avatar}
                           decoding="async"
+                          width='0px'
+                          height='0px'
                           className="rounded-full"
                           style={{
                             position: 'absolute',
@@ -355,10 +369,10 @@ export default Template(function Home() {
         </div>
       </div>
       <div>
-      <p class="text-3xl italic font-semibold text-black/80 dark:text-white/80">
+      <p className="text-3xl italic font-semibold text-black/80 dark:text-white/80">
         Trending Bots
       </p>
-      <p class="text-lg italic font-normal text-black/80 dark:text-white/80 mb-2">
+      <p className="text-lg italic font-normal text-black/80 dark:text-white/80 mb-2">
         Most popular bots.
       </p>
       {abots}

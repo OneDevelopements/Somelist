@@ -28,7 +28,7 @@ export default Template(function BotPage(){
             console.log(router.query.id)
             await axios.get('https://api.somelist.tk/bot?user='+router.query.id+'&requester='+Cookie.get('id')).then((res)=>{
                 console.log(res.data.result)
-                    if (res.data.result == 'none'){
+                    if (res.data.result == 'none' || res.data.result.publicity == 'private'){
                        return setbot(
                            <>
                            <div className='h-full flex items-center justify-center'>
