@@ -229,7 +229,7 @@ const Edit = (props) =>{
 }
 
 const Settings = (props) =>{
-    let [isOpen, setIsOpen] = useState(true)
+    let [isOpen, setIsOpen] = useState(false)
 
     function closeModal() {
       setIsOpen(false)
