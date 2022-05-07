@@ -1,7 +1,10 @@
+import HeaderB from "../components/Navbar";
 import Template from "../public/template";
 
-export default Template(function rules(){
+export default function rules({isLoggedIn}){
     return(
+        <>
+        <HeaderB isLoggedIn={isLoggedIn}/>
         <div className="p-5 lg:p-10 py-[10rem] lg:py-[12rem] rounded-lg min-h-screen">
             <h1 className="italic text-sky-600 text-7xl font-bold">SERVER RULES</h1>
             <ol className="mt-10 list-decimal mx-10">
@@ -13,5 +16,15 @@ export default Template(function rules(){
 
             </ol>
         </div>
+        </>
     )
-})
+}
+
+
+export async function getServerSideProps(context) {
+    return {
+      props: {
+        isLoggedIn: context.req.cookies.token
+      }
+    }
+  } 

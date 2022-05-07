@@ -21,6 +21,7 @@ export default class extends React.Component {
 
         }).then(async (res)=>{
             if (res.result == 'NOT_FOUND'){
+                console.log('not-found')
                 window.location.href= 'https://api.somelist.tk/login'
             } else if (res.result == 'TIMEOUT'){
                 window.location.href = 'https://api.somelist.tk/login'

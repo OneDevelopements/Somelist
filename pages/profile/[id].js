@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import Template from "../../public/template"
 import axios from 'axios';
 import Cookie from 'js-cookie'
-export default  Template(function profile(){
+import HeaderB from "../../components/Navbar";
+export default  function profile({isLoggedIn}){
     const router = useRouter()
     const [isadmin, setisadmin] = useState(false)
     const [abots, setabots] = useState(
@@ -209,6 +210,8 @@ export default  Template(function profile(){
       }, [])
 
     return(
+      <>
+      <HeaderB isLoggedIn={isLoggedIn}/>
         <div className="p-5 lg:p-10 py-[10rem] lg:py-[12rem] rounded-lg min-h-screen">
             <div className="grid grid-cols-1 xl:grid-cols-12 gap-y-4 xl:gap-y-0 xl:gap-x-8">
             {user}
@@ -218,5 +221,15 @@ export default  Template(function profile(){
             </div>
 
         </div>
+      </>
     )
-})
+}
+
+
+export async function getServerSideProps(context) {
+    return {
+      props: {
+        isLoggedIn: context.req.cookies.token
+      }
+    }
+  } 

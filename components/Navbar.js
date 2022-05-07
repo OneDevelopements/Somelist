@@ -243,5 +243,27 @@ const SecretNav = (props) =>{
   </>
 }
 
-export default Header;
+const HeaderB = ({isLoggedIn}) => {
+          console.log(isLoggedIn)
+          return(<div className="fixed py-6 bg-[#0B0A15]/50 px-4 flex w-full h-20 items-center" style={{zIndex: '101', top:'0'}} >      
+            <div className='hidden lg:block'>
+            <NormalNav/>
+            </div>
+            <div>
+
+            <SideNav/>
+            </div>
+            { isLoggedIn ?
+              <SecretNav/>
+              :
+              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.replace(`https://api.somelist.tk/login`)}}>
+                 Login
+              </button>                      
+            }
+          </div>)
+}
+
+
+
+export default HeaderB;
 

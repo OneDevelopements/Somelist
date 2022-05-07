@@ -1,10 +1,20 @@
 import { useRouter } from "next/router"
-import Template from "../../../public/secure-template"
+import HeaderB from "../../../components/Navbar"
 
-export default Template(function Edit(){
+export default function Edit({isLoggedIn}){
     const router = useRouter()
     const {id} = router.query
     return(
-        <></>
+        <>
+        <HeaderB isLoggedIn={isLoggedIn}/>
+        </>
     )
-})
+}
+
+export async function getServerSideProps(context) {
+    return {
+      props: {
+        isLoggedIn: context.req.cookies.token
+      }
+    }
+  } 

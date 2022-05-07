@@ -2,22 +2,19 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {useEffect, useState} from 'react';
+import HeaderB from '../components/Navbar';
 import Template from '../public/template';
 
-export default Template(function Home() {
+export default function Home({abots, isLoggedIn}) {
     const [botsdata, setbotsdata] = useState([])
     const router = useRouter()
-    const [abots, setabots] = useState(
-      <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
-        <h1 className='text-3xl font-bold italic text-white/70'>Loading...</h1>
-      </div>
-    )
     const [search, setsearch] = useState(
-      <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
-        <h1 className='text-3xl font-bold italic text-white/70'>Loading...</h1>
-      </div>
+        <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
+        <h1 className='text-2xl font-bold text-white/70'>Type to start searching!</h1>
+        </div>
+      
     )
-    useEffect(()=>{
+    /** useEffect(()=>{
       async function getbots (){
         await axios.get('https://api.somelist.tk/find_bots?limit=6').then((res)=>{
           setbotsdata(res.data.bots)
@@ -32,7 +29,7 @@ export default Template(function Home() {
           setsearch(
           <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
           <h1 className='text-2xl font-bold text-white/70'>Type to start searching!</h1>
-        </div>
+          </div>
         )
           setabots(<>
             <div
@@ -143,7 +140,10 @@ export default Template(function Home() {
       }
       getbots()
     }, [])
+    **/
     return(
+      <>
+      <HeaderB isLoggedIn={isLoggedIn}/>
       <div className='p-5 lg:p-10 py-[10rem] lg:py-[10rem] rounded-lg min-h-screen	'>
       <div className="pb-24">
         <h1 className="text-4xl font-bold">Somelist</h1>
@@ -172,7 +172,7 @@ export default Template(function Home() {
                   return
                 }
                 var searchbotsarr = []
-                botsdata.map((bot) => {
+                abots.map((bot) => {
                   if (bot.approved){
                     console.log(bot)
                     if(bot.name.toLowerCase().indexOf(document.getElementById('searchInput').value.toLowerCase()) > -1){
@@ -376,8 +376,124 @@ export default Template(function Home() {
       <p className="text-lg italic font-normal text-black/80 dark:text-white/80 mb-2">
         Most popular bots.
       </p>
-      {abots}
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
+      {abots.map((bot)=>{
+        if (!bot.approved){
+          return (<></>)
+        }
+        return(<div
+        onClick={()=>router.push('/bot/'+bot.id)}
+        style={{zIndex: '10'}}
+        className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
+      >
+        <div
+          className="bot-bg w-full h-full absolute rounded-lg"
+          style={{
+            background: `url(${bot.banner})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+            filter: 'blur(2px)',
+            opacity: '50%'
+          }}
+        ></div>
+        <div className="p-4 relative">
+          <div
+            className="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5"
+          >
+            <div
+              className="relative flex-shrink-0 w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl"
+            >
+              <div
+                style={
+                  {
+                    "display": "block",
+                    "overflow": "hidden",
+                    "position": "absolute",
+                    "inset": "0px",
+                    "boxSizing": "border-box",
+                    "margin": "0px"
+                  }
+                  
+                }
+              >
+                <Image
+                  alt="vcodes.xyz"
+                  decoding="async"
+                  className="rounded-full w-full h-full"
+                  sizes="100vw"
+                  width={'0px'}
+                  height='0px'
+                  src={bot.avatar}
+                  style={{
+                    "position": "absolute",
+                    "inset": "0px",
+                    "boxSizing": "border-box",
+                    "padding": "0px",
+                    "border": "none",
+                    "margin": "auto",
+                    "display": "block",
+                    "width": "0px",
+                    "height": "0px",
+                    "minWidth": "100%",
+                    "maxWidth": "100%",
+                    "minHeight": "100%",
+                    "maxHeight": "100%"
+                  }
+                  }
+                />
+              </div>
+            </div>
+            <div className="mt-5 sm:mt-0 relative flex-shrink-0">
+              <p
+                className="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
+              >
+                {bot.name}
+              </p>
+            </div>
+          </div>
+          <p
+            className="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2"
+          >
+            {bot.shortdesc}
+          </p>
+          <div
+            className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5"
+          >
+            <div
+              onClick={() => router.push('/bot/'+bot.id.toString())}
+              className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+            >
+              View
+            </div>
+            <div
+              className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+            >
+              Vote
+            </div>
+          </div>
+        </div>
+        <div
+          className="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
+        >
+          <i className="fa fa-chevron-up mr-2"></i>{bot.votes}
+        </div>
+      </div>)
+      })}
     </div>
     </div>
+    </div>
+    </>
     )
-})
+}
+
+
+export async function getServerSideProps(context) {
+    const res = await fetch('https://api.somelist.tk/find_bots')
+    const json = await res.json()
+    console.log(json)
+    return {props: {
+      abots: json.bots,
+      isLoggedIn: context.req.cookies.token
+    }}
+}
+

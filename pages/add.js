@@ -5,8 +5,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Cookie from 'js-cookie'
 import { useRouter } from "next/router";
+import HeaderB from "../components/Navbar";
 
-export default Template(function Add(){
+export default function Add({isLoggedIn}){
     const router = useRouter()
     const [step, setstep] = useState('')
     const [loading, setloading] = useState(false)
@@ -173,6 +174,7 @@ export default Template(function Add(){
     }
     return(
         <>
+        <HeaderB isLoggedIn={isLoggedIn}/>
         <form method='POST' onSubmit={(e) => {
             submitbot(e)
         }}>
@@ -279,4 +281,12 @@ export default Template(function Add(){
         </form>
     </>
     )
-})
+}
+
+export async function getServerSideProps(context) {
+    return {
+      props: {
+        isLoggedIn: context.req.cookies.token
+      }
+    }
+  } 

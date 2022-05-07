@@ -10,6 +10,7 @@ import BotLayout from '../components/BotLayout';
 import { ToastContainer, toast } from 'react-toastify';
 import Script from 'next/script';
 import $ from 'jquery'
+import HeaderB from '../components/Navbar';
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
   const  [id, setid] = useState('')
@@ -75,7 +76,9 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </BotLayout>
     ) : (
-      <Component {...pageProps} />
+      <>
+        <Component {...pageProps} />
+      </>
     )}
 
 <ToastContainer
