@@ -11,6 +11,7 @@ import { Dialog, Listbox, Transition } from '@headlessui/react'
 const BotLayout = (props) => {
     const router = useRouter()
     const [reload, edewfwedfqef] = useState(0)
+    const [sideNavOpen, setSideNavOpen] = useState(false)
     const [botdata, setbotdata] = useState({})
     const [bot, setbot] = useState(<>
         
@@ -96,7 +97,31 @@ const BotLayout = (props) => {
     return(
         <div className="flex">
         {props.children}
-        <div className='w-64 lg:p-10 py-[8rem] lg:py-[10rem] rounded-lg min-h-screen'>
+        <button
+            onClick={()=>{
+                if (sideNavOpen){
+                    $('.sidenav').removeClass('sidenav-show')
+                    setSideNavOpen(false)
+                } else{
+                    $('.sidenav').addClass('sidenav-show')
+                    setSideNavOpen(true)
+                }
+            }}
+            style={{
+                zIndex: '99'
+            }}
+            className={'fixed block lg:hidden bg-sky-600 text-xl rounded-lg p-4 top-24 left-4 w-14 h-min-content'}
+            >            
+            {!sideNavOpen ? 
+            <i className='fas fa-bars'/> 
+            : 
+            <i className='fas fa-times'/> 
+            }
+        </button>
+        <div style={{
+            zIndex: '98'
+        }}
+        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[8rem]  sidenav w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
             {bot}
         </div>
         {page}
@@ -120,7 +145,7 @@ const BotLayout = (props) => {
 const SideNav = (props) =>{
     const router = useRouter()
     return(
-        <div className='w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
+        <div className='w-screen lg:w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
             <div className='flex items-center mb-10 cursor-pointer' onClick={()=>{router.push('/bot/'+router.query.id)}}>
                 <img src={props.avatar} className='rounded-lg w-16 h-16 mr-3'/>
                 <h1 className={'text-3xl'}>{props.name}</h1>
@@ -161,10 +186,18 @@ const Edit = (props) =>{
             var data = $('form').serializeArray(); 
             data.push({name: "owner", value: Cookie.get('id')});
             $.ajax({
-                url: 'https://api.somelist.tk/editbot?id='+props.botdata.id,
+                url: 'https://api.somelist.tk/editbot?id='+props.botdata.id+'&token='+Cookie.get('token'),
                 type: 'POST',
                 data: $.param(data),
             }).then((res)=>{
+                if (res.reply == 'TOKEN_INVALID'){
+                    setloading(false)
+                    toast.error('We couldn\'t verify your account. Please login again.', {
+                        autoClose: 3000,
+                        closeOnClick: true,
+                        draggable: true,
+                    });
+                }
                 if (res.reply == 'worked'){
                     setloading(false)
                     toast.success('Changes saved!', {
@@ -229,8 +262,8 @@ const Edit = (props) =>{
 }
 
 const Settings = (props) =>{
+    const [loading, setloading] = useState(false)
     let [isOpen, setIsOpen] = useState(false)
-
     function closeModal() {
       setIsOpen(false)
     }
@@ -246,19 +279,66 @@ const Settings = (props) =>{
     const [selected, setSelected] = useState(
         props.botdata.publicity == 'public' ?people[0]
         : props.botdata.publicty == 'private' ? people[1]
-        : props.botdata.publicty == 'link' ? people[2]
+        : props.botdata.publicty == 'link' ? people[2] 
         : people[0]
     )
-    useEffect(()=>{
-        $.ajax({
-            url: 'https://api.somelist.tk/editbot?id='+props.botdata.id+'&publicity='+document.getElementsByName('publicity[name]')[0].value,
-            type: 'POST'
-        }).then(()=>{
-            console.log('sent')
-        })
-    }, [selected])
     return(
         <div className='ml-20 lg:p-10 py-[8rem] lg:py-[10rem] h-screen w-full'>
+            <form method='POST'>
+            <button
+                style={{'zIndex': '100', 'float': 'right', 'bottom': '20px', 'right': '20px'}}
+                className="fixed opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-600/20"
+                disabled={loading}
+                onClick={() => {
+                    setloading(true)
+                    var data = $('form').serializeArray(); 
+                    data.push({name: "owner", value: Cookie.get('id')});
+                    $.ajax({
+                        url: 'https://api.somelist.tk/editbot/settings?id='+props.botdata.id+'&token='+Cookie.get('token'),
+                        type: 'POST',
+                        data: $.param(data),
+                    }).then((res)=>{
+                        if (res.reply == 'TOKEN_INVALID'){
+                            setloading(false)
+                            toast.error('We couldn\'t verify your account. Please login again.', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });
+                        }
+                        if (res.reply == 'worked'){
+                            setloading(false)
+                            toast.success('Changes saved!', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });
+                        } else {
+                            setloading(true)
+                            toast.error('An unexpected error occured :C', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });
+                        }
+                    }).catch(()=>{
+                        setLoading(false)
+                        toast.error('An unexpected error occured :C', {
+                            autoClose: 3000,
+                            closeOnClick: true,
+                            draggable: true,
+                        });
+                    })
+                }} 
+                type='button'
+            >
+                {loading ? (
+                    <TailSpin color="#fff" height={'25'} width={'25'} />
+                ) : (
+                <><i className="mr-2 fas fa-save"></i><p className="font-semibold">Save</p></>
+                )}
+            </button>
+            <div>
             <h1 className='text-4xl text-sky-500 italic font-semibold'>General</h1>
             <div className='flex w-full my-10'>
                 <div className='w-full '>
@@ -317,6 +397,9 @@ const Settings = (props) =>{
                 </Listbox>
                 </div>
             </div>
+            <div className='py-20' />
+            </div>
+            </form>
             <div>
                 <h1 className='text-4xl text-sky-500 italic font-semibold'>Ownership</h1>
                 <div className='flex w-full my-10'>
@@ -383,7 +466,7 @@ const Settings = (props) =>{
                                         className="focus:outline-none inline-flex justify-center rounded-md border border-transparent bg-red-100 px-4 py-2 text-sm font-medium text-red-900 hover:bg-red-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                         onClick={()=>{
                                             $.ajax({
-                                                url: 'https://api.somelist.tk/delete/'+props.botdata.id
+                                                url: 'https://api.somelist.tk/delete/'+props.botdata.id+'?token='+Cookie.get('token')
                                             }).then(()=>{
                                                 router.push('/profile/'+props.botdata.owner)
                                             })

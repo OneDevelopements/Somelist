@@ -3,6 +3,7 @@ import { exchangeToken, saveTokens, saveUser } from "../public/oauth";
 import Router from 'next/router'
 import PropTypes from "prop-types";
 import  Cookie  from 'js-cookie';
+import $ from 'jquery'
 export default class extends React.Component {
     static getInitialProps({query}) {
         return {
@@ -15,11 +16,23 @@ export default class extends React.Component {
     };
 
     async componentDidMount () {
-        console.log(process.env)
-        Cookie.set('username', Router.query.username)
-        Cookie.set('id', Router.query.id)
-        Cookie.set('token', 'hi')
-        Cookie.set('refreshToken', 'h2')
+        $.ajax({
+            url: 'https://api.somelist.tk/authorize?code='+Router.query.code,
+
+        }).then((res)=>{
+            if (res.result == 'NOT_FOUND'){
+                window.location.href= 'https://api.somelist.tk/login'
+            } else if (res.result == 'TIMEOUT'){
+                window.location.href = 'https://api.somelist.tk/login'
+            } else {
+                console.log(res.result.id)
+                Cookie.set('username', res.result.name)
+                Cookie.set('id', res.result.id)
+                Cookie.set('avatar', res.result.avatar)
+                Cookie.set('token', res.result.token)
+                Cookie.set('refreshToken', 'h2')
+            }
+        })
         if (Cookie.get('redirect')){
             const redirect = Cookie.get('redirect')
             Cookie.remove('redirect')

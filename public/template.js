@@ -21,7 +21,6 @@ export default Page => class Template extends React.Component {
     render() {
         return(
             <>
-                <div id='gradient'></div>
                 <Header>{ this.props }</Header>
                 <div
                 className='pagetransition'

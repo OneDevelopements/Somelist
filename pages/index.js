@@ -41,6 +41,7 @@ export default Template(function Home() {
             {abotsarray.map((bot) =>{
               return(<div
               onClick={()=>router.push('/bot/'+bot.id)}
+              style={{zIndex: '10'}}
               className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
             >
               <div
@@ -288,7 +289,7 @@ export default Template(function Home() {
   <div className="">
     <div
       style={{zIndex: "99", display: 'none'}}
-      className="rounded-lg p-4 bg-[#0B0A15]/50 absolute w-full"
+      className="backdrop-blur-lg rounded-lg p-4 bg-[#0B0A15]/50 absolute w-full"
       id='search'
     >
       {search}

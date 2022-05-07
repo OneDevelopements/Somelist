@@ -175,8 +175,32 @@ export default Template(function BotPage(){
                                         return openModal()
                                     }
                                     $.ajax({
-                                        url: 'https://api.somelist.tk/vote/'+res.data.result.id+'?user='+Cookie.get('id')
+                                        url: 'https://api.somelist.tk/vote/'+res.data.result.id+'?user='+Cookie.get('id')+"&token="+Cookie.get('token')
                                     }).then((res)=>{
+                                        if(res.result == 'TOKEN_INVALID'){
+                                            setdialogContent(<><Dialog.Title
+                                                as="h3"
+                                                className="text-lg font-medium leading-6 text-gray-900"
+                                            >
+                                                Whoops!
+                                            </Dialog.Title>
+                                            <div className="mt-2">
+                                                <p className="text-sm text-gray-500">
+                                                We couldn't verify that your account is valid. You could try logging in again!
+                                                </p>
+                                            </div>
+
+                                            <div className="mt-4">
+                                                <button
+                                                type="button"
+                                                className="focus:outline-none inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                                onClick={closeModal}
+                                                >
+                                                Ok
+                                                </button>
+                                            </div>
+                                            </>)
+                                        }
                                         if (res.result == 'WAIT'){
 
                                             setdialogContent(<><Dialog.Title

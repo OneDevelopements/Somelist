@@ -22,7 +22,6 @@ export default Page => class Template extends React.Component {
         if (!this.props.isLoggedIn) {
             return (
                 <>
-                    <div id='gradient'></div>
                     <Header { ...this.props } />
                     <Testhingyabc/>
                 </>
@@ -30,7 +29,7 @@ export default Page => class Template extends React.Component {
         }
         return(
             <>
-                <div id='gradient'></div>
+                
                 <Header>{ this.props }</Header>
                     <Page>{ this.props }</Page>
             </>

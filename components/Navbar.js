@@ -5,6 +5,8 @@ import {BsBell, BsFillBellFill} from 'react-icons/bs'
 import Cookie from 'js-cookie';
 import { Menu, Popover, Transition } from '@headlessui/react'
 import axios from 'axios'
+import Image from "next/image";
+import $ from 'jquery'
 class Header extends React.Component {
     static propTypes = {
         isLoggedIn: PropTypes.bool
@@ -17,11 +19,16 @@ class Header extends React.Component {
             if(this.props.children) return this.isLoggedIn = this.props.children.isLoggedIn;
         }
     }
-
     render(){
         return(
-          <div className="fixed py-6 bg-[#0B0A15]/50 px-4 flex w-full h-20" style={{zIndex: '101', top:'0'}} >      
+          <div className="fixed py-6 bg-[#0B0A15]/50 px-4 flex w-full h-20 items-center" style={{zIndex: '101', top:'0'}} >      
+            <div className='hidden lg:block'>
             <NormalNav/>
+            </div>
+            <div>
+
+            <SideNav/>
+            </div>
             { this.isLoggedIn ?
               <SecretNav/>
               :
@@ -34,6 +41,67 @@ class Header extends React.Component {
         )
 
     }
+}
+
+const SideNav= (props) =>{
+  const router = useRouter()
+  const [sideNavOpen, setSideNavOpen] = useState(true)
+  return(
+  <>
+<button
+              onClick={
+                sideNavOpen ? 
+                ()=>{
+                      $('.sidenav').removeClass('sidenav-show')
+                      setSideNavOpen(false)
+                  } : 
+                () =>{
+                    $('.sidenav').addClass('sidenav-show')
+                  setSideNavOpen(true)
+              }}
+              style={{
+                  zIndex: '102'
+              }}
+              className={'relative block lg:hidden bg-sky-600 text-xl rounded-lg p-4 w-14 h-min-content'}
+              >            
+              {!sideNavOpen ? 
+              <i className='fas fa-bars'/> 
+              : 
+              <i className='fas fa-times'/> 
+              }
+            </button>
+
+        <div style={{
+            zIndex: '101'
+        }}
+        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
+        <div className='w-screen lg:w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
+            <div>
+                <button onClick={()=>{
+                    router.push('/')
+                  }} style={{textAlign: 'left'}} className={router.pathname == '/' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Home
+                </button>
+                <div className='my-2'/>
+                <button onClick={()=>{
+                    router.push('/explore')
+                }} style={{textAlign: 'left'}} className={router.pathname == '/explore' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Explore
+                </button>
+
+                <div className='my-2'/>
+                <button onClick={()=>{
+                        router.push('/add')
+                    }} style={{textAlign: 'left'}} className={router.pathname == '/add' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Add
+                </button>
+                <div className='my-2'/>
+                <button onClick={()=>{
+                        router.push('/partners')
+                    }} style={{textAlign: 'left'}} className={router.pathname == '/partners' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Partners
+                </button>
+            </div>
+        </div>
+        </div>
+      </>
+    )
 }
 
 const NormalNav = (props) =>{
@@ -58,9 +126,13 @@ const NormalNav = (props) =>{
 const SecretNav = (props) =>{
   const router = useRouter()
   const [username, setusername] = useState('')
+  const [avatar, setavatar] = useState('')
   useEffect(()=>{
     setusername(
       Cookie.getJSON('username')
+    )
+    setavatar(
+      Cookie.getJSON('avatar')
     )
   }, [])
   const solutions = [
@@ -83,7 +155,7 @@ const SecretNav = (props) =>{
 <div className="ml-auto">
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90'>
-        {username}
+        <img src={avatar} width='50' height='50' className='rounded-full' />
       </Menu.Button>
       {/* Use the Transition component. */}
       <Transition
@@ -127,7 +199,7 @@ const SecretNav = (props) =>{
             <Popover.Button
               className={`
                 ${open ? 'text-white/90' : 'text-white/70'}
-                ml-auto text-lg font-semibold hover:text-white/90`}
+                hidden ml-auto text-lg font-semibold hover:text-white/90`}
             >
               <BsFillBellFill size={25} />
             </Popover.Button>

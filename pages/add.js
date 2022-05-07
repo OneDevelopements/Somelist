@@ -44,10 +44,15 @@ export default Template(function Add(){
             setloading(true)
             var botid = document.getElementById('id')
             $.ajax({
-                url: 'https://api.somelist.tk/find',
+                url: 'https://api.somelist.tk/find?token='+Cookie.get('token'),
                 type: 'POST',
                 data: {'id': botid.value}
             }).then((res)=>{
+                if (res.result == 'TOKEN_INVALID'){
+                    setloading(false)
+                    setstagecount(1)
+                    return window.location.href='https://api.somelist.tk/login'
+                }
                 if (res.result == 'INVALID'){
                     setloading(false)
                     setstagecount(1)
@@ -104,7 +109,7 @@ export default Template(function Add(){
                 } else {
                     if($("#shortdesc").val().length <= 15){
                         setstagecount(3)
-                        return toast.warning('Your Short Description should have more than 15 characters!', {
+                        toast.warning('Your Short Description should have more than 15 characters!', {
                             autoClose: 3000,
                             closeOnClick: true,
                             draggable: true,
@@ -112,7 +117,7 @@ export default Template(function Add(){
                     }
                     if($("#longdesc").val().length <= 100){
                         setstagecount(3)
-                        return toast.warning('Your Long Description should have more than 15 characters!', {
+                        toast.warning('Your Long Description should have more than 15 characters!', {
                             autoClose: 3000,
                             closeOnClick: true,
                             draggable: true,
@@ -123,7 +128,7 @@ export default Template(function Add(){
                         if($('#invite').val().startsWith('https://discord.com/api/oauth2/authorize')){
 
                         } else{
-                            return toast.warning('Invite URL should start with https://discord.com/api/oauth2/authorize!', {
+                            toast.warning('Invite URL should start with https://discord.com/api/oauth2/authorize!', {
                                 autoClose: 3000,
                                 closeOnClick: true,
                                 draggable: true,
@@ -136,6 +141,7 @@ export default Template(function Add(){
                     <p className="mt-1 text-lg text-zinc-400 ml-2">Your bot's connections.</p>
                 </>
             )
+            setstagecount(5)
                 }
         }
     }, [stagecount])
@@ -144,7 +150,7 @@ export default Template(function Add(){
         data.push({name: "owner", value: Cookie.get('id')});
         console.log(data)
         $.ajax({
-            url: 'https://api.somelist.tk/submitbot',
+            url: 'https://api.somelist.tk/submitbot?token='+Cookie.get('token'),
             type: 'POST',
             data: $.param(data),
         }).then((res)=>{

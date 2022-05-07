@@ -61,7 +61,7 @@
     left: 50%;
     transform: translateX(-50%);
     background: radial-gradient(at 71% 77%,var(--color-gradient-1) 0,transparent 21%),radial-gradient(at 36% 47%,var(--color-gradient-3) 0,transparent 50%),radial-gradient(at 54% 29%,var(--color-gradient-3) 0,transparent 28%),radial-gradient(at 45% 51%,var(--color-gradient-1) 0,transparent 53%),radial-gradient(at 73% 44%,var(--color-gradient-2) 0,transparent 54%),radial-gradient(at 24% 7%,var(--color-gradient-2) 0,transparent 40%),radial-gradient(at 76% 46%,var(--color-gradient-1) 0,transparent 50%);
-    background-image: url('https://img.freepik.com/free-vector/space-background-with-planet-landscape_107791-6146.jpg?w=2000');
+    background-image: url('https://i.imgur.com/I9pgtXa.jpeg');
     max-height: 100vh;
     height: 100vh;
     max-width: 100vw;
@@ -141,4 +141,24 @@ th{
   to {
     opacity: 1
   }
+}
+
+.preloader{
+  z-index: 10000;
+  opacity: 1;
+  transition: ease-in-out all 0.5s;
+}
+
+.preloaded{
+  opacity: 0;
+}
+
+.sidenav{
+  left: -100vw;
+  width: 100vw;
+  transition: ease-in-out all 0.3s;
+}
+
+.sidenav-show{
+  left: 0;
 }

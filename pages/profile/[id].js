@@ -12,17 +12,7 @@ export default  Template(function profile(){
       </div>
     )
     const [user, setuser] = useState('')
-    useEffect(()=>{
-      async function checkadmin(){
-          await axios.get('https://api.somelist.tk/isadmin?id='+Cookie.get('id')).then((res)=>{
-              if (res.data.admin){
-                  setisadmin(true)
-                  console.log(isadmin)
-              }
-          })
-      }
-      checkadmin()
-  }, [])
+    
     useEffect(()=>{
         async function getbots (){
           await axios.get('https://api.somelist.tk/find_bots?owner='+router.query.id).then((res)=>{

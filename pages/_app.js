@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 import BotLayout from '../components/BotLayout';
 import { ToastContainer, toast } from 'react-toastify';
 import Script from 'next/script';
-
+import $ from 'jquery'
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
   const  [id, setid] = useState('')
@@ -29,6 +29,15 @@ function MyApp({ Component, pageProps }) {
       }
   }
   }), []
+  const [loaded, setloaded] = useState(false)
+  useEffect(()=>{
+    window.addEventListener('load', function () {
+      if (loaded == false){
+        $('.preloader').addClass('preloaded')
+        setloaded(true)
+      }
+    }) 
+  })
   if (router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics'){
     console.log(router.query.id)
   }
@@ -36,7 +45,6 @@ function MyApp({ Component, pageProps }) {
     <Head>
         <title>Somelist | Discord Bots</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-        <link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet"/> 
         <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
         <meta name="google-site-verification" content="7gLQjji2gsG8jRarJfqdouJwnovmJCLM-Kbnv4CVLxw" />
         <meta name="description" content="Improve your online presence with Somelist. Advertise, Explore, and Interact with Discord Bots on this Vast, and Stunning Discord Bot List." />
@@ -60,6 +68,7 @@ function MyApp({ Component, pageProps }) {
       </div>
     </div>
     </div>
+    <div id='gradient'></div>
     {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' || router.pathname == '/bot/[id]/settings' ? 
     (
       <BotLayout id={router.query.id}>
