@@ -74,7 +74,7 @@ const SideNav= (props) =>{
         <div style={{
             zIndex: '101'
         }}
-        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
+        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:hidden lg:w-64 lg:py-[10rem] rounded-lg'>
         <div className='w-screen lg:w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
             <div>
                 <button onClick={()=>{

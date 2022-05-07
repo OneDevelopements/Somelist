@@ -31,15 +31,15 @@ export default class extends React.Component {
                 Cookie.set('avatar', res.result.avatar)
                 Cookie.set('token', res.result.token)
                 Cookie.set('refreshToken', 'h2')
+                if (Cookie.get('redirect')){
+                    const redirect = Cookie.get('redirect')
+                    Cookie.remove('redirect')
+                    return await Router.push(redirect)
+                } else {
+                    await Router.push('/');
+                }
             }
         })
-        if (Cookie.get('redirect')){
-            const redirect = Cookie.get('redirect')
-            Cookie.remove('redirect')
-            return await Router.push(redirect)
-        } else {
-            await Router.push('/');
-        }
     }
     render(){
         
