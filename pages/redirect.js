@@ -19,7 +19,7 @@ export default class extends React.Component {
         $.ajax({
             url: 'https://api.somelist.tk/authorize?code='+Router.query.code,
 
-        }).then((res)=>{
+        }).then(async (res)=>{
             if (res.result == 'NOT_FOUND'){
                 window.location.href= 'https://api.somelist.tk/login'
             } else if (res.result == 'TIMEOUT'){
