@@ -887,7 +887,7 @@ export default function BotPage({isLoggedIn, botdata}){
 
 export async function getServerSideProps(context) {
     console.log(context.query.id)
-    const res = await fetch('https://api.somelist.tk/bot?user='+context.query.id+'&requester='+Cookie.get('id'))
+    const res = await fetch('https://api.somelist.tk/bot?user='+context.query.id+'&requester='+context.req.cookies.id)
     const json = await res.json()
     return {
       props: {
