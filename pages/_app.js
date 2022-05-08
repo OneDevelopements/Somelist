@@ -32,6 +32,7 @@ function MyApp({ Component, pageProps }) {
   }), []
   useEffect(()=>{
     console.log('triggered')
+    console.log(router.pathname)
     if(Cookie.get('HighGraphics')){
       console.log('high graphics active')
       $('#gradient').addClass('high-graphs')
@@ -78,7 +79,9 @@ function MyApp({ Component, pageProps }) {
     </div>
     </div>
     <div id='gradient'></div>
-    {process.env.NEXT_PUBLIC_LOADING == 'true' && <div className='preloader bg-gray-900 flex items-center justify-center'>
+    {process.env.NEXT_PUBLIC_LOADING == 'true' && 
+    router.pathname != '/404' &&
+    <div className='preloader bg-gray-900 flex items-center justify-center'>
       <h1 className='animate-bounce'> Somelist</h1>
     </div>}
     {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' || router.pathname == '/bot/[id]/settings' ? 
