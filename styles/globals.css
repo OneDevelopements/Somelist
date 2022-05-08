@@ -64,8 +64,7 @@
     background-image: linear-gradient( 0.9deg, var(--bg-color) 54.2%, var(--gradient) 45.8% );
     max-height: 800px;
     height: 80vh;
-    max-width: 1400px;
-    width: 100%;
+    width: 100vw;
     filter: blur(44px);
     z-index: -1;
     opacity: 25%;

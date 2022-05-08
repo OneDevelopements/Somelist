@@ -256,7 +256,7 @@ const HeaderB = ({isLoggedIn}) => {
     window.addEventListener("scroll", changeBackground)
   }, [])
           console.log(isLoggedIn)
-          return(<div className={`transiton ease-in-out duration-300 delay-50 ${navbar ? 'bg-[#0B0A15] backdrop-blur-xl py-3 px-12' : 'py-6 px-4'} fixed flex w-full h-20 items-center`} style={{zIndex: '101', top:'0'}} >      
+          return(<div className={`transiton ease-in-out duration-300 ${navbar ? `${navigator.userAgent.indexOf("Firefox") > 0 ? 'bg-gray-900' : 'bg-gray-600/20'} backdrop-blur-xl py-3 px-12 rounded-full top-10 left-5 right-5` : 'rounded-none py-6 px-4 w-full left-0 right-0 top-0'} fixed flex h-20 items-center`} style={{zIndex: '101', top:'0'}} >      
             <div className='hidden lg:block'>
             <NormalNav/>
             </div>
