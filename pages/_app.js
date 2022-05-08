@@ -30,15 +30,23 @@ function MyApp({ Component, pageProps }) {
       }
   }
   }), []
+  useEffect(()=>{
+    console.log('triggered')
+    if(Cookie.get('HighGraphics')){
+      console.log('high graphics active')
+      $('#gradient').addClass('high-graphs')
+    }
+  }, [])
   const [loaded, setloaded] = useState(false)
   useEffect(()=>{
     window.addEventListener('load', function () {
+      console.log('loaded')
       if (loaded == false){
         $('.preloader').addClass('preloaded')
         setloaded(true)
       }
     }) 
-  })
+  }, [])
   if (router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics'){
     console.log(router.query.id)
   }
@@ -70,6 +78,9 @@ function MyApp({ Component, pageProps }) {
     </div>
     </div>
     <div id='gradient'></div>
+    {process.env.NEXT_PUBLIC_LOADING == 'true' && <div className='preloader bg-gray-900 flex items-center justify-center'>
+      <h1 className='animate-bounce'> Somelist</h1>
+    </div>}
     {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' || router.pathname == '/bot/[id]/settings' ? 
     (
       <BotLayout id={router.query.id}>

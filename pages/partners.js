@@ -39,7 +39,7 @@ export default Template(function Partners(){
                       }
                     >
                       <img
-                        alt="vcodes.xyz"
+                        alt="Nanocord"
                         decoding="async"
                         className="rounded-full w-full h-full"
                         sizes="100vw"
@@ -69,14 +69,14 @@ export default Template(function Partners(){
                     <p
                       className="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
                     >
-                        test
+                        Nanocord
                     </p>
                   </div>
                 </div>
                 <p
                   className="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2"
                 >
-                  test
+                  Create. Share. Grow. Brought to you by CursedBots.Inc.
                 </p>
                 <div
                   className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5"

@@ -72,7 +72,7 @@ export default function Home({abots, isLoggedIn}) {
                       }
                     >
                       <Image
-                        alt="vcodes.xyz"
+                        alt="somelist"
                         decoding="async"
                         className="rounded-full w-full h-full"
                         sizes="100vw"
@@ -189,7 +189,7 @@ export default function Home({abots, isLoggedIn}) {
                     
                     className="p-4 gap-x-4 flex w-full hover:bg-zinc-500/5 transition-all duration-200 rounded-xl transiiton-all duration-200 cursor-pointer"
                   >
-                    <div className="w-[64px] h-[64px] rounded-full shadow-xl flex-shrink-0">
+                    <div onClick={()=>{router.push('/bot/'+bot.id)}} className="w-[64px] h-[64px] rounded-full shadow-xl flex-shrink-0">
                       <div
                         style={{
                           display: 'inline-block',
@@ -206,9 +206,7 @@ export default function Home({abots, isLoggedIn}) {
                           display: 'block',
                           maxSidth: '100%'}}
                         >
-                          <Image
-                          width={'0px'}
-                          height={'0px'}
+                          <img
                             style={{
                               maxWidth: '100%',
                               display: 'block',
@@ -216,18 +214,19 @@ export default function Home({abots, isLoggedIn}) {
                               border: 'medium none',
                               padding: '0px',
                             }}
+                            className='rounded-full'
                             alt=""
                             aria-hidden="true"
                             role="presentation"
-                            src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgdmVyc2lvbj0iMS4xIi8+"
+                            src={''}
                           />
                         </div>
                         <Image
                           alt="vcodes.xyz"
                           src={bot.avatar}
-                          decoding="async"
-                          width='0px'
-                          height='0px'
+                          height='100%'
+                          width='100%'
+                          
                           className="rounded-full"
                           style={{
                             position: 'absolute',
@@ -493,7 +492,7 @@ export async function getServerSideProps(context) {
     console.log(json)
     return {props: {
       abots: json.bots,
-      isLoggedIn: context.req.cookies.token
+      isLoggedIn: context.req.cookies.token ? true : false
     }}
 }
 

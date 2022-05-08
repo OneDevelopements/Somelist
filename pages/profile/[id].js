@@ -4,12 +4,14 @@ import Template from "../../public/template"
 import axios from 'axios';
 import Cookie from 'js-cookie'
 import HeaderB from "../../components/Navbar";
+import { ThreeDots } from "react-loader-spinner";
+import Image from "next/image";
 export default  function profile({isLoggedIn}){
     const router = useRouter()
     const [isadmin, setisadmin] = useState(false)
     const [abots, setabots] = useState(
       <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
-        <h1 className='text-3xl font-bold italic text-white/70'>Loading...</h1>
+        <ThreeDots color="#fff"/>
       </div>
     )
     const [user, setuser] = useState('')
@@ -24,7 +26,7 @@ export default  function profile({isLoggedIn}){
                         Oops!
                     </p>
                     <p className="text-black dark:text-white text-center text-2xl font-medium">
-                        Seems like Pop Plays has no bots.
+                        Seems like this user has no bots.
                     </p>
                     </div>
                 )
@@ -154,9 +156,11 @@ export default  function profile({isLoggedIn}){
                             role="presentation"
                             />
                         </div>
-                        <img
+                        <Image
                             alt="vcodes.xyz"
                             decoding="async"
+                            height='0'
+                            width='0'
                             src={res.data.result.avatar}
                             className="rounded-full"
                             style={{position: "absolute", inset: "0px", boxSizing: "border-box", padding: "0px", border: "medium none", margin: "auto", display: "block", width: "0px", height: "0px", minWidth: "100%", maxWidth: "100%", minHeight: "100%", maxHeight: "100%"}}

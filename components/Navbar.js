@@ -244,8 +244,19 @@ const SecretNav = (props) =>{
 }
 
 const HeaderB = ({isLoggedIn}) => {
+  const [navbar, setNavbar] = useState(false)
+  const changeBackground = ()=>{
+    if (window.scrollY >= 5) {
+      setNavbar(true)
+    } else {
+      setNavbar(false)
+    }
+  }
+  useEffect(()=>{
+    window.addEventListener("scroll", changeBackground)
+  }, [])
           console.log(isLoggedIn)
-          return(<div className="fixed py-6 bg-[#0B0A15]/50 px-4 flex w-full h-20 items-center" style={{zIndex: '101', top:'0'}} >      
+          return(<div className={`transiton ease-in-out duration-300 delay-50 ${navbar ? 'bg-[#0B0A15] backdrop-blur-xl py-3 px-12' : 'py-6 px-4'} fixed flex w-full h-20 items-center`} style={{zIndex: '101', top:'0'}} >      
             <div className='hidden lg:block'>
             <NormalNav/>
             </div>
