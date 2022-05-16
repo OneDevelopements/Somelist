@@ -10,6 +10,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
     "@headlessui/react": "^0.0.0-insiders.591b328",
+    "@tippyjs/react": "^4.2.6",
     "axios": "^0.19.0",
     "fs": "^0.0.1-security",
     "jquery": "^3.6.0",
@@ -22,7 +23,9 @@
     "react-icons": "^4.3.1",
     "react-loader-spinner": "^6.0.0-0",
     "react-toastify": "^8.2.0",
-    "sharp": "^0.30.4"
+    "react-tooltip": "^4.2.21",
+    "sharp": "^0.30.4",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@tailwindcss/line-clamp": "^0.4.0",

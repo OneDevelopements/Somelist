@@ -6,6 +6,7 @@ import Cookie from 'js-cookie'
 import HeaderB from "../../components/Navbar";
 import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
+import Tippy from "@tippyjs/react";
 export default  function profile({isLoggedIn}){
     const router = useRouter()
     const [isadmin, setisadmin] = useState(false)
@@ -177,15 +178,60 @@ export default  function profile({isLoggedIn}){
                         <i className="fa fa-clock mr-1"></i>a few seconds ago
                     </p>
                     <div className="flex items-center mt-2 gap-x-2">
-                        {isadmin &&
-                          <i className="fa fa-bolt text-2xl text-sky-500 mr-1"></i>
+                        
+                        {res.data.result.badges  &&
+                        res.data.result.badges.includes('owner') &&
+                        <>
+                        <Tippy content='Owner' placement='top'>
+                        <i className="fa fa-crown text-2xl text-orange-500 mr-1"></i>
+                        </Tippy>
+                        </>
                         }
+                        {res.data.result.badges  &&
+                          res.data.result.badges.includes('team') &&
+                        <>
+                        <Tippy content='Team' placement='top'>
+                        <i className="fa fa-users text-2xl text-green-500 mr-1"></i>
+                        </Tippy>
+                        </>     
+                        }                   
+                        {res.data.result.badges  &&
+                          res.data.result.badges.includes('moderator') &&
+                        <>
+                        <Tippy content='Moderator' placement='top'>
+                        <i className="fa fa-shield text-2xl text-red-500 mr-1"></i>
+                        </Tippy>
+                        </>                               
+                        } {
+                          res.data.result.badges  &&
+                          res.data.result.badges.includes('partner') && 
+                        <>
+                          <Tippy content='Partner' placement='top'>
+                          <i className="fa fa-handshake text-2xl text-violet-500 mr-1"></i>
+                          </Tippy>
+                        </>                                                       
+                        }
+                        {res.data.result.badges  &&
+                          res.data.result.badges.includes('bot reviewer') &&
+                        <>
+                          <Tippy content='Bot Reviewer' placement='top'>
+                          <i className="fa fa-bolt text-2xl text-fuchsia-500 mr-1"></i>
+                          </Tippy>
+                        </>                                                                               
+                        }{res.data.result.badges  &&
+                          res.data.result.badges.includes('bot developer') &&
+                        <>
+                        <Tippy content='Bot Developer' placement='top'>
+                          <i className="fa fa-hammer text-2xl text-blue-500 mr-1"></i>
+                        </Tippy>
+                        </>                        
+                      }
                     </div>
                     <div className="mt-5 w-full">
                         <div
                         className="flex items-center text-sky-500 dark:text-sky-500 font-medium text-2xl text-left"
                         >
-                        <i className="fal fa-external-link text-sky-500 mr-2"></i
+                        <i className="fas fa-external-link text-sky-500 mr-2"></i
                         ><span className="text-sky-500">Links</span>
                         </div>
                         <a

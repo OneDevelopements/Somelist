@@ -12,6 +12,10 @@ import Script from 'next/script';
 import $ from 'jquery'
 import HeaderB from '../components/Navbar';
 import Image from 'next/image';
+import 'tippy.js/dist/tippy.css'; // optional
+
+import '../styles/tippy.css';
+
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
   const  [id, setid] = useState('')

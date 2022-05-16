@@ -19,10 +19,13 @@ export default Template(function Partners(){
                 }}
               ></div>
               <div className="p-4 relative">
+
                 <div
                   className="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5"
                 >
                   <div
+              onClick={()=>{window.open('https://nanocord.glitch.me')}}
+
                     className="relative flex-shrink-0 w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl"
                   >
                     <div
@@ -45,7 +48,7 @@ export default Template(function Partners(){
                         sizes="100vw"
                         width={'0px'}
                         height='0px'
-                        src={'http://placeholder'}
+                        src={'https://cdn.discordapp.com/attachments/854188580422025226/972853676152598570/Screenshot_20220501-2107362.png'}
                         style={{
                           "position": "absolute",
                           "inset": "0px",
@@ -82,22 +85,18 @@ export default Template(function Partners(){
                   className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5"
                 >
                   <div
-                    
+                    onClick={()=>{window.open('https://nanocord.glitch.me')}}
                     className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                   >
                     View
                   </div>
                   <div
+                  onClick={()=>{window.open('https://discord.gg/zqRPsmDS95')}}
                     className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
                   >
                     Join
                   </div>
                 </div>
-              </div>
-              <div
-                className="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
-              >
-                <i className="fa fa-chevron-up mr-2"></i>hi
               </div>
             </div>
             </div>
