@@ -14,7 +14,7 @@ export default function Edit({isLoggedIn}){
 export async function getServerSideProps(context) {
     return {
       props: {
-        isLoggedIn: context.req.cookies.token
+        isLoggedIn: context.req.cookies.token ? true : false
       }
     }
   } 

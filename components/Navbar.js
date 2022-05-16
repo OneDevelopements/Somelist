@@ -45,7 +45,7 @@ class Header extends React.Component {
 
 const SideNav= (props) =>{
   const router = useRouter()
-  const [sideNavOpen, setSideNavOpen] = useState(true)
+  const [sideNavOpen, setSideNavOpen] = useState(false)
   return(
   <>
 <button
@@ -72,30 +72,30 @@ const SideNav= (props) =>{
             </button>
 
         <div style={{
-            zIndex: '101'
+            zIndex: '99'
         }}
-        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:hidden lg:w-64 lg:py-[10rem] rounded-lg'>
+        className='top-0 bg-black lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:hidden lg:w-64 lg:py-[10rem] rounded-lg'>
         <div className='w-screen lg:w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
             <div>
                 <button onClick={()=>{
                     router.push('/')
-                  }} style={{textAlign: 'left'}} className={router.pathname == '/' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Home
+                  }} style={{textAlign: 'left'}} className={router.pathname == '/' ? ' bg-sky-400/70' + ` w-full px-3 py-4 rounded-lg text-lg` : ' hover:bg-sky-400/20' + ` w-full px-3 py-4 rounded-lg text-lg`}>Home
                 </button>
-                <div className='my-2'/>
+                <div className='my-5'/>
                 <button onClick={()=>{
                     router.push('/explore')
-                }} style={{textAlign: 'left'}} className={router.pathname == '/explore' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Explore
+                }} style={{textAlign: 'left'}} className={router.pathname == '/explore' ? ' bg-sky-400/70' + ` w-full px-3 py-4 rounded-lg text-lg` : ' hover:bg-sky-400/20' + ` w-full px-3 py-4 rounded-lg text-lg`}>Explore
                 </button>
 
-                <div className='my-2'/>
+                <div className='my-5'/>
                 <button onClick={()=>{
                         router.push('/add')
-                    }} style={{textAlign: 'left'}} className={router.pathname == '/add' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Add
+                    }} style={{textAlign: 'left'}} className={router.pathname == '/add' ? ' bg-sky-400/70' + ` w-full px-3 py-4 rounded-lg text-lg` : ' hover:bg-sky-400/20' + ` w-full px-3 py-4 rounded-lg text-lg`}>Add
                 </button>
-                <div className='my-2'/>
+                <div className='my-5'/>
                 <button onClick={()=>{
                         router.push('/partners')
-                    }} style={{textAlign: 'left'}} className={router.pathname == '/partners' ? ' bg-sky-400/70' + ` w-full px-3 py-2 rounded-lg ` : ' hover:bg-sky-400/20' + ` w-full px-3 py-2 rounded-lg`}>Partners
+                    }} style={{textAlign: 'left'}} className={router.pathname == '/partners' ? ' bg-sky-400/70' + ` w-full px-3 py-4 rounded-lg text-lg` : ' hover:bg-sky-400/20' + ` w-full px-3 py-4 rounded-lg text-lg`}>Partners
                 </button>
             </div>
         </div>

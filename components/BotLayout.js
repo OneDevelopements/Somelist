@@ -2,7 +2,7 @@ import Axios from "axios"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import Cookie from 'js-cookie'
-import { TailSpin } from "react-loader-spinner"
+import { ThreeDots } from "react-loader-spinner"
 import { ToastContainer, toast } from 'react-toastify';
 import $ from 'jquery'
 import { Fragment } from 'react'
@@ -18,7 +18,7 @@ const BotLayout = (props) => {
     </>)
     const [page, setpage] = useState(<>
         <div className='flex h-screen w-full items-center justify-center'>
-            <TailSpin
+            <ThreeDots
             color={'var(--700)'}
             />
         </div>
@@ -225,7 +225,7 @@ const Edit = (props) =>{
         type='button'
     >
         {loading ? (
-            <TailSpin color="#fff" height={'25'} width={'25'} />
+            <ThreeDots color="#fff" height={'25'} width={'25'} />
         ) : (
         <><i className="mr-2 fas fa-save"></i><p className="font-semibold">Save</p></>
         )}
@@ -333,7 +333,7 @@ const Settings = (props) =>{
                 type='button'
             >
                 {loading ? (
-                    <TailSpin color="#fff" height={'25'} width={'25'} />
+                    <ThreeDots color="#fff" height={'25'} width={'25'} />
                 ) : (
                 <><i className="mr-2 fas fa-save"></i><p className="font-semibold">Save</p></>
                 )}

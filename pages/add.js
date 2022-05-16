@@ -284,9 +284,18 @@ export default function Add({isLoggedIn}){
 }
 
 export async function getServerSideProps(context) {
+    if (!context.req.cookies.token){
+        return {
+            redirect: {
+              permanent: false,
+              destination: "https://api.somelist.tk/login",
+            },
+        }
+    }
+    
     return {
-      props: {
-        isLoggedIn: context.req.cookies.token
-      }
+        props: {
+            isLoggedIn: context.req.cookies.token ? true : false
+        }
     }
   } 

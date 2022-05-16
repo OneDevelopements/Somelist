@@ -11,6 +11,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Script from 'next/script';
 import $ from 'jquery'
 import HeaderB from '../components/Navbar';
+import Image from 'next/image';
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
   const  [id, setid] = useState('')
@@ -40,9 +41,14 @@ function MyApp({ Component, pageProps }) {
   }, [])
   const [loaded, setloaded] = useState(false)
   useEffect(()=>{
+    const loadFallback = setTimeout(()=>{
+      $('.preloader').addClass('preloaded')
+      setloaded(true)
+    }, 5000)
     window.addEventListener('load', function () {
       console.log('loaded')
       if (loaded == false){
+        clearTimeout(loadFallback)
         $('.preloader').addClass('preloaded')
         setloaded(true)
       }
@@ -82,7 +88,9 @@ function MyApp({ Component, pageProps }) {
     {process.env.NEXT_PUBLIC_LOADING == 'true' && 
     router.pathname != '/404' &&
     <div className='preloader bg-gray-900 flex items-center justify-center'>
-      <h1 className='animate-bounce'> Somelist</h1>
+      <div style={{width: '100px', height: '100px'}}>
+      <img src='https://i.imgur.com/WG1mCrI.png' width='100' height='100' className='animate-bounce animate-pulse'/>
+      </div>
     </div>}
     {router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics' || router.pathname == '/bot/[id]/settings' ? 
     (

@@ -892,7 +892,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         botdata: json.result,
-        isLoggedIn: context.req.cookies.token
+        isLoggedIn: context.req.cookies.token ? true : false
       }
     }
   } 

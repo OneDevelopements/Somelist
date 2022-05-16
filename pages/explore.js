@@ -61,7 +61,7 @@ export default function Explore({isLoggedIn}){
                                         leaveFrom="transform scale-100 opacity-100"
                                         leaveTo="transform scale-95 opacity-0"
                                     >
-                                        <Listbox.Options className="focus:outline-none absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-500/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
+                                        <Listbox.Options className="backdrop-blur-lg focus:outline-none absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-slate-500/50 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 sm:text-sm">
                                         {people.map((person, personIdx) => (
                                             <Listbox.Option
                                             key={personIdx}
@@ -99,7 +99,7 @@ export default function Explore({isLoggedIn}){
                             <p className='text-sm text-slate-100/70'>The sorting method of the bots.</p>
                             <Listbox name="sort" value={tselected} onChange={settselected}>
                                 <div className="relative mt-1">
-                                    <Listbox.Button className="focus:outline-none relative w-full cursor-default rounded-lg bg-slate-500/50 py-2 pl-3 pr-10 text-left shadow-md focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                                    <Listbox.Button className="backdrop-blur-lg focus:outline-none relative w-full cursor-default rounded-lg bg-slate-500/50 py-2 pl-3 pr-10 text-left shadow-md focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
                                         <span className="block truncate">{tselected.name}</span>
                                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                                         <i className='fas fa-angle-down'/>
