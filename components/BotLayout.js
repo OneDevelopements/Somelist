@@ -100,10 +100,10 @@ const BotLayout = (props) => {
         <button
             onClick={()=>{
                 if (sideNavOpen){
-                    $('.sidenav').removeClass('sidenav-show')
+                    $('.sidenavbot').removeClass('sidenav-show')
                     setSideNavOpen(false)
                 } else{
-                    $('.sidenav').addClass('sidenav-show')
+                    $('.sidenavbot').addClass('sidenav-show')
                     setSideNavOpen(true)
                 }
             }}
@@ -121,7 +121,7 @@ const BotLayout = (props) => {
         <div style={{
             zIndex: '98'
         }}
-        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[8rem]  sidenav w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
+        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[8rem]  sidenavbot w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
             {bot}
         </div>
         {page}
