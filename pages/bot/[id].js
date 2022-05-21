@@ -532,11 +532,25 @@ export default function BotPage({isLoggedIn, botdata}){
                         <div
                         className="flex justify-center flex-col text-center mb-2 lg:mb-0 lg:text-left items-center lg:items-start lg:justify-start w-full"
                         >
+                        <div className='flex items-center'>
                         <p
                             className="flex items-center text-4xl font-medium text-black dark:text-white"
                         >
                             {botdata.name}
+
                         </p>
+                        <button  
+                        onClick={()=>{
+                            $.ajax({
+                                url: 'https://api.somelist.tk/refreshbot?id='+botdata.id+'&token='+Cookie.get('token')
+                            }).then((res)=>{
+                                if(res.reply == 'worked'){
+                                    window.location.reload()
+                                }
+                            })
+                        }}
+                        className='ml-4 text-lg p-2 flex items-center justify-center h-12 w-12 rounded-lg bg-sky-700'><i className='fas fa-sync'/></button>
+                        </div>
                         <div
                             className="flex items-center w-4/4 line-clamp-2 text-zinc-500 font-medium"
                         >
