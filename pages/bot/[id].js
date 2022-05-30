@@ -764,13 +764,16 @@ export default function BotPage({isLoggedIn, botdata}){
                                 <div
                                 className="flex flex-row flex-wrap items-center w-full gap-x-2 gap-y-2"
                                 >
-                                <span
+                                
+                                {botdata.tags && 
+                                botdata.tags.map((tag)=>{
+                                return(<span
                                     className="flex items-center bg-zinc-600/20 hover:bg-zinc-600/30 px-2 cursor-pointer transition-all duration-150 py-1 rounded-lg text-black dark:text-zinc-400 text-sm"
-                                    >Economy</span
-                                ><span
-                                    className="flex items-center bg-zinc-600/20 hover:bg-zinc-600/30 px-2 cursor-pointer transition-all duration-150 py-1 rounded-lg text-black dark:text-zinc-400 text-sm"
-                                    >Fun</span
                                 >
+                                    {tag}
+                                </span>)
+                                })}
+                                
                                 </div>
                             </div>
                             <div className="mt-10">
@@ -900,7 +903,6 @@ export default function BotPage({isLoggedIn, botdata}){
 
 
 export async function getServerSideProps(context) {
-    console.log(context.query.id)
     const res = await fetch('https://api.somelist.tk/bot?user='+context.query.id+'&requester='+context.req.cookies.id)
     const json = await res.json()
     return {

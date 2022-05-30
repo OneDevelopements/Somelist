@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import $ from 'jquery'
 import { Fragment } from 'react'
 import { Dialog, Listbox, Transition } from '@headlessui/react'
-
+import Select from 'react-select'
 const BotLayout = (props) => {
     const router = useRouter()
     const [reload, edewfwedfqef] = useState(0)
@@ -174,6 +174,110 @@ const SideNav = (props) =>{
 }
 const Edit = (props) =>{
     const [loading, setloading] = useState()
+    const [selectedOptions, setSelectedOptions] = useState([])
+    const customStyles = {
+        control: (base, state) => ({
+          ...base,
+          background: "rgb(24 24 27 / 0.5)",
+          borderColor: state.isFocused ? "#0ea5e9" : "#3f3f46",
+          boxShadow: state.isFocused ? null : null,
+          color: 'white',
+          width: '100%',
+          padding:'10px',
+          borderRadius: '0.5rem',
+          '&:hover':{
+              borderColor: '#3f3f46'
+          }
+        }),
+        menu: base => ({
+          ...base,
+          // override border radius to match the box
+          borderRadius: 0,
+          // kill the gap
+          marginTop: 0,
+          background: "#1e293b",
+          opacity: 1,
+        }),
+        menuList: base => ({
+          ...base,
+          // kill the white space on first and last option
+          padding: 0
+        }),
+        multiValue: base => ({
+            ...base,
+            color: '#fff',
+            background: '#1e293b',
+            border: `1px solid #1e293b`,
+            "&:hover": {
+                // Overwrittes the different states of border
+                borderColor: '#0ea5e9',
+            },
+            borderRadius: '5px',
+          }),
+        multiValueLabel: base => ({
+            ...base,
+            color: '#fff',
+        }),
+        input: base => ({
+            ...base,
+            color: '#fff'
+        }),
+        option: (base) =>({
+            ...base,
+            '&:hover' :{
+                background: '#334155',
+                color: '#fff'
+            }        
+        })
+      };
+      const options = [
+        {
+          label: "Moderation",
+          value: 1
+        },
+        {
+          label: "Fun",
+          value: 2
+        },
+        {
+          label: "Minecraft",
+          value: 3
+        },
+        {
+          label: "Economy",
+          value: 4
+        },
+        {
+          label: "Guard",
+          value: 5
+        },
+        {
+            label: "NSFW",
+            value: 6
+        },
+        {
+            label: "Anime",
+            value: 7
+        },
+
+        {
+            label: "Music",
+            value: 6
+        }
+      ];
+    useEffect(()=>{
+        var defaultselected = []
+        if(props.botdata.tags){
+            props.botdata.tags.map((tag)=>{
+                options.map((option) =>{
+                    if(option.label == tag){
+                        defaultselected.push(option)
+                    }
+                })
+            })
+        }
+        setSelectedOptions(defaultselected)
+    }, [])
     return(
     <form method='POST' className='ml-20 lg:p-10 py-[8rem] lg:py-[10rem] h-screen w-full'>
 
@@ -185,6 +289,11 @@ const Edit = (props) =>{
             setloading(true)
             var data = $('form').serializeArray(); 
             data.push({name: "owner", value: Cookie.get('id')});
+            var soptions = []
+            selectedOptions.map((option)=>{
+                soptions.push(option.label)
+            })
+            data.push({name: 'tags', value: soptions})
             $.ajax({
                 url: 'https://api.somelist.tk/editbot?id='+props.botdata.id+'&token='+Cookie.get('token'),
                 type: 'POST',
@@ -243,6 +352,15 @@ const Edit = (props) =>{
         <p className='text-xl mb-3'>Short Description</p>
         <input defaultValue={props.botdata.shortdesc} style={{zIndex: '0'}} name='shortdesc' id='shortdesc' required className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
     </div>
+
+    <div className='my-20'>
+        <p className='text-xl mb-3'>Tags</p>
+
+        <Select value={selectedOptions} styles={customStyles} options={options} isMulti closeMenuOnSelect={false} className='w-full' onChange={(e)=> {
+                console.log(e)
+                setSelectedOptions(e)
+        }}/>     
+        </div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Long Description</p>
         <textarea style={{zIndex: '0'}} name='longdesc' id='longdesc' defaultValue={props.botdata.longdesc} required className="w-full h-44 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700"></textarea>
@@ -264,6 +382,7 @@ const Edit = (props) =>{
 const Settings = (props) =>{
     const [loading, setloading] = useState(false)
     let [isOpen, setIsOpen] = useState(false)
+    const router = useRouter()
     function closeModal() {
       setIsOpen(false)
     }
@@ -322,7 +441,7 @@ const Settings = (props) =>{
                             });
                         }
                     }).catch(()=>{
-                        setLoading(false)
+                        setloading(false)
                         toast.error('An unexpected error occured :C', {
                             autoClose: 3000,
                             closeOnClick: true,

@@ -6,12 +6,104 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookie from 'js-cookie'
 import { useRouter } from "next/router";
 import HeaderB from "../components/Navbar";
-
+import Select from 'react-select'
 export default function Add({isLoggedIn}){
     const router = useRouter()
     const [step, setstep] = useState('')
     const [loading, setloading] = useState(false)
     const [stagecount, setstagecount] = useState(1)
+    const [selectedOptions, setSelectedOptions] = useState([])
+    const customStyles = {
+        control: (base, state) => ({
+          ...base,
+          background: "rgb(24 24 27 / 0.5)",
+          borderColor: state.isFocused ? "#0ea5e9" : "#3f3f46",
+          boxShadow: state.isFocused ? null : null,
+          color: 'white',
+          width: '100%',
+          padding:'10px',
+          borderRadius: '0.5rem',
+          '&:hover':{
+              borderColor: '#3f3f46'
+          }
+        }),
+        menu: base => ({
+          ...base,
+          // override border radius to match the box
+          borderRadius: 0,
+          // kill the gap
+          marginTop: 0,
+          background: "#1e293b",
+          opacity: 1,
+        }),
+        menuList: base => ({
+          ...base,
+          // kill the white space on first and last option
+          padding: 0
+        }),
+        multiValue: base => ({
+            ...base,
+            color: '#fff',
+            background: '#1e293b',
+            border: `1px solid #1e293b`,
+            "&:hover": {
+                // Overwrittes the different states of border
+                borderColor: '#0ea5e9',
+            },
+            borderRadius: '5px',
+          }),
+        multiValueLabel: base => ({
+            ...base,
+            color: '#fff',
+        }),
+        input: base => ({
+            ...base,
+            color: '#fff'
+        }),
+        option: (base) =>({
+            ...base,
+            '&:hover' :{
+                background: '#334155',
+                color: '#fff'
+            }        
+        })
+      };
+
+      const options = [
+        {
+          label: "Moderation",
+          value: 1
+        },
+        {
+          label: "Fun",
+          value: 2
+        },
+        {
+          label: "Minecraft",
+          value: 3
+        },
+        {
+          label: "Economy",
+          value: 4
+        },
+        {
+          label: "Guard",
+          value: 5
+        },
+        {
+            label: "NSFW",
+            value: 6
+        },
+        {
+            label: "Anime",
+            value: 7
+        },
+
+        {
+            label: "Music",
+            value: 6
+        }
+      ];
     useEffect(()=>{
         setstep(
             <>
@@ -115,16 +207,14 @@ export default function Add({isLoggedIn}){
                             closeOnClick: true,
                             draggable: true,
                         });
-                    }
-                    if($("#longdesc").val().length <= 100){
+                    } else if($("#longdesc").val().length <= 100){
                         setstagecount(3)
-                        toast.warning('Your Long Description should have more than 15 characters!', {
+                        toast.warning('Your Long Description should have more than 100 characters!', {
                             autoClose: 3000,
                             closeOnClick: true,
                             draggable: true,
                         });
-                    }                    
-                    if($('#invite') != null){
+                    } else if($('#invite').val() != ''){
                         setstagecount(3)
                         if($('#invite').val().startsWith('https://discord.com/api/oauth2/authorize')){
 
@@ -135,20 +225,40 @@ export default function Add({isLoggedIn}){
                                 draggable: true,
                             });
                         }
+                    } else if (selectedOptions.length > 5){
+                            setstagecount(3)
+                            toast.warning('You must choose at least 1 tag.', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });
+                    } else if (selectedOptions.length <= 0){
+                            setstagecount(3)
+                            toast.warning('You must choose at least 1 tag.', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                    });
+                    } else {  
+                        setstep(
+                            <>
+                                <p className="text-lg font-semibold">Step 3</p>
+                                <p className="mt-1 text-lg text-zinc-400 ml-2">Your bot's connections.</p>
+                            </>
+                        )
+                        setstagecount(5)
                     }
-            setstep(
-                <>
-                    <p className="text-lg font-semibold">Step 3</p>
-                    <p className="mt-1 text-lg text-zinc-400 ml-2">Your bot's connections.</p>
-                </>
-            )
-            setstagecount(5)
                 }
         }
     }, [stagecount])
     const submitbot = () =>{
         var data = $('form').serializeArray(); 
         data.push({name: "owner", value: Cookie.get('id')});
+        var soptions = []
+        selectedOptions.map((option)=>{
+            soptions.push(option.label)
+        })
+        data.push({name: 'tags', value: soptions})
         console.log(data)
         $.ajax({
             url: 'https://api.somelist.tk/submitbot?token='+Cookie.get('token'),
@@ -237,6 +347,16 @@ export default function Add({isLoggedIn}){
                         <p className="mt-1 text-sm text-zinc-400">Give your bot a short and meaningful summary. This will appear on your bot's card and your bot's page!</p>
                         </div>
                         <input name='shortdesc' id='shortdesc' required placeholder="The best and most wonderful bot ever!" className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" type='text'/>
+                    </div>
+                    <div className='lg:flex my-32 items-center'>
+                        <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">
+                        <p className="text-lg font-semibold">Tags</p>
+                        <p className="mt-1 text-sm text-zinc-400">Allow people to find your bot through tags!</p>
+                        </div>
+                        <Select value={selectedOptions} styles={customStyles} options={options} isMulti closeMenuOnSelect={false} className='w-full' onChange={(e)=> {
+                            console.log(e)
+                            setSelectedOptions(e)
+                        }}/>                    
                     </div>
                     <div className='lg:flex my-32 items-center'>
                         <div className="mr-6 mb-3 w-full lg:w-60 lg:mb-0">

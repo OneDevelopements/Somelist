@@ -119,7 +119,6 @@ function MyApp({ Component, pageProps }) {
             pauseOnHover
             theme="dark"
         />
-      <Script src="https://somelist.instatus.com/widget/script.js"/>
   </>
   
 }

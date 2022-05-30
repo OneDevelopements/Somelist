@@ -2,10 +2,11 @@ import axios from 'axios';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import {useEffect, useState} from 'react';
+import BotCard from '../components/BotCard';
 import HeaderB from '../components/Navbar';
 import Template from '../public/template';
-
-export default function Home({abots, isLoggedIn}) {
+import {motion} from 'framer-motion'
+export default function Home({abots, lbots, isLoggedIn}) {
     const [botsdata, setbotsdata] = useState([])
     const router = useRouter()
     const [search, setsearch] = useState(
@@ -14,6 +15,39 @@ export default function Home({abots, isLoggedIn}) {
         </div>
       
     )
+    const fcontainer = {
+      hidden: { opacity: 1, y: 0 },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          delayChildren: 0.5,
+          staggerChildren: 0.01,
+        }
+      }
+    }
+    
+    const fitem = {
+      hidden: { opacity: 0, y: 100 },
+      show: { opacity: 1, y: 0 }
+    }
+    const zcontainer = {
+      hidden: { opacity: 1, y: 0 },
+      show: {
+        opacity: 1,
+        y: 0,
+        transition: {
+          delayChildren: 0.5,
+          staggerChildren: 0.05,
+        }
+      }
+    }
+    
+    const zitem = {
+      hidden: { opacity: 0, scale: 0.7 },
+      show: { opacity: 1, scale: 1 }
+    }
+    
     /** useEffect(()=>{
       async function getbots (){
         await axios.get('https://api.somelist.tk/find_bots?limit=6').then((res)=>{
@@ -151,6 +185,7 @@ export default function Home({abots, isLoggedIn}) {
           The best place for your online presence.
         </p>
         <div className="flex items-center gap-2">
+          <motion.div className='w-full' animate={{y: 0}} initial={{y: 100}}>
           <div style={{zIndex: '0'}} className="w-full relative">
             <input
               style={{zIndex: '100'}}
@@ -296,77 +331,93 @@ export default function Home({abots, isLoggedIn}) {
   </div>
 </div>
 </div>
+</motion.div>
           <button
             className="opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-xl shadow-sky-600/20"
           >
             <i className="fas fa-search"></i>
           </button>
-
         </div>
+        <motion.div variants={fcontainer} 
+        initial="hidden"
+        animate="show">
         <div
           className="flex flex-wrap transition-all duration-200 items-center gap-2 justify-start"
         >
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Moderation
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Fun
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Minecraft
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Economy
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Guard
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >NSFW
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Anime
           </div>
-          <div
-            className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
-          >
-            <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
-            >Invite
-          </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-hashtag text-blurple-500/50"></i></span
             >Music
           </div>
+          </motion.div>
+          <motion.div variants={fitem}>
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
             <span className="mr-1"><i className="fa fa-tags text-blurple-500/50"></i></span
             >Explore Tags
           </div>
+          </motion.div>
         </div>
+        </motion.div>
       </div>
       <div>
       <p className="text-3xl italic font-semibold text-black/80 dark:text-white/80">
@@ -375,110 +426,48 @@ export default function Home({abots, isLoggedIn}) {
       <p className="text-lg italic font-normal text-black/80 dark:text-white/80 mb-2">
         Most popular bots.
       </p>
+
+      <motion.div variants={zcontainer} 
+    initial="hidden"
+    animate="show">
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
       {abots.map((bot)=>{
         if (!bot.approved){
           return (<></>)
         }
-        return(<div
-        onClick={()=>router.push('/bot/'+bot.id)}
-        style={{zIndex: '10'}}
-        className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-sky-900/10 rounded-lg"
-      >
-        <div
-          className="bot-bg w-full h-full absolute rounded-lg"
-          style={{
-            background: `url(${bot.banner})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover',
-            filter: 'blur(2px)',
-            opacity: '50%'
-          }}
-        ></div>
-        <div className="p-4 relative">
-          <div
-            className="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5"
-          >
-            <div
-              className="relative flex-shrink-0 w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl"
-            >
-              <div
-                style={
-                  {
-                    "display": "block",
-                    "overflow": "hidden",
-                    "position": "absolute",
-                    "inset": "0px",
-                    "boxSizing": "border-box",
-                    "margin": "0px"
-                  }
-                  
-                }
-              >
-                <Image
-                  alt="vcodes.xyz"
-                  decoding="async"
-                  className="rounded-full w-full h-full"
-                  sizes="100vw"
-                  width={'0px'}
-                  height='0px'
-                  src={bot.avatar}
-                  style={{
-                    "position": "absolute",
-                    "inset": "0px",
-                    "boxSizing": "border-box",
-                    "padding": "0px",
-                    "border": "none",
-                    "margin": "auto",
-                    "display": "block",
-                    "width": "0px",
-                    "height": "0px",
-                    "minWidth": "100%",
-                    "maxWidth": "100%",
-                    "minHeight": "100%",
-                    "maxHeight": "100%"
-                  }
-                  }
-                />
-              </div>
-            </div>
-            <div className="mt-5 sm:mt-0 relative flex-shrink-0">
-              <p
-                className="rounded-lg bg-sky-500 text-white dark:bg-sky-900/20 px-4 shadow-xl text-xl"
-              >
-                {bot.name}
-              </p>
-            </div>
-          </div>
-          <p
-            className="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2"
-          >
-            {bot.shortdesc}
-          </p>
-          <div
-            className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5"
-          >
-            <div
-              onClick={() => router.push('/bot/'+bot.id.toString())}
-              className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
-            >
-              View
-            </div>
-            <div
-              className="w-full bg-sky-900/10 hover:bg-sky-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
-            >
-              Vote
-            </div>
-          </div>
-        </div>
-        <div
-          className="absolute flex items-center top-2 right-2 bg-sky-500/10 px-3 py-1 rounded-lg text-sm"
-        >
-          <i className="fa fa-chevron-up mr-2"></i>{bot.votes}
-        </div>
-      </div>)
+        return(                                                
+          <motion.div variants={zitem}>                                            
+            <BotCard name={bot.name} id={bot.id} votes={bot.votes} avatar={bot.avatar} banner={bot.banner} shortdesc={bot.shortdesc}/>            
+          </motion.div>        
+        )
       })}
     </div>
+    </motion.div>
+    </div>
+
+    <div>
+      <p className="text-3xl italic font-semibold text-black/80 dark:text-white/80">
+        Lastest Bots
+      </p>
+      <p className="text-lg italic font-normal text-black/80 dark:text-white/80 mb-2">
+        Latest bots added
+      </p>
+      <motion.div variants={zcontainer} 
+    initial="hidden"
+    animate="show">
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
+      {lbots.map((bot)=>{
+        if (!bot.approved){
+          return (<></>)
+        }
+        return(    
+          <motion.div variants={zitem}>                                            
+            <BotCard name={bot.name} id={bot.id} votes={bot.votes} avatar={bot.avatar} banner={bot.banner} shortdesc={bot.shortdesc}/>            
+          </motion.div>
+        )
+      })}
+    </div>
+    </motion.div>
     </div>
     </div>
     </>
@@ -487,11 +476,12 @@ export default function Home({abots, isLoggedIn}) {
 
 
 export async function getServerSideProps(context) {
-    const res = await fetch('https://api.somelist.tk/find_bots')
+    const res = await fetch('https://api.somelist.tk/find_bots?limit=6')
     const json = await res.json()
     console.log(json)
     return {props: {
       abots: json.bots,
+      lbots: json.lbots,
       isLoggedIn: context.req.cookies.token ? true : false
     }}
 }
