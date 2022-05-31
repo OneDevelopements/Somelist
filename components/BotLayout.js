@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import Cookie from 'js-cookie'
 import { ThreeDots } from "react-loader-spinner"
 import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 import $ from 'jquery'
 import { Fragment } from 'react'
 import { Dialog, Listbox, Transition } from '@headlessui/react'
@@ -382,6 +384,7 @@ const Edit = (props) =>{
 const Settings = (props) =>{
     const [loading, setloading] = useState(false)
     let [isOpen, setIsOpen] = useState(false)
+    const [viewToken, setViewToken] =  useState(false)
     const router = useRouter()
     function closeModal() {
       setIsOpen(false)
@@ -519,6 +522,64 @@ const Settings = (props) =>{
             <div className='py-20' />
             </div>
             </form>
+
+            <div>
+            <h1 className='text-4xl text-sky-500 italic font-semibold'>Advanced</h1>
+            <div className='flex w-full my-10'>
+                <div className='w-full '>
+                    <p className='text-xl'>API Token</p>
+                    <p>An API token allows you to interact with the Somelist API (<a className='text-sky-500 cursor-pointer' onClick={()=> window.open('https://docs.somelist.tk')}>Learn More</a>)</p>
+                </div>
+                <div className='w-44'>
+                    {props.botdata.token ?
+                        <button className="bg-sky-700 rounded-xl px-3 py-4" onClick={()=>{
+                            navigator.clipboard.writeText(props.botdata.token);
+                            toast.info('Token copied to clipboard!', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });                        
+                        }}>Copy Token</button>
+                    :
+                    <button className="bg-sky-700 rounded-xl px-3 py-4" onClick={()=>{
+                        $.ajax({
+                            url: 'https://api.somelist.tk/genToken?id='+props.botdata.id+'&token='+Cookie.get('token'),
+                        }).then((res)=>{
+                            if (res.reply == 'TOKEN_INVALID'){
+                                setloading(false)
+                                toast.error('We couldn\'t verify your account. Please login again.', {
+                                    autoClose: 3000,
+                                    closeOnClick: true,
+                                    draggable: true,
+                                });
+                            }
+                            if (res.reply == 'worked'){
+                                window.location.reload()
+                                toast.success('Token Generated!', {
+                                    autoClose: 3000,
+                                    closeOnClick: true,
+                                    draggable: true,
+                                });
+                            } else {
+                                toast.error('An unexpected error occured :C', {
+                                    autoClose: 3000,
+                                    closeOnClick: true,
+                                    draggable: true,
+                                });
+                            }
+                        }).catch(()=>{
+                            toast.error('An unexpected error occured :C', {
+                                autoClose: 3000,
+                                closeOnClick: true,
+                                draggable: true,
+                            });
+                        })
+                    }}>Generate Token</button>
+                    }
+                </div>
+            </div>
+            <div className='py-20' />
+            </div>
             <div>
                 <h1 className='text-4xl text-sky-500 italic font-semibold'>Ownership</h1>
                 <div className='flex w-full my-10'>

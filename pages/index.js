@@ -412,8 +412,8 @@ export default function Home({abots, lbots, isLoggedIn}) {
           <div
             className="text-md bg-sky-600/5 border border-zinc-400/10 text-black dark:text-zinc-300 hover:border-zinc-400/20 hover:bg-sky-600/10 transition-all duration-200 cursor-pointer rounded-lg px-3 py-1.5"
           >
-            <span className="mr-1"><i className="fa fa-tags text-blurple-500/50"></i></span
-            >Explore Tags
+            <span className="mr-1"><i className="fa fa-hastag text-blurple-500/50"></i></span
+            >Utility
           </div>
           </motion.div>
         </div>
