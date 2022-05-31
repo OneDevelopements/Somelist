@@ -265,6 +265,10 @@ const Edit = (props) =>{
         {
             label: "Music",
             value: 6
+        },
+        {
+            label: 'Utility',
+            value: 7
         }
       ];
     useEffect(()=>{
