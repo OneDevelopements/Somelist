@@ -63,7 +63,7 @@ function MyApp({ Component, pageProps }) {
   }
   return  <>
     <Head>
-        <title>Somelist | Discord Bots</title>
+        <title>Somelist | The one Discord Bot List</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
         <meta name="google-site-verification" content="7gLQjji2gsG8jRarJfqdouJwnovmJCLM-Kbnv4CVLxw" />
