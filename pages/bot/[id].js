@@ -472,9 +472,7 @@ export default function BotPage({isLoggedIn, botdata}){
 
                 <Head>
                     <title>Invite {botdata.name} on Somelist the #1 trusted Discord Bot List</title>
-                    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
                     <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
-                    <meta name="google-site-verification" content="7gLQjji2gsG8jRarJfqdouJwnovmJCLM-Kbnv4CVLxw" />
                     <meta name="description" content={botdata.shortdesc} />
                     <meta name="twitter:image" content={botdata.avatar} />
                 </Head>
