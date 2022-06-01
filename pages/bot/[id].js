@@ -8,6 +8,7 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment } from 'react'
 import $ from 'jquery'
 import HeaderB from "../../components/Navbar"
+import Head from "next/head"
 export default function BotPage({isLoggedIn, botdata}){
     const [bot, setbot] = useState(
         <div className='flex w-full h-full items-center justify-center'>
@@ -468,6 +469,13 @@ export default function BotPage({isLoggedIn, botdata}){
              : (
 
                 <>
+
+                <Head>
+                    <title>Invite {botdata.name} on Somelist the #1 trusted Discord Bot List</title>
+                    <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
+                    <meta name="description" content={botdata.shortdesc} />
+                    <meta name="twitter:image" content={botdata.avatar} />
+                </Head>
                 {botdata.owner == Cookie.get('id') && 
                 <button
                     style={{'zIndex': '100', 'float': 'right', 'bottom': '20px', 'right': '20px'}}

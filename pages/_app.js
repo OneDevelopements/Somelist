@@ -67,7 +67,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
         <meta name="google-site-verification" content="7gLQjji2gsG8jRarJfqdouJwnovmJCLM-Kbnv4CVLxw" />
-        <meta name="description" content="Explore dozens of different Discord Bots on Somelist." />
+        <meta name="description" content="Somelist. Your favorite and most reliable Discord Bot List. Surf our growing index | Advertise your own bot | Explore and support authors - All on Somelist." />
         <meta name="twitter:image" content="https://media.discordapp.net/attachments/895953876296040468/967286226195472404/0D5BA416-09FF-4164-8C97-591AABE3BD85.png" />
     </Head>
     <NextNProgress color='var(--700)'/>
@@ -106,6 +106,17 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </>
     )}
+    <div className='w-screen py-3 px-4 bg-gray-900 text-center'>
+      <p className='text-lg'>Somelist</p>
+      <div className='w-screen flex align-center justify-center mt-4'>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Home</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Add bot</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Explore</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Developers</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Support</a>
+      </div>
+      <p className='my-4 mt-6 text-gray-500'>All rights reserved.</p>
+    </div>
 
 <ToastContainer
             position="top-center"
