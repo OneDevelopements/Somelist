@@ -245,7 +245,7 @@ const SecretNav = (props) =>{
 
 const HeaderB = ({isLoggedIn}) => {
   const [navbar, setNavbar] = useState(false)
-  const [showdisclaimer, setshowdisclaimer] = useState(true)
+  const [showdisclaimer, setshowdisclaimer] = useState(false)
   const changeBackground = ()=>{
     if (window.scrollY >= 5) {
       setNavbar(true)
@@ -256,6 +256,9 @@ const HeaderB = ({isLoggedIn}) => {
   useEffect(()=>{
     window.addEventListener("scroll", changeBackground)
   }, [])
+  if(process.env.NEXT_PUBLIC_BRANCH == 'beta'){
+    setshowdisclaimer(true)
+  }
   useEffect(()=>{
     if(!isLoggedIn){
       if(process.env.NEXT_PUBLIC_BRANCH == 'beta'){
