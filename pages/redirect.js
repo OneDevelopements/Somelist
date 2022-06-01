@@ -22,9 +22,9 @@ export default class extends React.Component {
         }).then(async (res)=>{
             if (res.result == 'NOT_FOUND'){
                 console.log('not-found')
-                window.location.href= 'https://api.somelist.tk/login'
+                window.location.href= 'https://api.somelist.tk/login?branch='+process.env.NEXT_PUBLIC_BRANCH
             } else if (res.result == 'TIMEOUT'){
-                window.location.href = 'https://api.somelist.tk/login'
+                window.location.href = 'https://api.somelist.tk/login?branch='+process.env.NEXT_PUBLIC_BRANCH
             } else {
                 console.log(res.result.id)
                 Cookie.set('username', res.result.name)
