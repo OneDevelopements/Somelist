@@ -106,6 +106,17 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </>
     )}
+    <div className='w-screen py-3 px-4 bg-gray-900 text-center'>
+      <p className='text-lg'>Somelist</p>
+      <div className='w-screen flex align-center justify-center mt-4'>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Home</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Add bot</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Explore</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Developers</a>
+        <a className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Support</a>
+      </div>
+      <p className='my-4 mt-6 text-gray-500'>All rights reserved.</p>
+    </div>
 
 <ToastContainer
             position="top-center"
