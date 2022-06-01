@@ -272,8 +272,8 @@ const HeaderB = ({isLoggedIn}) => {
           return(
           <>
           {showdisclaimer && 
-          <div className={'bg-black/50 backdrop-blur-xl h-screen w-screen fixed flex items-center flex-col justify-center'}>
-            <h1>Please wait...</h1>
+          <div className={'bg-black/50 backdrop-blur-xl h-screen w-screen fixed flex items-center flex-col justify-center'} style={{zIndex: 10001}}>
+            <h1 className="text-4xl font-bold">Please wait...</h1>
             <p>We're verifying your purchase</p>
           </div>
           }
