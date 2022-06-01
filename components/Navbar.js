@@ -256,10 +256,10 @@ const HeaderB = ({isLoggedIn}) => {
     window.addEventListener("scroll", changeBackground)
   }, [])
   useEffect(()=>{
-    if(process.env.NEXT_PUBLIC_BRANCH == 'alpha'){
-      window.location.href = 'https://api.somelist.tk/login?branch=alpha'
-    } else if (process.env.NEXT_PUBLIC_BRANCH == 'beta'){
-      window.location.href = 'https://api.somelist.tk/login?branch=beta'
+    if(!isLoggedIn){
+      if(process.env.NEXT_PUBLIC_BRANCH == 'beta'){
+        window.location.href = 'https://api.somelist.tk/login?branch=alpha'
+      }
     }
   }, [])
           console.log(isLoggedIn)
