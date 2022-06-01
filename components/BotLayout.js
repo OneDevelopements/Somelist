@@ -388,7 +388,6 @@ const Edit = (props) =>{
 const Settings = (props) =>{
     const [loading, setloading] = useState(false)
     let [isOpen, setIsOpen] = useState(false)
-    const [viewToken, setViewToken] =  useState(false)
     const router = useRouter()
     function closeModal() {
       setIsOpen(false)
