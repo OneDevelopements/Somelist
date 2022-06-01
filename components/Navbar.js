@@ -258,7 +258,7 @@ const HeaderB = ({isLoggedIn}) => {
   useEffect(()=>{
     if(!isLoggedIn){
       if(process.env.NEXT_PUBLIC_BRANCH == 'beta'){
-        window.location.href = 'https://api.somelist.tk/login?branch=alpha'
+        window.location.href = 'https://api.somelist.tk/login?branch=beta'
       }
     }
   }, [])
