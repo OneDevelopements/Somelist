@@ -255,6 +255,13 @@ const HeaderB = ({isLoggedIn}) => {
   useEffect(()=>{
     window.addEventListener("scroll", changeBackground)
   }, [])
+  useEffect(()=>{
+    if(process.env.NEXT_PUBLIC_BRANCH == 'alpha'){
+      window.location.href = 'https://api.somelist.tk/login?branch=alpha'
+    } else if (process.env.NEXT_PUBLIC_BRANCH == 'beta'){
+      window.location.href = 'https://api.somelist.tk/login?branch=beta'
+    }
+  }, [])
           console.log(isLoggedIn)
           return(<div className={`transiton ease-in-out duration-300 ${navbar ? `${navigator.userAgent.indexOf("Firefox") > 0 ? 'bg-gray-900' : 'bg-gray-600/20'} backdrop-blur-xl py-3 px-12 rounded-full top-10 left-5 right-5` : 'rounded-none py-6 px-4 w-full left-0 right-0 top-0'} fixed flex h-20 items-center`} style={{zIndex: '101', top:'0'}} >      
             <div className='hidden lg:block'>
@@ -267,7 +274,7 @@ const HeaderB = ({isLoggedIn}) => {
             { isLoggedIn ?
               <SecretNav/>
               :
-              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.replace(`https://api.somelist.tk/login`)}}>
+              <button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90' onClick={() => { window.location.replace(`https://api.somelist.tk/login?branch=`+process.env.NEXT_PUBLIC_BRANCH)}}>
                  Login
               </button>                      
             }
