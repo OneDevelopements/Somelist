@@ -35,7 +35,7 @@ const BotCard = (props) => {
                 }}
               >
                 <Image
-                  alt="vcodes.xyz"
+                  alt="somelist.tk"
                   decoding="async"
                   className="rounded-full w-full h-full"
                   sizes="100vw"

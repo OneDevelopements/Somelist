@@ -471,9 +471,10 @@ export default function BotPage({isLoggedIn, botdata}){
                 <>
 
                 <Head>
-                    <title>Invite {botdata.name} on Somelist the #1 trusted Discord Bot List</title>
+                    <title>Invite {botdata.name} on Somelist, your #1 trusted Discord Bot List</title>
                     <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
                     <meta name="description" content={botdata.shortdesc} />
+                    <meta name="og:description" content={botdata.shortdesc} />
                     <meta name="twitter:image" content={botdata.avatar} />
                 </Head>
                 {botdata.owner == Cookie.get('id') && 

@@ -63,12 +63,15 @@ function MyApp({ Component, pageProps }) {
   }
   return  <>
     <Head>
-        <title>Somelist | The one Discord Bot List</title>
+        <title>Somelist | Your #1 trusted Discord Bot List</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link rel="shortcut icon" type="image/png" href="https://i.imgur.com/eSgi8jm.png" />
         <meta name="google-site-verification" content="7gLQjji2gsG8jRarJfqdouJwnovmJCLM-Kbnv4CVLxw" />
         <meta name="description" content="Somelist. Your favorite and most reliable Discord Bot List. Surf our growing index | Advertise your own bot | Explore and support authors - All on Somelist." />
-        <meta name="twitter:image" content="https://media.discordapp.net/attachments/895953876296040468/967286226195472404/0D5BA416-09FF-4164-8C97-591AABE3BD85.png" />
+        <meta name="og:description" content="Somelist. Your favorite and most reliable Discord Bot List. Surf our growing index | Advertise your own bot | Explore and support authors - All on Somelist." />
+        <meta name="og:title" content="Somelist | Your #1 trusted Discord Bot List" />
+        <meta name="og:image" content="https://media.discordapp.net/attachments/895953876296040468/967286226195472404/0D5BA416-09FF-4164-8C97-591AABE3BD85.png" />
+        <meta name="twitter:image" content="https://i.imgur.com/WG1mCrI.png" />
     </Head>
     <NextNProgress color='var(--700)'/>
     <div className={!isOpen && 'hidden' + ' w-screen h-screen'}>
