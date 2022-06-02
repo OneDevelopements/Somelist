@@ -73,7 +73,7 @@ export default  function profile({isLoggedIn}){
                         }
                       >
                         <img
-                          alt="vcodes.xyz"
+                          alt="somelist.tk"
                           decoding="async"
                           className="rounded-full w-full h-full"
                           sizes="100vw"
@@ -158,7 +158,7 @@ export default  function profile({isLoggedIn}){
                             />
                         </div>
                         <Image
-                            alt="vcodes.xyz"
+                            alt="somelist.tk"
                             decoding="async"
                             height='0'
                             width='0'

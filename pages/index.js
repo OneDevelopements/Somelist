@@ -257,7 +257,7 @@ export default function Home({abots, lbots, isLoggedIn}) {
                           />
                         </div>
                         <Image
-                          alt="vcodes.xyz"
+                          alt="somelist.tk"
                           src={bot.avatar}
                           height='100%'
                           width='100%'
