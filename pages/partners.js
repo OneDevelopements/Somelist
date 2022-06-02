@@ -1,8 +1,9 @@
-import Template from "../public/template";
 import Image from "next/image";
-export default Template(function Partners(){
+import HeaderB from "../components/Navbar";
+export default function Partners({isLoggedIn}){
     return(
         <div class="p-5 lg:p-10 py-[8rem] lg:py-[10rem] rounded-lg min-h-screen">
+            <HeaderB isLoggedIn={isLoggedIn}/>
             <h1 className='text-5xl text-sky-500 italic font-bold'>Partners</h1>
             <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
             <div
@@ -102,4 +103,12 @@ export default Template(function Partners(){
             </div>
         </div>
     )
-})
+}
+
+
+export async function getServerSideProps(context) {
+  return {props: {
+    isLoggedIn: context.req.cookies.token ? true : false
+  }}
+}
+
