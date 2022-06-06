@@ -3,10 +3,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import {BsBell, BsFillBellFill} from 'react-icons/bs'
 import Cookie from 'js-cookie';
-import { Menu, Popover, Transition } from '@headlessui/react'
+import { Menu, Popover, Switch, Transition } from '@headlessui/react'
 import axios from 'axios'
 import Image from "next/image";
 import $ from 'jquery'
+import isScrolledIntoView from "./isScrolledIntoView";
+import Tippy from "@tippyjs/react";
+import { AnimatePresence, motion } from "framer-motion";
 class Header extends React.Component {
     static propTypes = {
         isLoggedIn: PropTypes.bool
@@ -45,36 +48,14 @@ class Header extends React.Component {
 
 const SideNav= (props) =>{
   const router = useRouter()
-  const [sideNavOpen, setSideNavOpen] = useState(false)
   return(
   <>
-<button
-              onClick={
-                sideNavOpen ? 
-                ()=>{
-                      $('.sidenav').removeClass('sidenav-show')
-                      setSideNavOpen(false)
-                  } : 
-                () =>{
-                    $('.sidenav').addClass('sidenav-show')
-                  setSideNavOpen(true)
-              }}
-              style={{
-                  zIndex: '102'
-              }}
-              className={'relative block lg:hidden bg-sky-600 text-xl rounded-lg p-4 w-14 h-min-content'}
-              >            
-              {!sideNavOpen ? 
-              <i className='fas fa-bars'/> 
-              : 
-              <i className='fas fa-times'/> 
-              }
-            </button>
+            
 
         <div style={{
             zIndex: '99'
         }}
-        className='top-0 bg-black lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:hidden lg:w-64 lg:py-[10rem] rounded-lg'>
+        className='top-0 bg-[#0B0A15]/50 backdrop-blur-xl lg:bg-transparent h-screen py-[3rem]  sidenav w-screen fixed lg:static lg:hidden lg:w-64 lg:py-[10rem] rounded-lg'>
         <div className='w-screen lg:w-64 backdrop-blur-xl rounded-lg py-10 px-5'>
             <div>
                 <button onClick={()=>{
@@ -127,6 +108,8 @@ const SecretNav = (props) =>{
   const router = useRouter()
   const [username, setusername] = useState('')
   const [avatar, setavatar] = useState('')
+  const [settingsIsOpen, setSettingsIsOpen] = useState(false)
+  const [highgraphs, sethighgraphics] = useState(false)
   useEffect(()=>{
     setusername(
       Cookie.getJSON('username')
@@ -134,6 +117,8 @@ const SecretNav = (props) =>{
     setavatar(
       Cookie.getJSON('avatar')
     )
+    Cookie.get('HighGraphics') ? sethighgraphics(true) : sethighgraphics(false)
+    console.log(highgraphs)
   }, [])
   const solutions = [
     {
@@ -152,7 +137,56 @@ const SecretNav = (props) =>{
     },
   ]
   return <>
-<div className="ml-auto">
+  <AnimatePresence>
+  {settingsIsOpen && 
+  <div className={'w-screen h-screen'}>
+    <motion.div 
+      key='settingsbackdrop'
+      initial={{ opacity: 0}}
+      animate={{ opacity: 1}}
+      exit={{ opacity: 0}}>      
+      <div style={{zIndex: '100'}} className={'left-0 top-0 fixed items-center justify-center w-screen h-screen bg-[#0B0A15]/70 backdrop-blur-lg'}>
+      <motion.div 
+      key='settingsmodal'
+      initial={{ opacity: 0, y: -300 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 500 }}>
+      <div className='flex items-center justify-center w-screen h-screen'>
+            <div className='relative p-6 pt-2 rounded-lg bg-[#0B0A15] w-screen max-w-[800px] flex items-center justify-center flex-col'>
+            <div className="w-full flex items-center">
+              <h1 className='mt-4 text-2xl font-semibold'>Settings</h1>
+              <button onClick={()=> setSettingsIsOpen(false)} className="ml-auto text-2xl text-white/50 hover:text-white"><i className="fas fa-times"></i></button>
+            </div>
+            <div className="mt-5 h-[300px] overflow-auto w-full">
+              <div className="w-full flex items-center">
+                <p>Turn on High Graphics <Tippy content='Set a background image as the background' placement='top'><i className="far fa-question-circle text-white/50 hover:text-white"></i></Tippy></p>
+                <Switch
+                  checked={highgraphs}
+                  onChange={(e) => {sethighgraphics(e); e == true ? Cookie.set('HighGraphics', true) : Cookie.remove('HighGraphics'); window.location.reload()}}
+                  className={`${highgraphs ? 'bg-sky-600' : 'bg-gray-900'}
+                    ml-auto inline-flex h-[30px] w-[56px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+                >
+                  <span className="sr-only">Toggle switch</span>
+                  <span
+                    aria-hidden="true"
+                    className={`${highgraphs ? 'translate-x-6' : 'translate-x-0'}
+                      pointer-events-none inline-block h-[26px] w-[26px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                  />
+                </Switch>
+              </div>
+              
+              <p className="mt-4 text-white/50">Version number 0.1001b</p>
+            </div>
+          </div>
+        </div>
+        </motion.div>
+      </div>
+      </motion.div>
+  </div>
+
+  }
+  </AnimatePresence>
+  <div className="ml-auto">
     <Menu as="div" className="relative inline-block text-left">
       <Menu.Button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90'>
         <img src={avatar} width='50' height='50' className='rounded-full' />
@@ -174,6 +208,28 @@ const SecretNav = (props) =>{
               onClick={()=>{router.push('/profile/'+Cookie.get('id'))}}
             >
               Profile
+            </button>
+          )}
+          </Menu.Item>
+          <br/>
+          <Menu.Item>
+          {({ active }) => (
+            <button
+              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              onClick={()=>setSettingsIsOpen(true)}
+            >
+              Settings
+            </button>
+          )}
+          </Menu.Item>
+          <br/>
+          <Menu.Item>
+          {({ active }) => (
+            <button
+              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              onClick={()=>{router.push('/store')}}
+            >
+              Store
             </button>
           )}
           </Menu.Item>
@@ -245,6 +301,7 @@ const SecretNav = (props) =>{
 
 const HeaderB = ({isLoggedIn}) => {
   const [navbar, setNavbar] = useState(false)
+  const [sideNavOpen, setSideNavOpen] = useState(false)
   const changeBackground = ()=>{
     if (window.scrollY >= 5) {
       setNavbar(true)
@@ -265,13 +322,34 @@ const HeaderB = ({isLoggedIn}) => {
           console.log(isLoggedIn)
           return(
           <>
+          <SideNav sideNavOpen={sideNavOpen}/>
           <div className={`transiton ease-in-out duration-300 ${navbar ? `${navigator.userAgent.indexOf("Firefox") > 0 ? 'bg-gray-900' : 'bg-gray-600/20'} backdrop-blur-xl py-3 px-12 rounded-full top-10 left-5 right-5` : 'rounded-none py-6 px-4 w-full left-0 right-0 top-0'} fixed flex h-20 items-center`} style={{zIndex: '101', top:'0'}} >      
             <div className='hidden lg:block'>
             <NormalNav/>
             </div>
             <div>
-
-            <SideNav/>
+            <button
+              onClick={
+                sideNavOpen ? 
+                ()=>{
+                      $('.sidenav').removeClass('sidenav-show')
+                      setSideNavOpen(false)
+                  } : 
+                () =>{
+                    $('.sidenav').addClass('sidenav-show')
+                  setSideNavOpen(true)
+              }}
+              style={{
+                  zIndex: '102'
+              }}
+              className={'relative block lg:hidden bg-sky-600 text-xl rounded-lg p-4 w-14 h-min-content'}
+              >            
+              {!sideNavOpen ? 
+              <i className='fas fa-bars'/> 
+              : 
+              <i className='fas fa-times'/> 
+              }
+            </button>
             </div>
             { isLoggedIn ?
               <SecretNav/>
