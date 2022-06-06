@@ -412,7 +412,7 @@ export async function getServerSideProps(context) {
         return {
             redirect: {
               permanent: false,
-              destination: "https://api.somelist.tk/login?branch="+process.env.NEXT_PUBLIC_BRANCH,
+              destination: "https://api.somelist.tk/login",
             },
         }
     }

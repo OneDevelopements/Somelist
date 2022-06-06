@@ -221,10 +221,10 @@ export default function Home({abots, lbots, isLoggedIn}) {
                 >
                   {searchbotsarr.map((bot) => {
                   return(<div
-                    
+                    onClick={()=>{router.push('/bot/'+bot.id)}} 
                     className="p-4 gap-x-4 flex w-full hover:bg-zinc-500/5 transition-all duration-200 rounded-xl transiiton-all duration-200 cursor-pointer"
                   >
-                    <div onClick={()=>{router.push('/bot/'+bot.id)}} className="w-[64px] h-[64px] rounded-full shadow-xl flex-shrink-0">
+                    <div className="w-[64px] h-[64px] rounded-full shadow-xl flex-shrink-0">
                       <div
                         style={{
                           display: 'inline-block',
@@ -257,7 +257,7 @@ export default function Home({abots, lbots, isLoggedIn}) {
                           />
                         </div>
                         <Image
-                          alt="somelist.tk"
+                          alt="vcodes.xyz"
                           src={bot.avatar}
                           height='100%'
                           width='100%'
@@ -431,6 +431,71 @@ export default function Home({abots, lbots, isLoggedIn}) {
     initial="hidden"
     animate="show">
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
+      <motion.div variants={zitem}>                                            
+      <div
+        style={{ zIndex: "10" }}
+        className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-orange-900/10 rounded-lg"
+      >
+              <div
+                className="bot-bg w-full h-full absolute rounded-lg"
+                style={{
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  filter: "blur(2px)",
+                  opacity: "50%",
+                }}
+              ></div>
+              <div style={{zIndex: '10'}} className="p-4 relative">
+                <div style={{zIndex: '10'}} className="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5">
+                  <div style={{zIndex: '10'}} className="bg-orange-800/20 flex items-center justify-center relative w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl">
+                    <div
+                      style={{
+                      zIndex: '10',
+                        display: "block",
+                        overflow: "hidden",
+                        position: "absolute",
+                        inset: "0px",
+                        boxSizing: "border-box",
+                        margin: "0px",
+                      }}
+                    >
+                      <i
+                        className="text-orange-400 fad fa-sign"
+                        style={{
+                          position: "absolute",
+                          inset: "0px",
+                          boxSizing: "border-box",
+                          padding: "0px",
+                          border: "none",
+                          margin: "auto",
+                          display: "block",
+                          width: "40px",
+                          height: "40px",
+                          fontSize: '40px'
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-5 sm:mt-0 relative flex-shrink-0">
+                    <p className="rounded-lg bg-sky-500 text-white dark:bg-orange-900/20 px-4 shadow-xl text-xl">
+                      Advertising space
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2">
+                  This could be you. Applying for advertising today, or purchase Somelist Premium.
+                </p>
+                <div className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5">
+                  <div
+                    onClick={() => router.push("/apply/ad")}
+                    className="w-full bg-orange-900/10 hover:bg-orange-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                  >
+                    Apply
+                  </div>
+                </div>
+              </div>
+            </div>
+            </motion.div>
       {abots.map((bot)=>{
         if (!bot.approved){
           return (<></>)
@@ -453,9 +518,74 @@ export default function Home({abots, lbots, isLoggedIn}) {
         Latest bots added
       </p>
       <motion.div variants={zcontainer} 
-    initial="hidden"
-    animate="show">
+        initial="hidden"
+        animate="show">
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
+      <motion.div variants={zitem}>                                            
+      <div
+        style={{ zIndex: "10" }}
+        className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-orange-900/10 rounded-lg"
+      >
+              <div
+                className="bot-bg w-full h-full absolute rounded-lg"
+                style={{
+                  backgroundRepeat: "no-repeat",
+                  backgroundSize: "cover",
+                  filter: "blur(2px)",
+                  opacity: "50%",
+                }}
+              ></div>
+              <div style={{zIndex: '10'}} className="p-4 relative">
+                <div style={{zIndex: '10'}} className="flex flex-col sm:flex-row justify-center sm:justify-start items-center w-full sm:space-x-2 h-full -mt-14 mb-5">
+                  <div style={{zIndex: '10'}} className="bg-orange-800/20 flex items-center justify-center relative w-[76px] h-[76px] sm:ml-5 rounded-full drop-shadow-xl">
+                    <div
+                      style={{
+                      zIndex: '10',
+                        display: "block",
+                        overflow: "hidden",
+                        position: "absolute",
+                        inset: "0px",
+                        boxSizing: "border-box",
+                        margin: "0px",
+                      }}
+                    >
+                      <i
+                        className="text-orange-400 fad fa-sign"
+                        style={{
+                          position: "absolute",
+                          inset: "0px",
+                          boxSizing: "border-box",
+                          padding: "0px",
+                          border: "none",
+                          margin: "auto",
+                          display: "block",
+                          width: "40px",
+                          height: "40px",
+                          fontSize: '40px'
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="mt-5 sm:mt-0 relative flex-shrink-0">
+                    <p className="rounded-lg bg-sky-500 text-white dark:bg-orange-900/20 px-4 shadow-xl text-xl">
+                      Advertising space
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-neutral-800 dark:text-neutral-300 h-14 w-full line-clamp-2">
+                  This could be you. Applying for advertising today, or purchase Somelist Premium.
+                </p>
+                <div className="sm:flex space-y-2 sm:space-y-0 justify-between w-full gap-x-4 text-center mt-5">
+                  <div
+                    onClick={() => router.push("/apply/ad")}
+                    className="w-full bg-orange-900/10 hover:bg-orange-900/50 hover:shadow-xl transition-all duration-200 cursor-pointer px-4 py-2 rounded-lg"
+                  >
+                    Apply
+                  </div>
+                </div>
+              </div>
+            </div>
+            </motion.div>
       {lbots.map((bot)=>{
         if (!bot.approved){
           return (<></>)
@@ -476,7 +606,7 @@ export default function Home({abots, lbots, isLoggedIn}) {
 
 
 export async function getServerSideProps(context) {
-    const res = await fetch('https://api.somelist.tk/find_bots?limit=6')
+    const res = await fetch('https://api.somelist.tk/find_bots?limit=8')
     const json = await res.json()
     console.log(json)
     return {props: {

@@ -50,9 +50,9 @@ export default function Explore({isLoggedIn}){
     <>
     <div className='h-screen flex w-full items-center justify-center'>
         <div className='text-center'>
-            <h1 className='text-3xl'>Press "Find" to start!</h1>
+            <h1 className='text-3xl'>Please wait...</h1>
             <br/>
-            <p className='text-slate-100/70 text-md'>The "Find" button can be found on the Filters menu.</p>
+            <p className='text-slate-100/70 text-md'>We're fetching some data.</p>
         </div>
     </div>
     </>)

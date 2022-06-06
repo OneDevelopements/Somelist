@@ -54,22 +54,22 @@
   }
 
   ::-webkit-scrollbar {
-    width: 5px;
+    width: 10px;
   }
   /* Track */
   ::-webkit-scrollbar-track {
     background: var(--bg-color);
   }
-  
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: #3f3f46;
-    border-radius: 5px;
+    border-radius: 10px;
   }
   
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
+    width: 10px;
   }
 
   div#gradient {
@@ -184,7 +184,7 @@ th{
   left: -100vw;
   opacity: 0;
   width: 100vw;
-  transition: ease-in-out all 0.3s;
+  transition: ease-in-out all 0.15s;
 }
 
 .sidenav-show{
@@ -212,4 +212,52 @@ th{
 
 .menu {
   animation: fadeIn 0.2s ease-in-out;
+}
+
+
+
+
+.tab {
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 100%;
+  margin-right: 15px;
+  max-width: 200px;
+  position: relative;
+  cursor: pointer;
+  height: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1;
+  z-index: 11;
+  min-width: 0;
+  user-select: none;
+}
+
+
+.oldunderline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 50px;
+  border-radius: 5px;
+  z-index: 10;
+  background: #0284c7;
+}
+
+.underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 5px;
+  border-radius: 20px;
+  margin-top: 50px;
+  z-index: 10;
+  background: #0284c7;
+}
+
+.sidenavbot-show{
+  display: block;
 }

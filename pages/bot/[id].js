@@ -10,13 +10,9 @@ import $ from 'jquery'
 import HeaderB from "../../components/Navbar"
 import Head from "next/head"
 export default function BotPage({isLoggedIn, botdata}){
-    const [bot, setbot] = useState(
-        <div className='flex w-full h-full items-center justify-center'>
-            <h1 className='text-4xl italic font-bold'>Loading...</h1>
-        </div>
-    )
     let [isOpen, setIsOpen] = useState(false)
     const [dialogContent, setdialogContent] = useState('')
+    const [refreshing, setrefreshing] = useState(false)
     function closeModal() {
       setIsOpen(false)
     }
@@ -548,17 +544,23 @@ export default function BotPage({isLoggedIn, botdata}){
                             {botdata.name}
 
                         </p>
-                        <button  
-                        onClick={()=>{
-                            $.ajax({
-                                url: 'https://api.somelist.tk/refreshbot?id='+botdata.id+'&token='+Cookie.get('token')
-                            }).then((res)=>{
-                                if(res.reply == 'worked'){
-                                    window.location.reload()
-                                }
-                            })
-                        }}
-                        className='ml-4 text-lg p-2 flex items-center justify-center h-12 w-12 rounded-lg bg-sky-700'><i className='fas fa-sync'/></button>
+                        {botdata.owner == Cookie.get('id') && 
+                            <button  
+                            disabled={refreshing}
+                            onClick={()=>{
+                                setrefreshing(true)
+                                $.ajax({
+                                    url: 'https://api.somelist.tk/refreshbot?id='+botdata.id+'&token='+Cookie.get('token')
+                                }).then((res)=>{
+                                    setrefreshing(false)
+                                    if(res.reply == 'worked'){
+                                        window.location.reload()
+                                    }
+                                })
+                            }}
+                            className='ml-4 text-lg p-2 flex items-center justify-center h-12 w-12 rounded-lg bg-sky-700'><i className={`fas fa-sync ${refreshing && 'fa-spin'}`}/>
+                            </button>
+                        }
                         </div>
                         <div
                             className="flex items-center w-4/4 line-clamp-2 text-zinc-500 font-medium"
@@ -912,7 +914,7 @@ export default function BotPage({isLoggedIn, botdata}){
 
 
 export async function getServerSideProps(context) {
-    const res = await fetch('https://api.somelist.tk/bot?user='+context.query.id+'&requester='+context.req.cookies.id)
+    const res = await fetch('https://api.somelist.tk/bot?user='+context.query.id+'&requester='+context.req.cookies.id+'&userview=true')
     const json = await res.json()
     return {
       props: {

@@ -68,6 +68,7 @@ function deleteTokens(){
     Cookie.remove('username');
     Cookie.remove('token');
     Cookie.remove('refreshToken');
+    Cookie.remove('avatar')
 }
 
 function getTokensForBrowser() {
