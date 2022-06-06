@@ -10,6 +10,7 @@ import $ from 'jquery'
 import { Fragment } from 'react'
 import { Dialog, Listbox, Transition } from '@headlessui/react'
 import Select from 'react-select'
+import Tippy from "@tippyjs/react"
 const BotLayout = (props) => {
     const router = useRouter()
     const [reload, edewfwedfqef] = useState(0)
@@ -60,14 +61,7 @@ const BotLayout = (props) => {
                 setbot(
                 <>
                 <SideNav setpageA={()=>{
-                    setpage(
-                        <div className='flex h-screen w-full items-center justify-center'>
-                        <div className='text-center'>
-                        <h1 className='text-sky-500 font-semibold text-5xl' >Oops!</h1>
-                        <br/>
-                        <p className='text-slate-400 text-lg'>This page is still in construction :(</p>
-                        </div>
-                        </div>)
+                    setpage(<Analytics analytics={res.data.analytics}/>)
                 }} setpageB={()=>{
                     setpage(<Edit botdata={res.data.result}/>)
                 }}
@@ -81,14 +75,7 @@ const BotLayout = (props) => {
                 if (router.pathname == '/bot/[id]/edit'){
                     setpage(<Edit botdata={res.data.result} />)
             } else if(router.pathname == '/bot/[id]/analytics'){
-                setpage(
-                    <div className='flex h-screen w-full items-center justify-center'>
-                    <div className='text-center'>
-                    <h1 className='text-sky-500 font-semibold text-5xl' >Oops!</h1>
-                    <br/>
-                    <p className='text-slate-400 text-lg'>This page is still in construction :(</p>
-                    </div>
-                    </div>)
+                setpage(<Analytics analytics={res.data.analytics}/>)
             } else if(router.pathname == '/bot/[id]/settings'){
                 setpage(<Settings botdata={res.data.result}/>)
             }
@@ -102,20 +89,20 @@ const BotLayout = (props) => {
         <button
             onClick={()=>{
                 if (sideNavOpen){
-                    $('.sidenavbot').removeClass('sidenav-show')
+                    $('.sidenavbot').removeClass('sidenavbot-show')
                     setSideNavOpen(false)
                 } else{
-                    $('.sidenavbot').addClass('sidenav-show')
+                    $('.sidenavbot').addClass('sidenavbot-show')
                     setSideNavOpen(true)
                 }
             }}
             style={{
                 zIndex: '99'
             }}
-            className={'fixed block lg:hidden bg-sky-600 text-xl rounded-lg p-4 top-24 left-4 w-14 h-min-content'}
+            className={'fixed block lg:hidden text-xl left-0 bg-sky-600 rounded-br-lg rounded-tr-lg hover:w-12 p-2 top-24 w-10 h-min-content'}
             >            
             {!sideNavOpen ? 
-            <i className='fas fa-bars'/> 
+            <i className='fas fa-chevron-right'/> 
             : 
             <i className='fas fa-times'/> 
             }
@@ -123,7 +110,7 @@ const BotLayout = (props) => {
         <div style={{
             zIndex: '98'
         }}
-        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[8rem]  sidenavbot w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
+        className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[8rem]  hidden sidenavbot w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
             {bot}
         </div>
         {page}
@@ -141,6 +128,23 @@ const BotLayout = (props) => {
         />
         </div>
 
+    )
+}
+
+const Analytics = (props) =>{
+    return(
+        <div className='ml-20 lg:p-10 py-[8rem] lg:py-[10rem] h-screen w-full'>
+            <div className="flex flex-wrap">
+            <div className="mx-2 border-l-4 border-sky-500 bg-[#0B0A15] w-[300px] h-[100px] p-4">
+                <h1 className="text-white/50">Total Views <Tippy content='Number of people who visited your bot page' placement='top'><i className="far fa-question-circle text-white/50 hover:text-white"></i></Tippy></h1>
+                <p className="text-3xl">{props.analytics.views}</p>
+            </div>
+            <div className="mx-2 border-l-4 border-sky-500 bg-[#0B0A15] w-[300px] h-[100px] p-4">
+                <h1 className="text-white/50">Total Impressions <Tippy content='Number of times your bot appeared on the site' placement='top'><i className="far fa-question-circle text-white/50 hover:text-white"></i></Tippy></h1>
+                <p className="text-3xl">{props.analytics.impressions}</p>
+            </div>
+            </div>
+        </div>
     )
 }
 

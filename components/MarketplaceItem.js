@@ -2,10 +2,12 @@ import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 import $ from 'jquery'
 import Cookie from 'js-cookie'
+import { TailSpin, ThreeDots } from 'react-loader-spinner'
 const MarketplaceItem = (props) =>{
     const [toast, settoast] = useState(false)
     let [isOpen, setIsOpen] = useState(false)
     const [error, seterror] = useState(false)
+    const [purchasing, setpurchasing] = useState(false)
     function closeModal() {
         setIsOpen(false)
       }
@@ -15,7 +17,7 @@ const MarketplaceItem = (props) =>{
     }
     return(
         <>
-        <div className='items-center p-10 bg-blue-900/10 rounded-xl flex'>
+        <div className='items-center my-4 p-10 bg-blue-900/10 rounded-xl flex'>
                 <div className='rounded-xl flex items-center justify-center p-4 w-24 h-20 min-w-20 min-h-20 bg-yellow-600/30 mr-4'>
                     <i className='fas fa-crown text-3xl text-yellow-500'></i>
                 </div>
@@ -40,7 +42,7 @@ const MarketplaceItem = (props) =>{
                 leaveFrom="opacity-100"
                 leaveTo="opacity-0"
             >
-                <div className="fixed inset-0 bg-black bg-opacity-25" />
+                <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-xl" />
             </Transition.Child>
 
             <div className="fixed inset-0 overflow-y-auto">
@@ -81,19 +83,24 @@ const MarketplaceItem = (props) =>{
                             className="ml-4 inline-flex justify-center rounded-md border border-transparent bg-blue-500 px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                             onClick={() => {
                                     settoast(false)
+                                    setpurchasing(true)
                                     $.ajax({
                                         url: 'https://api.somelist.tk/points/purchase?item='+ props.id + '&price='+props.price+'&token='+Cookie.get('token')
                                     }).then((res)=>{
                                         if(res.result == 'TOKEN_INVALID'){
                                             settoast('Token invalid. Please log in again.')
+                                            setpurchasing(false)
                                             seterror(true)
                                         } else if (res.result == 'NO_FUNDS'){
                                             settoast('You don\'t have the points to buy this asset.')
+                                            setpurchasing(false)
                                             seterror(true)
                                         } else if (res.result == 'BOUGHT'){
                                             settoast('You already bought this item. No charges were made.')
+                                            setpurchasing(false)
                                             seterror(true)
                                         } else {
+                                            setpurchasing(false)
                                             seterror(false)
                                             settoast('Purchase succeeded. Reloading for changes.')
                                             setTimeout(()=>{
@@ -108,7 +115,7 @@ const MarketplaceItem = (props) =>{
                                 }
                             }
                         >
-                        Purchase
+                        {purchasing ? <ThreeDots width={'30px'} height={'20px'} color='#fff' /> : 'Purchase'}
                         </button>
                     </div>
                     </Dialog.Panel>
