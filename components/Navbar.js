@@ -175,7 +175,7 @@ const SecretNav = (props) =>{
                 </Switch>
               </div>
               
-              <p className="mt-4 text-white/50">Version number 0.1001b</p>
+              <p className="mt-4 text-white/50">Version number 0.101s</p>
             </div>
           </div>
         </div>
