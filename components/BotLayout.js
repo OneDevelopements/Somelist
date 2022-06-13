@@ -96,9 +96,6 @@ const BotLayout = (props) => {
                     setSideNavOpen(true)
                 }
             }}
-            style={{
-                zIndex: '99'
-            }}
             className={'fixed block lg:hidden text-xl left-0 bg-sky-600 rounded-br-lg rounded-tr-lg hover:w-12 p-2 top-24 w-10 h-min-content'}
             >            
             {!sideNavOpen ? 
@@ -107,9 +104,7 @@ const BotLayout = (props) => {
             <i className='fas fa-times'/> 
             }
         </button>
-        <div style={{
-            zIndex: '98'
-        }}
+        <div
         className='top-0 bg-slate-900 lg:bg-transparent h-screen py-[8rem]  hidden sidenavbot w-screen fixed lg:static lg:block lg:w-64 lg:py-[10rem] rounded-lg'>
             {bot}
         </div>
@@ -292,7 +287,7 @@ const Edit = (props) =>{
     <form method='POST' className='ml-20 lg:p-10 py-[8rem] lg:py-[10rem] h-screen w-full'>
 
     <button
-        style={{'zIndex': '100', 'float': 'right', 'bottom': '20px', 'right': '20px'}}
+        style={{'float': 'right', 'bottom': '20px', 'right': '20px'}}
         className="fixed opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-600/20"
         disabled={loading}
         onClick={() => {
@@ -352,15 +347,15 @@ const Edit = (props) =>{
     <div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Prefix</p>
-        <input defaultValue={props.botdata.prefix} style={{zIndex: '0'}} name='prefix' id='prefix' required className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
+        <input defaultValue={props.botdata.prefix} name='prefix' id='prefix' required className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
     </div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Invite</p>
-        <input defaultValue={props.botdata.invite} style={{zIndex: '0'}} name='invite' id='invite' className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
+        <input defaultValue={props.botdata.invite} name='invite' id='invite' className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
     </div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Short Description</p>
-        <input defaultValue={props.botdata.shortdesc} style={{zIndex: '0'}} name='shortdesc' id='shortdesc' required className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
+        <input defaultValue={props.botdata.shortdesc} name='shortdesc' id='shortdesc' required className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
     </div>
 
     <div className='my-20'>
@@ -373,15 +368,15 @@ const Edit = (props) =>{
         </div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Long Description</p>
-        <textarea style={{zIndex: '0'}} name='longdesc' id='longdesc' defaultValue={props.botdata.longdesc} required className="w-full h-44 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700"></textarea>
+        <textarea name='longdesc' id='longdesc' defaultValue={props.botdata.longdesc} required className="w-full h-44 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700"></textarea>
     </div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Website</p>
-        <input defaultValue={props.botdata.website} style={{zIndex: '0'}} name='website' id='website' className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
+        <input defaultValue={props.botdata.website}  name='website' id='website' className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
     </div>
     <div className='my-20'>
         <p className='text-xl mb-3'>Github</p>
-        <input defaultValue={props.botdata.github} style={{zIndex: '0'}} name='github' id='github' className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
+        <input defaultValue={props.botdata.github} name='github' id='github' className="w-full backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-[#0B0A15]/70 outline-zinc-700" type='text'/>
     </div>
     <div className='py-20' />
     </div>
@@ -415,7 +410,7 @@ const Settings = (props) =>{
         <div className='ml-20 lg:p-10 py-[8rem] lg:py-[10rem] h-screen w-full'>
             <form method='POST'>
             <button
-                style={{'zIndex': '100', 'float': 'right', 'bottom': '20px', 'right': '20px'}}
+                style={{'float': 'right', 'bottom': '20px', 'right': '20px'}}
                 className="fixed opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-600/20"
                 disabled={loading}
                 onClick={() => {
@@ -671,6 +666,7 @@ const Settings = (props) =>{
                     </div>
                 </div>
             </div>
+            <div className='py-20' />
         </div>
     )
 }

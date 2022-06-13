@@ -11,10 +11,21 @@ import 'react-toastify/dist/ReactToastify.css';
 import Cookie from 'js-cookie'
 
 import $ from 'jquery'
-export default function Edit({isLoggedIn, userdata}){
+import ToggleSwitch from "../../../components/ToggleSwitch";
+export default function Edit({isLoggedIn, userdatae}){
+    const [userdata, setuserdata] = useState(userdatae)
     const [bio, setbio] = useState(userdata.bio)
     const [loading, setloading] = useState(false)
-    const tabs = [
+    const[loaded, setloaded] = useState(false)
+    const [tabs, settabs] = useState([
+      {
+        label: 'loading',
+        disabled: true
+      }
+    ])
+    const router = useRouter()
+    useEffect(() => {
+      settabs([
       { label: 'General', content: <>
       <form>
       <div className='my-32 items-center'>
@@ -28,19 +39,61 @@ export default function Edit({isLoggedIn, userdata}){
             setbio(e.target.value)
           }} 
           resize 
-          className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700" 
+          className="w-full bg-[#0B0A15]/70 backdrop-blur-md p-4 text-lg rounded-lg outline focus:outline-sky-500 outline-1 bg-zinc-900/50 outline-zinc-700"
           type='text'/>
       </div>
       </form>
       </> },
       { label: 'Posts', disabled: true },
-      { label: 'Connections', disabled: true }
-    ];
+      { label: 'Settings', content: <>
+      <div className="my-20">
+        <ToggleSwitch label='Allow everyone to view assets' tooltip='Allow everyone to view the items you own or bought' defaultSelected={userdata.viewAssets} onChange={(e) => {
+          $.ajax({
+            url: 'https://api.somelist.tk/users/settings?token='+Cookie.get('token'),
+            type: 'POST',
+            data: {viewAssets: e},
+          }).then((res)=>{
+              if (res.reply == 'TOKEN_INVALID'){
+                  toast.error('We couldn\'t verify your account. Please login again.', {
+                      autoClose: 3000,
+                      closeOnClick: true,
+                      draggable: true,
+                  });
+              }
+              if (res.reply == 'worked'){
+                  setuserdata(res.newdata)
+                  toast.success(`${e ? 'Assets can now be viewed publicly.' : 'Assets can only be viewed by you.'}`, {
+                      autoClose: 3000,
+                      closeOnClick: true,
+                      draggable: true,
+                  });
+              } else {
+                  toast.error('An unexpected error occured :C', {
+                      autoClose: 3000,
+                      closeOnClick: true,
+                      draggable: true,
+                  });
+              }
+          }).catch(()=>{
+              setloading(false)
+              toast.error('An unexpected error occured :C', {
+                  autoClose: 3000,
+                  closeOnClick: true,
+                  draggable: true,
+              });
+          })
+        }}/>
+      </div>
+      </>}
+    ])
+    }, [userdata, loaded])
     const [selectedTab, setSelectedTab] = useState(tabs[0])
     useEffect(()=>{
-      console.log(selectedTab)
-    }, selectedTab)
-    const router = useRouter()
+      setloaded(true)
+    }, [])
+    useEffect(()=>{
+      setSelectedTab(tabs[0])
+    }, [loaded])
     return(<>
     
     <HeaderB isLoggedIn={isLoggedIn}/>
@@ -202,7 +255,7 @@ export default function Edit({isLoggedIn, userdata}){
                   }
                 </ul>
 
-<button
+      {selectedTab.label == 'General' && <button
         style={{'zIndex': '100', 'float': 'right', 'bottom': '20px', 'right': '20px'}}
         className="fixed opacity-100 h-14 bg-gradient-to-br from-sky-600 to-sky-800 py-4 px-6 flex items-center rounded-lg text-white shadow-sm shadow-sky-600/20"
         disabled={loading}
@@ -254,6 +307,7 @@ export default function Edit({isLoggedIn, userdata}){
         <><i className="mr-2 fas fa-save"></i><p className="font-semibold">Save</p></>
         )}
       </button>        
+      }
       <main>
         <AnimatePresence exitBeforeEnter>
           <motion.div
@@ -280,7 +334,7 @@ export async function getServerSideProps(context) {
     return {
       props: {
         isLoggedIn: context.req.cookies.token ? true : false,
-        userdata: data.result
+        userdatae: data.result
       }
     }
 } 

@@ -4,12 +4,13 @@ import Template from "../../public/template"
 import axios from 'axios';
 import Cookie from 'js-cookie'
 import HeaderB from "../../components/Navbar";
+import MarketplaceItem from '../../components/MarketplaceItem'
 import { ThreeDots } from "react-loader-spinner";
 import Image from "next/image";
 import Tippy from "@tippyjs/react";
 import {motion, AnimatePresence} from 'framer-motion'
 import BotCard from "../../components/BotCard";
-export default  function profile({isLoggedIn, userdata, userbots}){
+export default  function profile({isLoggedIn, userdata, userassets, userbots}){
     const router = useRouter()
     const [isadmin, setisadmin] = useState(false)
     const [abots, setabots] = useState(
@@ -49,7 +50,29 @@ export default  function profile({isLoggedIn, userdata, userbots}){
       </>
       },
       { label: 'Posts', disabled: true },
-      { label: 'Friends', disabled: true },
+      { label: 'Assets', content: <>
+      {!userdata.viewAssets ? 
+      <>
+      <div className="h-full min-h-[300px] w-full flex items-center justify-center flex-col">
+        <h1 className="text-4xl text-blue-500 italic">Oops!</h1>
+        <p className="text-white/50 text-xl">This user does not allow you to view their assets.</p>
+      </div>
+      </>
+      : userassets.length <= 0 ?
+        <>
+        <div className="h-full min-h-[300px] w-full flex items-center justify-center flex-col">
+          <h1 className="text-4xl text-blue-500 italic">Oops!</h1>
+          <p className="text-white/50 text-xl">This user does not have any assets.</p>
+        </div>
+        </>
+      : <div className="mt-5">
+      {userassets.map((item)=>{
+        return(<MarketplaceItem id={item.id} name={item.name} price={item.price} description={item.description} owned={true}/>)
+      })
+      }
+      </div>
+      }
+      </> },
     ]
     const [user, setuser] = useState('')
     const [selectedTab, setSelectedTab] = useState(tabs[0])
@@ -497,12 +520,20 @@ export default  function profile({isLoggedIn, userdata, userbots}){
 export async function getServerSideProps(context) {
     const res = await fetch('https://api.somelist.tk/info?user='+context.query.id)
     const data = await res.json()
+    console.log(data)
     const res2 = await fetch('https://api.somelist.tk/find_bots?owner='+context.query.id)
     const data2 = await res2.json()
+    if (data.result == 'none'){
+      context.res.statusCode = 404
+      return{
+        notFound: true
+      }
+    }
     return {
       props: {
         isLoggedIn: context.req.cookies.token ? true : false,
         userdata: data.result,
+        userassets: data.assets,
         userbots: data2.bots
       }
     }

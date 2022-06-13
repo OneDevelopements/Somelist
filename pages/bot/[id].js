@@ -483,7 +483,8 @@ export default function BotPage({isLoggedIn, botdata}){
                     <><i className="mr-2 fas fa-pen"></i><p className="font-semibold">Edit</p></>
                 </button>
                 }
-                {!botdata.approved  && <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-sky-900/100 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer underline'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}
+                {!botdata.approved  && 
+                <div style={{top:'100px', zIndex: '100'}} className='fixed mb-5 font-medium text-md bg-sky-600/50 p-4 rounded-xl px-6'><p>Your bot has not been approved yet. <a className={'font-semibold cursor-pointer'} onClick={()=> window.open('https://docs.somelist.tk')}>Learn more</a></p></div>}
                 <div className="lg:flex items-center justify-between w-full">
                     <div className="flex flex-col lg:flex-row items-center gap-x-4">
                         <div className="flex-shrink-0 z-1 w-[8rem] h-[8rem] hidden lg:block">
@@ -916,6 +917,20 @@ export default function BotPage({isLoggedIn, botdata}){
 export async function getServerSideProps(context) {
     const res = await fetch('https://api.somelist.tk/bot?user='+context.query.id+'&requester='+context.req.cookies.id+'&userview=true')
     const json = await res.json()
+    if (json.result == 'none'){
+        context.res.statusCode = 404
+        return{
+          notFound: true
+        }
+    }
+    if (!json.result.approved){
+        return {
+            redirect: {
+              permanent: false,
+              destination: "/403",
+            },
+        }
+    }
     return {
       props: {
         botdata: json.result,

@@ -6,15 +6,165 @@ import BotCard from '../components/BotCard';
 import HeaderB from '../components/Navbar';
 import Template from '../public/template';
 import {motion} from 'framer-motion'
+import $ from 'jquery'
 export default function Home({abots, lbots, isLoggedIn}) {
     const [botsdata, setbotsdata] = useState([])
     const router = useRouter()
     const [search, setsearch] = useState(
-        <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
-        <h1 className='text-2xl font-bold text-white/70'>Type to start searching!</h1>
+        <div className = 'flex items-center w-full justify-center flex-col' style={{height: '200px'}}>
+        <Image src='/images/search.svg' height='200px' width='500px'></Image>
+        <h1 className='text-2xl font-bold text-white/70 mt-4'>Type to search</h1>
         </div>
-      
     )
+    function changeInput(e){
+      if (document.getElementById('searchInput').value == ''){
+        setsearch(
+          <div className = 'flex items-center w-full justify-center flex-col' style={{height: '200px'}}>
+          <Image src='/images/search.svg' height='200px' width='500px'></Image>
+          <h1 className='text-2xl font-bold text-white/70 mt-4'>Type to search</h1>
+          </div>
+        )
+        return
+      }
+      var searchbotsarr = []
+      abots.map((bot) => {
+        if (bot.approved){
+          const botname = bot.name.toLowerCase().split('')
+          var howmuch = 0
+          var total = botname.length
+          botname.forEach(function (item, index) {
+            
+              if(document.getElementById('searchInput').value.includes(item)){
+                howmuch += 1
+              }
+          });
+            if (howmuch / total >= 0.5 && howmuch / total <= 2){
+                searchbotsarr.push(bot)
+            } else {
+              const botdescriptione = bot.shortdesc.toLowerCase()
+              const botdescription = botdescriptione.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '').split(' ')
+
+              console.log(botdescription)
+              var match = 0
+              var totalmatch = botdescription.length
+              botdescription.forEach(function (item, index) {
+                if(document.getElementById('searchInput').value.includes(item)){
+                  match += 1
+                }
+              });
+                if (match / totalmatch >= 0.25 && match / totalmatch <= 2){
+                    searchbotsarr.push(bot)
+                }
+            }
+          }
+      })
+      setsearch(
+      <>
+      {searchbotsarr.length <= 0 ?
+        <div className = 'flex items-center w-full justify-center flex-col' style={{height: '200px'}}>
+        <Image src='/images/404.svg' height='200px' width='500px'></Image>
+        <h1 className='text-2xl font-bold text-white/70 mt-4'>No results found</h1>
+        </div>
+      :
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-h-[20rem] gap-4 overflow-auto"
+      >
+        {searchbotsarr.map((bot) => {
+        return(<div
+          onClick={()=>{router.push('/bot/'+bot.id)}} 
+          className="p-4 gap-x-4 flex w-full hover:bg-zinc-500/5 transition-all duration-200 rounded-xl transiiton-all duration-200 cursor-pointer"
+        >
+          <div className="w-[64px] h-[64px] rounded-full shadow-xl flex-shrink-0">
+            <div
+              style={{
+                display: 'inline-block',
+                maxWidth: '100%',
+                overflow: 'hidden',
+                position: 'relative',
+                boxSizing: 'border-box',
+                margin: '0px',
+              }}
+            >
+              <div
+                style={{
+                boxSizing: 'border-box',
+                display: 'block',
+                maxSidth: '100%'}}
+              >
+                <img
+                  style={{
+                    maxWidth: '100%',
+                    display: 'block',
+                    margin: '0px',
+                    border: 'medium none',
+                    padding: '0px',
+                  }}
+                  className='rounded-full'
+                  alt=""
+                  aria-hidden="true"
+                  role="presentation"
+                  src={''}
+                />
+              </div>
+              <Image
+                alt="vcodes.xyz"
+                src={bot.avatar}
+                height='100%'
+                width='100%'
+                
+                className="rounded-full"
+                style={{
+                  position: 'absolute',
+                  inset: '0px',
+                  boxSizing: 'border-box',
+                  padding: '0px',
+                  border: 'medium none',
+                  margin: 'auto',
+                  display: 'block',
+                  width: '0px',
+                  height: '0px',
+                  minWidth: '100%',
+                  maxWidth: '100%',
+                  minHeight: '100%',
+                  maxHeight: '100%',
+                }}
+              />
+            </div>
+          </div>
+          <div className="w-full">
+            <div className="flex justify-between w-full">
+              <h1 className="text-xl font-medium w-full line-clamp-1 break-words">
+                {bot.name}
+              </h1>
+              <span
+                className="flex items-center font-medium bg-neutral-500/10 p-2 py-1 rounded-lg text-sm"
+                ><p>{bot.votes}</p>
+                <i className="fa fa-chevron-up ml-2"></i
+              ></span>
+            </div>
+            <p
+              className="mt-2 text-sm text-black/75 dark:text-white/75 line-clamp-2 font-normal"
+            >
+              {bot.shortdesc}
+            </p>
+          </div>
+        </div>
+        )})}
+        </div>  
+      }
+      </>              
+      )
+    }
+    useEffect(()=>{
+      if (!router.isReady) return;
+      if (router.query.q) {
+        setTimeout(() =>{
+          $('#searchInput').focus()
+          $('#searchInput').val(router.query.q)
+          changeInput()
+        }, 1000)
+      }
+    }, [router.isReady])
     const fcontainer = {
       hidden: { opacity: 1, y: 0 },
       show: {
@@ -197,111 +347,8 @@ export default function Home({abots, lbots, isLoggedIn}) {
                 document.getElementById('search-backdrop').style.display = 'block'
                 document.getElementById('search').classList.add('search-show')
               }}
-              onChange={()=>{
-                if (document.getElementById('searchInput').value == ''){
-                  setsearch(
-                    <div className = 'flex items-center w-full justify-center' style={{height: '200px'}}>
-                      <h1 className='text-2xl font-bold text-white/70'>Type to start searching!</h1>
-                    </div>
-                  )
-                  return
-                }
-                var searchbotsarr = []
-                abots.map((bot) => {
-                  if (bot.approved){
-                    console.log(bot)
-                    if(bot.name.toLowerCase().indexOf(document.getElementById('searchInput').value.toLowerCase()) > -1){
-                      searchbotsarr.push(bot)
-                    }
-                  }
-                })
-                setsearch(
-                <div
-                  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-h-[20rem] gap-4 overflow-auto"
-                >
-                  {searchbotsarr.map((bot) => {
-                  return(<div
-                    onClick={()=>{router.push('/bot/'+bot.id)}} 
-                    className="p-4 gap-x-4 flex w-full hover:bg-zinc-500/5 transition-all duration-200 rounded-xl transiiton-all duration-200 cursor-pointer"
-                  >
-                    <div className="w-[64px] h-[64px] rounded-full shadow-xl flex-shrink-0">
-                      <div
-                        style={{
-                          display: 'inline-block',
-                          maxWidth: '100%',
-                          overflow: 'hidden',
-                          position: 'relative',
-                          boxSizing: 'border-box',
-                          margin: '0px',
-                        }}
-                      >
-                        <div
-                          style={{
-                          boxSizing: 'border-box',
-                          display: 'block',
-                          maxSidth: '100%'}}
-                        >
-                          <img
-                            style={{
-                              maxWidth: '100%',
-                              display: 'block',
-                              margin: '0px',
-                              border: 'medium none',
-                              padding: '0px',
-                            }}
-                            className='rounded-full'
-                            alt=""
-                            aria-hidden="true"
-                            role="presentation"
-                            src={''}
-                          />
-                        </div>
-                        <Image
-                          alt="vcodes.xyz"
-                          src={bot.avatar}
-                          height='100%'
-                          width='100%'
-                          
-                          className="rounded-full"
-                          style={{
-                            position: 'absolute',
-                            inset: '0px',
-                            boxSizing: 'border-box',
-                            padding: '0px',
-                            border: 'medium none',
-                            margin: 'auto',
-                            display: 'block',
-                            width: '0px',
-                            height: '0px',
-                            minWidth: '100%',
-                            maxWidth: '100%',
-                            minHeight: '100%',
-                            maxHeight: '100%',
-                          }}
-                        />
-                      </div>
-                    </div>
-                    <div className="w-full">
-                      <div className="flex justify-between w-full">
-                        <h1 className="text-xl font-medium w-full line-clamp-1 break-words">
-                          {bot.name}
-                        </h1>
-                        <span
-                          className="flex items-center font-medium bg-neutral-500/10 p-2 py-1 rounded-lg text-sm"
-                          ><p>{bot.votes}</p>
-                          <i className="fa fa-chevron-up ml-2"></i
-                        ></span>
-                      </div>
-                      <p
-                        className="mt-2 text-sm text-black/75 dark:text-white/75 line-clamp-2 font-normal"
-                      >
-                        {bot.shortdesc}
-                      </p>
-                    </div>
-                  </div>
-                  )})}
-                  </div>                
-                )
+              onChange={(e)=>{
+                changeInput(e)
               }}
               autoComplete="off"
               placeholder="Explore the bots by name and description..."
@@ -310,8 +357,8 @@ export default function Home({abots, lbots, isLoggedIn}) {
           <div>
   <div className="">
     <div
-      style={{zIndex: "99", display: 'none'}}
-      className="left-0 top-0 bg-black/50 fixed w-full h-full"
+      style={{zIndex: 99, display: 'none'}}
+      className="left-0 top-0 bg-black/50 fixed w-screen h-screen"
       id='search-backdrop'
       onClick={()=>{
         document.getElementById('search').style.display = 'none'
@@ -320,12 +367,12 @@ export default function Home({abots, lbots, isLoggedIn}) {
       }}
     ></div>
   </div>
-  <div className="">
+  <div>
     <div
-      style={{zIndex: "99", display: 'none'}}
+      style={{zIndex: 99, display: 'none'}}
       className="backdrop-blur-lg rounded-lg p-4 bg-[#0B0A15]/50 absolute w-full"
       id='search'
-    >
+      >
       {search}
     </div>
   </div>
@@ -432,8 +479,8 @@ export default function Home({abots, lbots, isLoggedIn}) {
     animate="show">
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 mb-24 mt-5'>
       <motion.div variants={zitem}>                                            
-      <div
-        style={{ zIndex: "10" }}
+      <div        
+      style={{ zIndex: "10" }}
         className="cursor-pointer bot-card h-auto sm:h-48 group hover:shadow-xl transition-all duration-200 relative mt-14 w-full bg-orange-900/10 rounded-lg"
       >
               <div

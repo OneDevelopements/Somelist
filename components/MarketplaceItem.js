@@ -17,13 +17,13 @@ const MarketplaceItem = (props) =>{
     }
     return(
         <>
-        <div className='items-center my-4 p-10 bg-blue-900/10 rounded-xl flex'>
-                <div className='rounded-xl flex items-center justify-center p-4 w-24 h-20 min-w-20 min-h-20 bg-yellow-600/30 mr-4'>
+        <div className='justify-center items-center my-4 p-10 bg-blue-900/10 rounded-xl flex-col flex lg:flex-row'>
+                <div className='rounded-xl flex items-center justify-center p-4 w-24 h-20 min-w-20 min-h-20 bg-yellow-600/30 lg:mr-4'>
                     <i className='fas fa-crown text-3xl text-yellow-500'></i>
                 </div>
-                <div className='flex flex-col w-full'>
+                <div className='flex flex-col w-full my-4 lg:my-0 text-center lg:text-left'>
                     <h1 className='text-xl'>{props.name}</h1>
-                    <p className='text-gray-100/50 '>i{props.description}</p>
+                    <p className='text-gray-100/50 '>{props.description}</p>
                 </div>
                 <div>
                     <button disabled={props.owned} onClick={() => openModal()} className='disabled:bg-gray-700 hover:bg-violet-600 delay-150 transition-all ease-in-out duration-300 hover:scale-110 hover:shadow-xl shadow-violet-100 ring-0 shadow-none p-4 rounded-xl bg-blue-600 px-10 ml-auto'>

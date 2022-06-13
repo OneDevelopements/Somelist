@@ -1,17 +1,13 @@
+import Image from "next/image";
 import { useRouter } from "next/router";
-
 export default function notfound(){
     const router = useRouter()
     return(
-            <div className="p-5 lg:p-10 py-[10rem] lg:py-[12rem] rounded-lg min-h-screen">
+            <div className="p-5 lg:p-10 py-[6rem] lg:py-[8rem] rounded-lg min-h-screen">
             <div className="flex justify-center w-full">
                 <div className="px-6 lg:px-36 max-w-4xl">
                 <div className="flex flex-col mt-20 justify-center text-center w-full">
-                    <p
-                    className="text-8xl text-transparent bg-clip-text bg-gradient-to-bl to-sky-500 from-purple-600 font-semibold"
-                    >
-                    500
-                    </p>
+                    <Image src='/images/500.svg' width='500px' height='200px'/>
                     <p
                     className="mt-2 text-2xl text-transparent bg-clip-text bg-gradient-to-bl to-gray-200 from-gray-400 font-semibold"
                     ></p>

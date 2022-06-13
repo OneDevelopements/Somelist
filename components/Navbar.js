@@ -10,6 +10,9 @@ import $ from 'jquery'
 import isScrolledIntoView from "./isScrolledIntoView";
 import Tippy from "@tippyjs/react";
 import { AnimatePresence, motion } from "framer-motion";
+import getConfig from 'next/config';
+import ToggleSwitch from "./ToggleSwitch";
+
 class Header extends React.Component {
     static propTypes = {
         isLoggedIn: PropTypes.bool
@@ -110,6 +113,7 @@ const SecretNav = (props) =>{
   const [avatar, setavatar] = useState('')
   const [settingsIsOpen, setSettingsIsOpen] = useState(false)
   const [highgraphs, sethighgraphics] = useState(false)
+  const { generateBuildId } = getConfig();
   useEffect(()=>{
     setusername(
       Cookie.getJSON('username')
@@ -174,8 +178,19 @@ const SecretNav = (props) =>{
                   />
                 </Switch>
               </div>
-              
-              <p className="mt-4 text-white/50">Version number 0.101s</p>
+              <div className="w-full flex items-center mt-4">
+                <ToggleSwitch label='Use DirectVoice' tooltip='Triggers Voice Control when you say "Hey Cosmic. This is not reccommended as this is in BETA.' defaultSelected={Cookie.get('directVoice')} onChange={(e) => {
+                if(Cookie.get('directVoice')){
+                  Cookie.remove('directVoice')
+                } else {
+                  Cookie.set('directVoice', true)
+                }
+                window.location.reload()
+                }
+              }
+                />
+              </div>
+              <p className="mt-4 text-white/50">Current branch: {process.env.NEXT_PUBLIC_BRANCH.toUpperCase()}</p>
             </div>
           </div>
         </div>
@@ -186,8 +201,59 @@ const SecretNav = (props) =>{
 
   }
   </AnimatePresence>
-  <div className="ml-auto">
-    <Menu as="div" className="relative inline-block text-left">
+  <div className="ml-auto flex items-center">
+    <Popover className="hidden relative ml-3">
+        {({ open }) => (
+          <>
+            <Popover.Button
+              className={`
+                ${open ? 'text-white/90' : 'text-white/70'}
+                ml-auto text-lg font-semibold hover:text-white/90`}
+            >
+              <BsFillBellFill size={25} />
+            </Popover.Button>
+            <Transition
+              enter="transition ease-out duration-200"
+              enterFrom="opacity-0 translate-y-1"
+              enterTo="opacity-100 translate-y-0"
+              leave="transition ease-in duration-150"
+              leaveFrom="opacity-100 translate-y-0"
+              leaveTo="opacity-0 translate-y-1"
+            >
+              <Popover.Panel className="backdrop-blur absolute right-0 w-96 mt-2 origin-top-right bg-[#E3E5E8] dark:bg-[#080712]/60 rounded p-3 py-4">
+                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+                  <div className="flex flex-col">
+                    {solutions.map((item) => (
+                      <div
+                        key={item.name}
+                        onClick={() =>{
+                          if (item.href) {
+                            window.location.href = item.href
+                          }
+                        }}
+                        className={`flex ${item.href && 'cursor-pointer'}  ${item.unread && 'outline outline-2 outline-blue-500'} items-center p-2 m-3 my-2 transition duration-150 ease-in-out rounded-lg hover:bg-zinc-500/5 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50`}
+                      >
+                        <div className={`bg-blue-500/20 p-3 rounded flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12`}>
+                          <BsBell size={50}/>
+                        </div>
+                        <div className="ml-4">
+                          <p className="text-sm font-medium text-white/90">
+                            {item.name}
+                          </p>
+                          <p className="text-sm text-gray-500">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </Popover.Panel>
+            </Transition>
+          </>
+        )}
+    </Popover>
+    <Menu as="div" className="ml-4 relative inline-block text-left">
       <Menu.Button className='ml-auto text-lg font-semibold text-white/70 hover:text-white/90'>
         <img src={avatar} width='50' height='50' className='rounded-full' />
       </Menu.Button>
@@ -204,10 +270,10 @@ const SecretNav = (props) =>{
           <Menu.Item>
           {({ active }) => (
             <button
-              className={`text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              className={`my-2 w-full text-left text-lg ${active ? 'text-blue-500' : 'text-white/70'}`}
               onClick={()=>{router.push('/profile/'+Cookie.get('id'))}}
             >
-              Profile
+              <i className="far fa-user text-blue-500"/> Profile
             </button>
           )}
           </Menu.Item>
@@ -215,10 +281,10 @@ const SecretNav = (props) =>{
           <Menu.Item>
           {({ active }) => (
             <button
-              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              className={`my-2 w-full text-left text-lg ${active ? 'text-blue-500' : 'text-white/70'}`}
               onClick={()=>setSettingsIsOpen(true)}
             >
-              Settings
+              <i className="far fa-cog text-blue-500"/> Settings
             </button>
           )}
           </Menu.Item>
@@ -226,10 +292,10 @@ const SecretNav = (props) =>{
           <Menu.Item>
           {({ active }) => (
             <button
-              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              className={`my-2 w-full text-left text-lg ${active ? 'text-blue-500' : 'text-white/70'}`}
               onClick={()=>{router.push('/store')}}
             >
-              Store
+              <i className="far fa-store-alt text-blue-500"/> Store
             </button>
           )}
           </Menu.Item>
@@ -237,10 +303,10 @@ const SecretNav = (props) =>{
           <Menu.Item>
           {({ active }) => (
             <button
-              className={`mt-3 text-md font-semibold ${active ? 'text-white/90' : 'text-white/70'}`}
+              className={`my-2 w-full text-left text-lg ${active ? 'text-blue-500' : 'text-white/70'}`}
               onClick={()=>{router.push('/logout')}}
             >
-              Logout
+              <i className="far fa-sign-out text-blue-500"/> Logout
             </button>
           )}
           </Menu.Item>
@@ -249,53 +315,6 @@ const SecretNav = (props) =>{
       </Transition>
     </Menu>
     </div>
-    <Popover className="relative ml-3">
-        {({ open }) => (
-          <>
-            <Popover.Button
-              className={`
-                ${open ? 'text-white/90' : 'text-white/70'}
-                hidden ml-auto text-lg font-semibold hover:text-white/90`}
-            >
-              <BsFillBellFill size={25} />
-            </Popover.Button>
-            <Transition
-              enter="transition ease-out duration-200"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-100 translate-y-0"
-              leave="transition ease-in duration-150"
-              leaveFrom="opacity-100 translate-y-0"
-              leaveTo="opacity-0 translate-y-1"
-            >
-              <Popover.Panel className="backdrop-blur absolute right-0 w-96 mt-2 origin-top-right bg-[#E3E5E8] dark:bg-[#080712]/60 rounded p-3 py-4">
-                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
-                  <div className="flex flex-col">
-                    {solutions.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={`flex ${item.unread && 'outline outline-2 outline-[#6d28d9]/30'} items-center p-2 m-3 my-2 transition duration-150 ease-in-out rounded-lg hover:bg-zinc-500/5 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 focus-visible:ring-opacity-50`}
-                      >
-                        <div className={`bg-[#6d28d9]/10 p-3 rounded flex items-center justify-center flex-shrink-0 w-10 h-10 text-white sm:h-12 sm:w-12`}>
-                          <BsBell size={50}/>
-                        </div>
-                        <div className="ml-4">
-                          <p className="text-sm font-medium text-white/90">
-                            {item.name}
-                          </p>
-                          <p className="text-sm text-gray-500">
-                            {item.description}
-                          </p>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                </div>
-              </Popover.Panel>
-            </Transition>
-          </>
-        )}
-    </Popover>
   </>
 }
 

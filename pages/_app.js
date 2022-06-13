@@ -1,3 +1,4 @@
+import 'regenerator-runtime/runtime'
 import { useEffect } from 'react';
 import '../styles/globals.css'
 import NextNProgress from "nextjs-progressbar";
@@ -12,14 +13,144 @@ import $ from 'jquery'
 import HeaderB from '../components/Navbar';
 import Image from 'next/image';
 import 'tippy.js/dist/tippy.css'; // optional
-
+import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition';
 import '../styles/tippy.css';
 import { AnimatePresence, motion } from 'framer-motion';
+import getConfig, { setConfig } from 'next/config';
+import { Bars } from 'react-loader-spinner';
+import { route } from 'next/dist/server/router';
 
 function MyApp({ Component, pageProps }) {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
+  const [notifications, setnotifications] = useState([{icon: '', color: '', title: '', description: ''}])
+  const [notificationsOpen, setNotificationsOpen] = useState(false)
+  const [selectedNotification, setSelectedNotification] = useState({icon: 'fad fa-sync', color: 'test', title: 'test', description: 'test'})
+  const [selectedNotifNumber, setSelectedNotifNumber] = useState(0)
   const [slide, setslide] = useState(0)
+  const [voice, setvoice] = useState(false)
+  const [message, setmessage] = useState(false)
+  const [tryagain, settryagain] = useState(false)
+  const directvoice = Cookie.get('directVoice')
+  const [help, sethelp] = useState(false)
+  const commands = [
+    {
+      command: [`go to *`, `open *`, `switch to *`,],
+      callback: (page) => {
+        const pages = [
+          'marketplace', 'home', 'store', 'profile', 'add bot', 'bot addition'
+        ]
+        if(pages.includes(page.toLowerCase())){
+          setmessage(`Redirecting to ${page}`)
+          const fpage = page.toLowerCase()
+          var redirect = ''
+          if (fpage == 'marketplace' || fpage == 'store'){
+            redirect = 'store'
+          } else if (fpage == 'home'){
+            redirect = ''
+          } else if (fpage == 'profile'){
+            if (Cookie.get('token')){
+              redirect = 'profile/'+Cookie.get('id')
+            } else {
+              return setmessage('Login is required to visit this page.')
+            }
+          } else if (fpage == 'add bot' || fpage == 'bot adittion'){
+            if (Cookie.get('token')){
+              redirect = '/add'
+            } else {
+              return setmessage('Login is required to visit this page.')
+            }          
+          }
+          router.push(`/${redirect}`)
+          setTimeout(()=>{
+            setvoice(false)
+          }, 1000)
+        } else {
+          setmessage(
+          `Can't find page: ${page}`
+          )
+          settryagain(true)
+        }
+      }
+      
+    },
+    {
+      command: [`go to`, `open`, `switch to`],
+      callback: () => {
+        setmessage('Please specify a page.')
+        settryagain(true)
+      }
+    },
+    {
+      command: [`search for *`, `look for *`, `find *`],
+      callback : (bot) =>{
+        setmessage('Redirecting to look for bot')
+        if (router.pathname.includes('/')) {
+          router.push({
+            pathname: '/',
+            query: { q: bot }
+          }, 
+          undefined, { shallow: true }
+          )
+        } else {
+          router.push('/?q='+bot)
+
+        }
+        setTimeout(()=>{
+          setvoice(false)
+        }, 1000)
+      }
+    },
+    {
+      command: ['add a bot', 'add a robot'],
+      callback: () =>{
+        setmessage('Redirecting to add bot')
+        router.push('/add')
+        setTimeout(()=>{
+          setvoice(false)
+        }, 1000)
+      }
+    },
+    {
+      command: ['i need help', 'help', 'commands', 'view commands', 'view help'],
+      callback: () =>{
+        setmessage('These are my commands:')
+        sethelp(true)
+        settryagain(true)
+      }
+    }
+  ]
+  const {
+    transcript,
+    listening,
+    resetTranscript,
+    browserSupportsSpeechRecognition
+  } = useSpeechRecognition({commands});
+  useEffect(()=>{
+    if (listening == true){
+      setmessage(null)
+      sethelp(false)
+      settryagain(false)
+    }
+  }, [listening])
+  useEffect(()=>{
+    async function Change(){
+    resetTranscript()
+    if (voice == false){
+      if(directvoice){
+        await SpeechRecognition.startListening({continuous: true})
+      }
+    }
+  }
+  Change()
+  }, [voice])
+  useEffect(()=>{
+    if (transcript != ''){
+      if (transcript.toLowerCase().includes('hey cosmic')){
+        setvoice(true)
+      }
+    }
+  }, [transcript])
   toast.configure()
   useEffect(()=>{
     document.documentElement.classList.add('dark')
@@ -31,12 +162,16 @@ function MyApp({ Component, pageProps }) {
     }
   }, [])
   useEffect(()=>{
+    if(Cookie.get('directVoice')){
+      SpeechRecognition.startListening({continuous: directvoice})
+    }
     if(Cookie.get('HighGraphics')){
       console.log('high graphics active')
       $('#gradient').addClass('high-graphs')
     }
   }, [])
   const [loaded, setloaded] = useState(false)
+  
   useEffect(()=>{
     const loadFallback = setTimeout(()=>{
       $('.preloader').addClass('preloaded')
@@ -51,6 +186,37 @@ function MyApp({ Component, pageProps }) {
       }
     }) 
   }, [])
+  const nextNotif = () =>{
+    setSelectedNotifNumber((number) => number + 1)
+    if (selectedNotifNumber + 1 == notifications.length){
+      setNotificationsOpen(false)
+    } else {
+      setSelectedNotification(notifications[selectedNotifNumber])
+    }
+  }
+  useEffect(()=>{
+    console.log(selectedNotifNumber)
+  }, [selectedNotifNumber])
+  useEffect(()=>{
+    if (!router.isReady) return;
+    if(Cookie.get("token")){
+      console.log('running')
+      $.ajax({
+        url: 'https://api.somelist.tk/users/notifications?token='+Cookie.get('token')
+      }).then((res)=>{
+        if(res.reply.length >= 1){
+          setnotifications(res.reply)
+        }
+      })
+    }
+  }, [router.isReady])
+  useEffect(()=>{
+    setSelectedNotification(notifications[0])
+    console.log(notifications)
+    if(notifications[0].icon != ''){
+      setNotificationsOpen(true)
+    }
+  }, [notifications])
   if (router.pathname == '/bot/[id]/edit' || router.pathname == '/bot/[id]/analytics'){
     console.log(router.query.id)
   }
@@ -70,7 +236,6 @@ function MyApp({ Component, pageProps }) {
         <meta name="twitter:image" content="https://i.imgur.com/WG1mCrI.png" />
     </Head>
     <NextNProgress color='var(--700)'/>
-    
     <div className={!isOpen && 'hidden' + ' w-screen h-screen'}>
     <div style={{zIndex: '100'}} className={'fixed items-center justify-center w-screen h-screen bg-[#0B0A15]/70 backdrop-blur-lg'}>
       <div className='flex items-center justify-center w-screen h-screen'>
@@ -194,6 +359,44 @@ function MyApp({ Component, pageProps }) {
       </div>
     </div>
     </div>
+
+    <AnimatePresence>
+            {notificationsOpen && 
+            <div className={'w-screen h-screen'}>
+              <motion.div 
+                key='notifsbackdrop'
+                initial={{ opacity: 0}}
+                animate={{ opacity: 1}}
+                exit={{ opacity: 0}}>      
+                <div style={{zIndex: '100'}} className={'flex left-0 top-0 fixed items-center justify-center w-screen h-screen bg-[#0B0A15]/20 backdrop-blur-lg'}>
+                <motion.div 
+                key='notifsmodal'
+                initial={{ opacity: 0, y: -300 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 500 }}
+                className='w-screen max-w-[800px]'
+                >
+                <div className='w-screen p-6 max-w-[800px] flex items-center justify-center flex-col'>
+                  <motion.div initial={{scale: 0.5, opacity: 0}} animate={{scale: 1, opacity: 1}} transition={{delay: 1}}>
+                    <i className={`${selectedNotification.icon} ${selectedNotification.color} text-[170px]`}/>
+                  </motion.div>
+                  <motion.div initial={{y: 10, opacity: 0}} animate={{y: 0, opacity: 1}} transition={{delay: 1}}>
+                    <h1 className='mt-4 text-3xl font-semibold'>{selectedNotification.title}</h1>
+                    <p className='mt-6' dangerouslySetInnerHTML={{__html: selectedNotification.description}}></p>
+                  </motion.div>
+                  <div className='w-full flex mt-6'>
+                    <button className='py-3 ml-auto px-6 text-lg rounded-lg bg-sky-600 hover:bg-sky-500' onClick={() => {
+                      nextNotif()
+                    }}>Next</button>
+                  </div>
+                </div>
+                  </motion.div>
+                </div>
+                </motion.div>
+            </div>
+
+            }
+          </AnimatePresence>
     <div id='gradient'></div>
     {process.env.NEXT_PUBLIC_LOADING == 'true' && 
     router.pathname != '/404' &&
@@ -210,21 +413,95 @@ function MyApp({ Component, pageProps }) {
     ) : (
       <>
         <Component {...pageProps} />
+        <div className='w-screen py-3 bg-gray-900 text-center'>
+          <p className='text-lg'>Somelist</p>
+          <div className='w-screen flex lg:flex-row flex-col align-center justify-center mt-4'>
+            <a href='/' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Home</a>
+            <a href='/add' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Add bot</a>
+            <a href='/explore' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Explore</a>
+            <a href='/tos' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Terms</a>
+            <a href='https://docs.somelist.tk' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Developers</a>
+            <a href='mailto:support@somelist.tk' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Support</a>
+          </div>
+          <p className='my-4 mt-6 text-gray-500'>All rights reserved.</p>
+        </div>
       </>
-    )}
-    <div className='w-screen py-3 bg-gray-900 text-center'>
-      <p className='text-lg'>Somelist</p>
-      <div className='w-screen flex lg:flex-row flex-col align-center justify-center mt-4'>
-        <a href='/' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Home</a>
-        <a href='/add' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Add bot</a>
-        <a href='/explore' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Explore</a>
-        <a href='/tos' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Terms</a>
-        <a href='https://docs.somelist.tk' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Developers</a>
-        <a href='mailto:support@somelist.tk' className='text-gray-400 cursor-pointer hover:text-sky-500 mx-4'>Support</a>
-      </div>
-      <p className='my-4 mt-6 text-gray-500'>All rights reserved.</p>
-    </div>
+    )
 
+    }
+    <AnimatePresence>
+    {voice &&
+    <motion.div key={'voicedialog'} initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+      <div className='w-screen h-screen bg-gray-900/50 py-10 flex-col backdrop-blur-xl fixed flex items-center' style={{zIndex: 101, top: 0, left: 0}}>
+        <h1 className='text-4xl text-white/80'><i className='fad fa-microphone text-5xl mr-4'/>Voice Control</h1>
+        <p className='text-white/50 mt-4'>Speak into your mic. What you spoke will be recorded below.</p>
+        <p className='text-4xl mt-auto'>{transcript}</p>
+        {listening ? 
+          <>
+          <Bars heigth="100" width="100" color="rgba(2, 132, 199, 0.7)" ariaLabel="loading-indicator" />
+          <button className='bg-red-600 rounded-full w-14 h-14 text-2xl mt-4' onClick={()=>{
+            SpeechRecognition.stopListening()
+          }}><i className='fas fa-square'></i></button>
+          </>
+          :
+          <>
+          {message ? 
+          <>
+            <p className='text-xl text-white/70'>{message}</p>
+            {help && 
+            <ol>
+            <li>
+              Help - See this command list
+            </li>
+            <li>
+              Open [page] - Navigates to a page. (Avaliable pages: Home, Marketplace, Profile)
+            </li>
+            <li>
+              Add a robot - Navigates to the Add Bot page
+            </li>
+            <li>
+              Look for [bot_name] - Navigates to the homepage and interacts with the search input.
+            </li>
+            </ol>
+            }
+          </>
+          :
+          (
+          <>
+          <p className='text-xl text-white/70'>I'm sorry, I could not catch that. Try again.</p>
+          <button className='bg-sky-600 rounded-full w-14 h-14 text-2xl mt-4' onClick={()=>{
+            SpeechRecognition.startListening()
+          }}><i className='fal fa-microphone'></i></button>
+          </>
+          )
+        }
+
+          {tryagain &&
+            <button className='bg-sky-600 rounded-full w-14 h-14 text-2xl mt-4' onClick={()=>{
+              if (!directvoice) {
+                SpeechRecognition.startListening()
+              }
+            }}><i className='fal fa-microphone'></i></button>
+          }
+        </>
+        }
+      </div>
+    </motion.div>
+    }
+    </AnimatePresence>
+    <button className='rounded-full fixed bg-sky-700 text-2xl w-14 h-14' style={{bottom: '10px', left: '10px', zIndex: 101}} onClick={()=>{
+      if (voice) {
+        setvoice(false)
+        if (listening){
+          SpeechRecognition.stopListening()
+        }
+      } else {
+        setvoice(true)
+        SpeechRecognition.startListening()
+      }
+    }}>
+      {voice ? <i className='fal fa-times'></i> : <i className='fal fa-microphone'></i>}
+    </button>
 <ToastContainer
             position="top-center"
             autoClose={3000}
